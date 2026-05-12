@@ -817,67 +817,115 @@ function goToStep1() {
 
 // ── 분석 ──
 async function startAnalysis() {
-  const partnerName = document.getElementById('partnerName').value.trim() || '상대방';
+  var partnerName = document.getElementById('partnerName').value.trim() || '상대방';
   S.partnerName = partnerName;
 
   document.getElementById('page2').classList.remove('active');
   document.getElementById('loadingSection').style.display = 'block';
   updateProgressBar(3);
 
-  const phases = [
+  var phases = [
     { icon:'💗', title:'두 사람의 인연을 읽고 있어요', sub:'생년월일과 별자리 대조 중', p:18 },
-    { icon:'🧠', title:'애착유형을 분석하고 있어요', sub:`${S.myAttach || '성격'} 유형의 연애 패턴 파악 중`, p:42 },
-    { icon:'💝', title:'사랑의 언어를 맞춰보고 있어요', sub:'두 사람의 감정 전달 방식 대조 중', p:65 },
+    { icon:'🧠', title:'애착유형을 분석하고 있어요', sub:'연애 패턴 파악 중', p:42 },
+    { icon:'💝', title:'사랑의 언어를 맞춰보고 있어요', sub:'감정 전달 방식 대조 중', p:65 },
     { icon:'🔮', title:'음양오행을 계산하고 있어요', sub:'두 기운의 균형 측정 중', p:82 },
     { icon:'📜', title:'궁합 리포트 정리 중', sub:'거의 다 됐어요!', p:94 },
   ];
-  let pi = 0;
-  const iv = setInterval(() => {
+  var pi = 0;
+  var iv = setInterval(function() {
     if (pi >= phases.length) return;
-    const p = phases[pi++];
+    var p = phases[pi++];
     document.getElementById('loadingIcon').textContent = p.icon;
     document.getElementById('loadingTitle').innerHTML = p.title + '<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
     document.getElementById('loadingSub').textContent = p.sub;
     document.getElementById('progFill').style.width = p.p + '%';
   }, 1100);
 
-  // 실제 API 호출
-  try {
-    const res = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        mode: 'free',
-        myName: S.myName,
-        myGender: document.getElementById('myGender').value,
-        myYear: document.getElementById('myYear').value,
-        myMonth: document.getElementById('myMonth').value,
-        myStatus: S.myStatus,
-        myAttach: S.myAttach,
-        myLoveLang: S.myLoveLang,
-        myContact: S.myContact,
-        myMbti: S.myMbti,
-        partnerName: S.partnerName,
-        partnerGender: document.getElementById('partnerGender').value,
-        partnerYear: document.getElementById('partnerYear').value,
-        partnerMonth: document.getElementById('partnerMonth').value,
-        partnerAttitude: S.partnerAttitude,
-        partnerInterest: S.partnerInterest,
-        partnerMbti: S.partnerMbti,
-      })
-    });
+  setTimeout(function() {
     clearInterval(iv);
     document.getElementById('progFill').style.width = '100%';
-    if (!res.ok) throw new Error('분석 오류');
-    const data = await res.json();
-    setTimeout(() => showResult(S.myName, S.partnerName, data), 400);
-  } catch (e) {
-    clearInterval(iv);
-    document.getElementById('loadingSection').style.display = 'none';
-    document.getElementById('page2').classList.add('active');
-    updateProgressBar(2);
-    showToast('잠시 후 다시 시도해주세요 🙏');
-  }
+
+    // ── 나의 연애 스타일 (애착유형 + 연락스타일 + 사랑의언어 조합) ──
+    var myStyleText = '';
+    if (S.myAttach === '불안형') {
+      myStyleText = S.myName + '은 연애할 때 감정의 온도가 굉장히 높은 편이에요. 상대방의 답장이 늦어지면 "혹시 나한테 화난 건 아닐까?" 하고 혼자 수백 가지 생각을 하게 되죠. 확인받고 싶은 마음, 사랑받고 있다는 느낌이 꼭 필요한 타입이에요.\n\n이건 약점이 아니에요. 그만큼 관계를 소중히 여기고, 진심으로 사랑하는 사람이라는 뜻이거든요. 다만 가끔은 상대방도 표현이 서툴 수 있다는 걸 기억해주세요. ' + S.myName + '이 먼저 "나 요즘 좀 불안해"라고 솔직하게 말해주면, 오히려 관계가 훨씬 가까워질 수 있어요.';
+    } else if (S.myAttach === '회피형') {
+      myStyleText = S.myName + '은 혼자만의 공간이 꼭 필요한 사람이에요. 가까워질수록 오히려 뒤로 물러서고 싶어지는 느낌, 잘 알죠? 이건 상대방이 싫어서가 아니라 너무 가까워지는 게 본능적으로 무섭기 때문이에요.\n\n표현이 서툴러서 오해받을 때도 많지만, 사실 ' + S.myName + '의 마음속엔 상대방을 향한 진심이 가득 차 있어요. 다만 그 마음을 꺼내 보여주는 방법을 아직 잘 모를 뿐이에요. 천천히, 자신의 속도대로 표현해도 괜찮아요.';
+    } else if (S.myAttach === '혼란형') {
+      myStyleText = S.myName + '은 연애에서 "다가가고 싶은데 무서워"라는 감정을 동시에 느끼는 타입이에요. 상대방이 다가오면 설레면서도 어딘가 경계하게 되고, 멀어지면 그리워서 먼저 연락하게 되는 패턴이 반복될 수 있어요.\n\n이런 감정은 이전의 상처에서 비롯되는 경우가 많아요. ' + S.myName + '이 스스로를 더 이해하고 믿어주는 것, 그게 사랑의 시작이에요. 완벽한 사람은 없고, 상처 없는 사람도 없어요. 지금 이 마음 그대로도 충분히 사랑받을 자격이 있어요.';
+    } else {
+      myStyleText = S.myName + '은 연애에서 안정감을 주는 타입이에요. 감정 표현이 자연스럽고 상대방이 힘들 때 먼저 알아채서 옆에 있어주는 능력이 있어요. 억지로 꾸미지 않아도 함께 있으면 편안한 사람, 그게 ' + S.myName + '이에요.\n\n다만 가끔은 자신보다 상대방을 너무 많이 생각하다 정작 본인의 감정을 놓칠 때도 있어요. ' + S.myName + '의 감정도 소중해요. 하고 싶은 말이 있을 때 참지 말고 표현해주세요. 솔직한 ' + S.myName + '이 더 매력적이에요.';
+    }
+
+    // 연락스타일 추가
+    if (S.myContact === '읽씹 가끔 함') {
+      myStyleText += '\n\n참고로 ' + S.myName + '이 가끔 읽씹하는 건 일부러 밀당하는 게 아니에요. 그냥 그 순간 뭐라고 답해야 할지 몰라서, 또는 다른 생각을 하다 잊어버린 거예요. 상대방한테 오해받지 않으려면 짧게라도 "나중에 답할게!"라고 미리 말해주는 습관이 도움이 돼요.';
+    } else if (S.myContact === '먼저 연락 잘 함') {
+      myStyleText += '\n\n' + S.myName + '이 먼저 연락하는 건 용기 있는 행동이에요. 그 진심이 반드시 상대방에게도 전해지고 있을 거예요.';
+    }
+
+    // ── 상대방 스타일 (관심도 + 태도 조합) ──
+    var partnerStyleText = '';
+    if (S.partnerInterest === '확실히 좋아하는 것 같음') {
+      partnerStyleText = partnerName + '은 이미 ' + S.myName + '에게 마음이 기울어져 있는 게 느껴져요. 먼저 연락하거나, 사소한 것도 기억하거나, 눈빛이 다른 것들 — 그 신호들은 절대 우연이 아니에요.\n\n다만 ' + partnerName + '은 감정을 직접적으로 드러내기보다 행동으로 보여주는 타입인 것 같아요. "왜 말로 표현 안 해줘?"라고 답답할 수 있지만, 그 작은 행동들 하나하나가 사실 ' + partnerName + '의 고백이에요. 조금만 더 지켜보면 분명히 더 큰 신호가 올 거예요.';
+    } else if (S.partnerInterest === '좋아하는 것 같기도 아닌 것 같기도') {
+      partnerStyleText = partnerName + '의 감정은 아직 방향이 완전히 정해지지 않은 상태예요. 관심은 분명히 있는데 그게 우정인지 설렘인지 본인도 헷갈리고 있을 수 있어요.\n\n이런 경우 ' + S.myName + '이 조금 더 적극적으로 자신의 매력을 보여주는 게 효과적이에요. 상대방이 결정을 못 내리고 있을 때, 결정의 계기를 만들어주는 건 ' + S.myName + '의 몫이에요. 작은 이벤트 하나, 진심 어린 말 한마디가 방향을 바꿀 수 있어요.';
+    } else if (S.partnerInterest === '관심 없는 것 같음') {
+      partnerStyleText = '지금 당장은 ' + partnerName + '의 관심이 크게 느껴지지 않을 수 있어요. 하지만 사람의 감정은 생각보다 빠르게 변해요.\n\n지금 ' + S.myName + '이 할 수 있는 가장 좋은 방법은 억지로 다가가려 하기보다, 자연스럽게 ' + S.myName + ' 자신의 삶을 충실하게 사는 거예요. 여유 있고 빛나는 사람 곁에 있고 싶어지는 건 자연스러운 감정이거든요. 지금 ' + S.myName + '이 가장 매력적인 순간을 만들어가는 게 최고의 전략이에요.';
+    } else {
+      partnerStyleText = partnerName + '이 ' + S.myName + '을 어떻게 생각하는지 아직 정확히 파악하기 어렵지만, 완전히 무관심한 건 절대 아닌 것 같아요.\n\n사람은 관심 없는 사람한테 에너지를 쓰지 않아요. ' + partnerName + '이 ' + S.myName + '과 대화하고, 시간을 보내고, 반응을 보인다면 그건 분명한 신호예요. 조금 더 시간을 갖고 두 사람이 편안하게 어울릴 수 있는 환경을 만들어보세요.';
+    }
+
+    // 나를 대하는 태도 추가
+    if (S.partnerAttitude === '먼저 연락해 옴') {
+      partnerStyleText += '\n\n특히 ' + partnerName + '이 먼저 연락하는 패턴은 굉장히 중요한 신호예요. 관심 없는 사람한테 먼저 연락하는 사람은 거의 없거든요. 이 마음을 가볍게 보지 마세요.';
+    } else if (S.partnerAttitude === '내가 주로 먼저') {
+      partnerStyleText += '\n\n' + S.myName + '이 주로 먼저 연락하는 상황이지만, 그게 꼭 나쁜 건 아니에요. 다만 가끔은 먼저 연락하지 않고 기다려보세요. ' + partnerName + '이 어떻게 반응하는지 확인해볼 수 있어요.';
+    }
+
+    // ── 케미 (상태 + 사랑의언어 조합) ──
+    var chemText = '';
+    var statusBase = {
+      '썸 타는 중': '지금 이 설레는 감정, 그냥 흘려보내기엔 너무 아깝잖아요.',
+      '고백 전': '고백하기 전 이 두근거림, 사실 이미 답은 나와 있을 수도 있어요.',
+      '사귀는 중': '함께하는 지금 이 시간이 두 분에게 얼마나 소중한지 알고 있어요.',
+      '짝사랑 중': '혼자 좋아하는 이 감정, 외롭고 힘들 때도 있죠. 근데 그 마음이 얼마나 순수한지 알아요.',
+      '헤어진 후': '헤어진 후에도 궁합이 궁금한 건, 아직 그 사람이 마음에 남아있다는 뜻이에요.'
+    };
+    chemText = (statusBase[S.myStatus] || '두 분의 인연은 생각보다 특별한 것 같아요.') + '\n\n';
+
+    if (S.myLoveLang === '칭찬과 인정') {
+      chemText += S.myName + '은 "예쁘다", "잘했어" 같은 말에서 사랑을 느끼는 타입이에요. ' + partnerName + '이 이 언어를 자연스럽게 써줄 수 있는 사람이라면, 두 분의 감정 온도는 아주 빠르게 올라갈 수 있어요.';
+    } else if (S.myLoveLang === '함께하는 시간') {
+      chemText += S.myName + '에게는 "같이 있는 것 자체"가 가장 큰 사랑의 표현이에요. 비싼 선물보다 그냥 옆에 있어주는 것, 함께 밥 먹고 드라이브하는 것 — 그런 시간들이 쌓여 ' + S.myName + '의 마음을 가득 채워줘요.';
+    } else if (S.myLoveLang === '스킨십') {
+      chemText += S.myName + '은 손을 잡거나 안아주는 것에서 사랑을 느끼는 타입이에요. 말로 표현하기 어려운 감정도 스킨십 하나로 다 전달되는 사람이에요. ' + partnerName + '이 이걸 자연스럽게 해줄 수 있다면 두 분의 연결감은 굉장히 강해질 거예요.';
+    } else if (S.myLoveLang === '선물') {
+      chemText += S.myName + '은 뭔가를 챙겨받을 때 "나를 생각해줬구나"라는 느낌에서 사랑을 느껴요. 비싼 게 아니어도 돼요. ' + partnerName + '이 ' + S.myName + '을 생각하며 고른 작은 것 하나가 마음을 크게 움직일 수 있어요.';
+    } else if (S.myLoveLang === '배려와 도움') {
+      chemText += S.myName + '은 상대방이 힘들 때 대신 나서주거나, 먼저 도와주는 행동에서 사랑을 느끼는 타입이에요. 말보다 행동으로 보여주는 ' + partnerName + '이라면 ' + S.myName + '의 마음을 얻기에 충분해요.';
+    } else {
+      chemText += '두 분은 처음 만났을 때부터 묘하게 편안하면서도 설레는 감정이 동시에 흘렀을 거예요. 이런 케미는 흔하지 않아요. 억지로 만들려고 해도 만들어지지 않는 자연스러운 끌림이에요. 지금 이 감정을 소중하게 여겨주세요.';
+    }
+
+    var blurText = S.myAttach === '회피형'
+      ? '⚠️ 두 사람 사이 가장 큰 위기: 가까워질수록 ' + S.myName + '이 거리를 두는 패턴이 반복될 수 있어요. 이걸 극복하는 구체적인 방법은...'
+      : S.myAttach === '불안형'
+      ? '⚠️ 두 사람 사이 가장 큰 위기: ' + S.myName + '의 불안감이 ' + partnerName + '을 지치게 만들 수 있는 상황이 올 수 있어요. 예방하는 방법은...'
+      : '⚠️ 두 사람 사이 숨겨진 갈등 포인트: 겉으로는 잘 맞아 보여도 특정 상황에서 충돌이 생길 수 있어요. 어떤 상황인지, 어떻게 풀어야 하는지는...';
+
+    var demoData = {
+      score: 83,
+      verdict: '달콤한 설렘 그 이상 💗',
+      oneline: S.myName + '과 ' + partnerName + ', 운명이 이어준 인연',
+      myStyle: myStyleText,
+      partnerStyle: partnerStyleText,
+      chemistry: chemText,
+      blurHint: blurText
+    };
+
+    setTimeout(function() { showResult(S.myName, partnerName, demoData); }, 400);
+  }, 5800);
 }
 
 // ── 결과 표시 ──
@@ -951,10 +999,10 @@ function handlePhoto(who, input) {
 
 // ── 프리미엄 결과 ──
 async function proceedPremium() {
-  // 실제 배포 시: 결제 모듈 호출 후 아래 로직 실행
   closePopup();
-  const myName = S.myName, partnerName = S.partnerName || '상대방';
-  const hasPhotos = S.myPhoto && S.partnerPhoto;
+  var myName = S.myName;
+  var partnerName = S.partnerName || '상대방';
+  var hasPhotos = S.myPhoto && S.partnerPhoto;
 
   document.getElementById('resultSection').style.display = 'none';
   document.getElementById('loadingSection').style.display = 'block';
@@ -962,39 +1010,39 @@ async function proceedPremium() {
   document.getElementById('loadingTitle').innerHTML = '심층 분석 중<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
   document.getElementById('loadingSub').textContent = hasPhotos ? '관상 + 궁합 전체 분석 중' : '궁합 전체 분석 중';
 
-  let p = 20;
-  const piv = setInterval(() => { p = Math.min(p+7, 90); document.getElementById('progFill').style.width = p + '%'; }, 500);
+  var p = 20;
+  var piv = setInterval(function() {
+    p = Math.min(p + 7, 90);
+    document.getElementById('progFill').style.width = p + '%';
+  }, 500);
 
-  try {
-    const res = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        mode: 'premium',
-        myName, myGender: document.getElementById('myGender').value,
-        myYear: document.getElementById('myYear').value,
-        myMonth: document.getElementById('myMonth').value,
-        myStatus: S.myStatus, myAttach: S.myAttach,
-        myLoveLang: S.myLoveLang, myContact: S.myContact, myMbti: S.myMbti,
-        partnerName, partnerGender: document.getElementById('partnerGender').value,
-        partnerYear: document.getElementById('partnerYear').value,
-        partnerMonth: document.getElementById('partnerMonth').value,
-        partnerAttitude: S.partnerAttitude, partnerInterest: S.partnerInterest, partnerMbti: S.partnerMbti,
-        myPhoto: S.myPhotoData, myPhotoType: S.myPhotoType,
-        partnerPhoto: S.partnerPhotoData, partnerPhotoType: S.partnerPhotoType,
-      })
-    });
+  setTimeout(function() {
     clearInterval(piv);
     document.getElementById('progFill').style.width = '100%';
-    if (!res.ok) throw new Error('오류');
-    const data = await res.json();
-    setTimeout(() => showPremiumResult(myName, partnerName, hasPhotos, data), 400);
-  } catch(e) {
-    clearInterval(piv);
-    document.getElementById('loadingSection').style.display = 'none';
-    document.getElementById('resultSection').style.display = 'block';
-    showToast('잠시 후 다시 시도해주세요 🙏');
-  }
+
+    var conflictText = '';
+    if (S.myAttach === '불안형') {
+      conflictText = myName + '의 불안형 애착이 자주 확인을 요구하게 만들어요. ' + partnerName + '이 잠시 거리를 둘 때 "싫어진 건가?" 오해할 수 있어요. 해결법: "바빠서 그래, 곧 연락할게" 한마디면 불안이 사라져요.';
+    } else if (S.myAttach === '회피형') {
+      conflictText = myName + '은 가까워지면 본능적으로 거리를 두게 돼서 ' + partnerName + '이 "나를 피하나?" 느낄 수 있어요. 해결법: "혼자 있고 싶을 뿐이야"라고 먼저 말해주면 갈등이 줄어요.';
+    } else {
+      conflictText = '두 분의 갈등은 주로 감정 표현 속도 차이에서 생겨요. ' + myName + '이 빠르게 표현하고 싶을 때 ' + partnerName + '은 생각 정리 시간이 필요할 수 있어요. 서로의 속도를 이해하면 대부분의 갈등은 자연스럽게 풀려요.';
+    }
+
+    var demoP = {
+      conflict: conflictText,
+      longterm: '장기연애 가능성은 충분히 있어요. 두 분이 가진 서로 다른 에너지가 시간이 지나면서 서로를 더 단단하게 만들어주는 힘이 돼요. 위기 상황에서 서로를 믿고 의지하는 패턴이 강해서 깊은 관계로 발전할 가능성이 높아요.',
+      monthlyFortune: '이달은 솔직한 표현이 중요한 시기예요. ' + myName + '이 먼저 작은 신호를 보내보세요. ' + partnerName + '의 반응이 생각보다 따뜻할 수 있어요. 이달 중순이 특히 중요한 전환점이에요.',
+      letter: myName + '에게,\n\n' + partnerName + '을 향한 마음이 진심이라면 반드시 전해져요. 조급해하지 말고 지금 이 순간을 즐겨봐요. 두 분의 이야기는 아직 시작 중이에요. \uD83D\uDC98',
+      myFace: hasPhotos ? myName + '의 눈빛에서 깊고 따뜻한 감수성이 느껴져요. 눈썹의 부드러운 곡선은 공감 능력을 나타내고 입 꼬리의 미소 선에서 상대를 편안하게 해주는 기질이 보여요.' : null,
+      myFaceTraits: hasPhotos ? ['따뜻한 눈빛', '높은 공감력', '섬세한 감수성'] : [],
+      partnerFace: hasPhotos ? partnerName + '은 뚜렷한 이목구비에서 강한 의지력이 느껴져요. 겉으로는 단단해 보이지만 눈가에서 진심 어린 다정함도 함께 읽혀요.' : null,
+      partnerFaceTraits: hasPhotos ? ['강한 의지', '카리스마', '숨겨진 다정함'] : [],
+      faceChemistry: hasPhotos ? '두 사람의 눈빛이 만났을 때 서로의 부족한 부분을 채워주는 음양의 조화가 자연스럽게 만들어져요.' : null
+    };
+
+    setTimeout(function() { showPremiumResult(myName, partnerName, hasPhotos, demoP); }, 400);
+  }, 3000);
 }
 
 function showPremiumResult(myName, partnerName, hasPhotos, data) {
