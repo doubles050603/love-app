@@ -816,7 +816,7 @@ function goToStep1() {
 }
 
 // ── 분석 ──
-function startAnalysis() {
+async function startAnalysis() {
   const partnerName = document.getElementById('partnerName').value.trim() || '상대방';
   S.partnerName = partnerName;
 
