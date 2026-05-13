@@ -409,33 +409,6 @@ body::before {
     </div>
   </div>
 
-  <!-- 애착유형 -->
-  <div class="q-section">
-    <div class="q-title"><span>🧠</span> 나의 애착유형은?</div>
-    <div class="attach-cards" id="myAttachCards">
-      <div class="attach-card" onclick="pickAttach(this,'안정형')">
-        <div class="ac-emoji">😊</div>
-        <div class="ac-name">안정형</div>
-        <div class="ac-desc">믿고 의지해, 표현도 잘 해</div>
-      </div>
-      <div class="attach-card" onclick="pickAttach(this,'불안형')">
-        <div class="ac-emoji">😰</div>
-        <div class="ac-name">불안형</div>
-        <div class="ac-desc">확인받고 싶어, 연락 기다려</div>
-      </div>
-      <div class="attach-card" onclick="pickAttach(this,'회피형')">
-        <div class="ac-emoji">🥶</div>
-        <div class="ac-name">회피형</div>
-        <div class="ac-desc">혼자 있고 싶어, 거리 둬</div>
-      </div>
-      <div class="attach-card" onclick="pickAttach(this,'혼란형')">
-        <div class="ac-emoji">🌀</div>
-        <div class="ac-name">혼란형</div>
-        <div class="ac-desc">가까워지면 무서워, 밀당해</div>
-      </div>
-    </div>
-  </div>
-
   <!-- 사랑의 언어 -->
   <div class="q-section">
     <div class="q-title"><span>💝</span> 나의 사랑의 언어는?</div>
@@ -593,6 +566,16 @@ body::before {
     <div class="free-card-body blurred" id="blurredHint"></div>
   </div>
 
+  <div class="free-card">
+    <div class="free-card-hd"><span class="free-card-icon">🔮</span><span class="free-card-title">오행(五行)으로 읽는 두 사람</span></div>
+    <div class="free-card-body" id="ohangBody"></div>
+  </div>
+
+  <div class="free-card">
+    <div class="free-card-hd"><span class="free-card-icon">🧠</span><span class="free-card-title" id="attachResultTitle">나의 애착유형 분석</span></div>
+    <div class="free-card-body" id="attachResultBody"></div>
+  </div>
+
   <div class="unlock-bar" onclick="showPremiumPopup()">
     <div class="unlock-left">
       <strong>🔐 전체 궁합 리포트 열기</strong>
@@ -732,6 +715,11 @@ const mbtiList = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ'
     const s = document.getElementById(id);
     for (let y = cy; y >= 1950; y--) s.innerHTML += `<option value="${y}">${y}년</option>`;
   });
+  // 날 초기화
+  const dayEl = document.getElementById('myDay');
+  if (dayEl) {
+    for (let d = 1; d <= 31; d++) dayEl.innerHTML += `<option value="${d}">${d}일</option>`;
+  }
   ['myMonth','partnerMonth'].forEach(id => {
     const s = document.getElementById(id);
     for (let m = 1; m <= 12; m++) s.innerHTML += `<option value="${m}">${m}월</option>`;
@@ -845,7 +833,67 @@ async function startAnalysis() {
     clearInterval(iv);
     document.getElementById('progFill').style.width = '100%';
 
-    // ── 나의 연애 스타일 (애착유형 + 연락스타일 + 사랑의언어 조합) ──
+    // ── 오행 계산 ──
+    var myYear = document.getElementById('myYear').value;
+    var myMonth = document.getElementById('myMonth').value;
+    var myDay = document.getElementById('myDay') ? document.getElementById('myDay').value : '';
+    var myHour = document.getElementById('myHour') ? document.getElementById('myHour').value : '';
+
+    var ohangMap = {
+      '목(木)': ['갑','을','인','묘','봄','동쪽','성장','창의','추진력'],
+      '화(火)': ['병','정','사','오','여름','남쪽','열정','표현','리더십'],
+      '토(土)': ['무','기','진','술','축','미','환절기','중앙','안정','신뢰'],
+      '금(金)': ['경','신','신','유','가을','서쪽','결단','원칙','완벽주의'],
+      '수(水)': ['임','계','해','자','겨울','북쪽','지혜','직관','감수성']
+    };
+    // 생년 끝자리로 오행 간단 계산
+    var yearNum = parseInt(myYear) || 1995;
+    var ohangIndex = yearNum % 10;
+    var myOhang = '';
+    if (ohangIndex === 0 || ohangIndex === 1) myOhang = '금(金)';
+    else if (ohangIndex === 2 || ohangIndex === 3) myOhang = '수(水)';
+    else if (ohangIndex === 4 || ohangIndex === 5) myOhang = '목(木)';
+    else if (ohangIndex === 6 || ohangIndex === 7) myOhang = '화(火)';
+    else myOhang = '토(土)';
+
+    var partnerYear = document.getElementById('partnerYear').value;
+    var partnerYearNum = parseInt(partnerYear) || 1993;
+    var partnerOhangIndex = partnerYearNum % 10;
+    var partnerOhang = '';
+    if (partnerOhangIndex === 0 || partnerOhangIndex === 1) partnerOhang = '금(金)';
+    else if (partnerOhangIndex === 2 || partnerOhangIndex === 3) partnerOhang = '수(水)';
+    else if (partnerOhangIndex === 4 || partnerOhangIndex === 5) partnerOhang = '목(木)';
+    else if (partnerOhangIndex === 6 || partnerOhangIndex === 7) partnerOhang = '화(火)';
+    else partnerOhang = '토(土)';
+
+    // 오행 상생상극
+    var ohangRelation = '';
+    var ohangScore = 0;
+    var ohangPairs = {
+      '목(木)-화(火)': {rel:'상생', txt:'목이 화를 키워주는 관계예요. 서로의 에너지가 자연스럽게 흘러요.', score:5},
+      '화(火)-토(土)': {rel:'상생', txt:'화가 토를 만들어주는 관계예요. 함께할수록 단단해져요.', score:5},
+      '토(土)-금(金)': {rel:'상생', txt:'토가 금을 품어주는 관계예요. 서로에게 든든한 버팀목이 돼요.', score:5},
+      '금(金)-수(水)': {rel:'상생', txt:'금이 수를 낳는 관계예요. 서로 영감을 주고받아요.', score:5},
+      '수(水)-목(木)': {rel:'상생', txt:'수가 목을 키워주는 관계예요. 성장을 도와주는 인연이에요.', score:5},
+      '목(木)-토(土)': {rel:'상극', txt:'목이 토를 파고드는 기운이 있어요. 서로의 다름을 이해하는 연습이 필요해요.', score:-2},
+      '토(土)-수(水)': {rel:'상극', txt:'토가 수를 막는 기운이 있어요. 가끔 답답함을 느낄 수 있어요.', score:-2},
+      '수(水)-화(火)': {rel:'상극', txt:'수와 화는 서로 부딪히는 기운이에요. 강렬한 케미가 있지만 충돌도 있어요.', score:-1},
+      '화(火)-금(金)': {rel:'상극', txt:'화가 금을 녹이는 기운이 있어요. 서로의 개성이 강해 조율이 필요해요.', score:-2},
+      '금(金)-목(木)': {rel:'상극', txt:'금이 목을 자르는 기운이 있어요. 방향성 차이가 생길 수 있어요.', score:-2},
+    };
+    var pairKey1 = myOhang + '-' + partnerOhang;
+    var pairKey2 = partnerOhang + '-' + myOhang;
+    var ohangData = ohangPairs[pairKey1] || ohangPairs[pairKey2] || {rel:'중립', txt:'두 분의 기운은 서로 독립적으로 흘러요. 의식적으로 맞춰가는 관계예요.', score:0};
+    ohangScore = ohangData.score;
+
+    // 애착유형은 오행+연락스타일로 추론
+    var inferredAttach = '안정형';
+    if (S.myContact === '읽씹 가끔 함') inferredAttach = '회피형';
+    else if (S.myContact === '항상 빠른 답장') inferredAttach = '불안형';
+    else if (S.myContact === '먼저 연락 잘 함') inferredAttach = '안정형';
+    S.myAttach = inferredAttach;
+
+    // ── 나의 연애 스타일 (오행 + 연락스타일 + 사랑의언어 조합) ──
     var myStyleText = '';
     if (S.myAttach === '불안형') {
       myStyleText = S.myName + '은 연애할 때 감정의 온도가 굉장히 높은 편이에요. 상대방의 답장이 늦어지면 "혹시 나한테 화난 건 아닐까?" 하고 혼자 수백 가지 생각을 하게 되죠. 확인받고 싶은 마음, 사랑받고 있다는 느낌이 꼭 필요한 타입이에요.\n\n이건 약점이 아니에요. 그만큼 관계를 소중히 여기고, 진심으로 사랑하는 사람이라는 뜻이거든요. 다만 가끔은 상대방도 표현이 서툴 수 있다는 걸 기억해주세요. ' + S.myName + '이 먼저 "나 요즘 좀 불안해"라고 솔직하게 말해주면, 오히려 관계가 훨씬 가까워질 수 있어요.';
@@ -949,6 +997,26 @@ function showResult(myName, partnerName, data) {
   document.getElementById('partnerStyleBody').textContent = data.partnerStyle || '';
   document.getElementById('chemBody').textContent = data.chemistry || '';
   document.getElementById('blurredHint').textContent = data.blurHint || '갈등 포인트와 극복 방법은 전체 리포트에서 확인하세요';
+
+  // 오행 결과 세팅
+  var ohangText = myOhang + '의 기운을 가진 ' + myName + '과 ' + partnerOhang + '의 기운을 가진 ' + partnerName + '은 오행(五行)으로 보면 ' + ohangData.rel + ' 관계예요.\n\n' + ohangData.txt;
+  if (myHour) {
+    ohangText += '\n\n' + myName + '의 태어난 시간(' + myHour + ')까지 더하면 더 세밀한 분석이 가능해요. 시주(時柱)는 타고난 기질과 감정 표현 방식에 영향을 줘요. 전체 사주 리포트에서 자세히 확인할 수 있어요.';
+  }
+  var ohangEl = document.getElementById('ohangBody');
+  if (ohangEl) ohangEl.textContent = ohangText;
+
+  // 애착유형 결과 세팅 (행동 패턴으로 추론)
+  var attachTexts = {
+    '안정형': myName + '의 연애 패턴을 분석해보면 안정형 애착에 가까워요.\n\n안정형은 연애에서 자신을 믿고 상대방도 믿는 타입이에요. 먼저 표현하고 상대가 힘들 때 옆에 있어주는 것을 자연스럽게 해요. ' + myName + '은 상대방에게 편안함과 신뢰를 주는 사람이에요.\n\n안정형과 함께하는 사람은 "이 사람 옆에 있으면 왜 이렇게 편하지?" 라는 느낌을 받아요. 이게 ' + myName + '의 가장 큰 매력이에요.',
+    '불안형': myName + '의 연애 패턴을 분석해보면 불안형 애착에 가까워요.\n\n불안형은 사랑받고 있다는 확인이 자주 필요하고, 상대방의 작은 변화에도 감정이 흔들리는 편이에요. 연락이 늦으면 "혹시 나한테 화난 건 아닐까?" 하고 여러 가지 생각을 하게 되죠.\n\n이건 약점이 아니에요. 그만큼 관계를 소중히 여기고 깊이 사랑하는 사람이라는 뜻이거든요. ' + myName + '이 이 부분을 인식하고 상대방에게 솔직하게 말해준다면 오히려 관계가 더 깊어질 수 있어요.',
+    '회피형': myName + '의 연애 패턴을 분석해보면 회피형 애착에 가까워요.\n\n회피형은 혼자만의 공간이 꼭 필요하고, 가까워질수록 오히려 거리를 두고 싶어지는 느낌을 받아요. 표현이 서툴러서 오해받을 때도 많지만 마음속엔 따뜻함이 가득해요.\n\n' + myName + '은 상대방이 답답하다고 느낄 수 있는 부분이 있어요. 하지만 "나 지금 혼자 있고 싶어"라고 솔직하게 말해주는 것만으로도 갈등의 절반이 사라질 수 있어요.',
+    '혼란형': myName + '의 연애 패턴을 분석해보면 혼란형 애착에 가까울 수 있어요.\n\n혼란형은 다가가고 싶으면서도 무서운 양가감정을 동시에 느끼는 타입이에요. 상대방이 다가오면 설레면서도 경계하게 되고, 멀어지면 그리워서 먼저 연락하게 되는 패턴이 반복돼요.\n\n이런 감정은 이전의 관계에서 받은 상처에서 비롯되는 경우가 많아요. ' + myName + '이 스스로를 더 이해하고 믿어주는 것, 그게 건강한 연애의 시작이에요.'
+  };
+  var attachEl = document.getElementById('attachResultBody');
+  var attachTitleEl = document.getElementById('attachResultTitle');
+  if (attachEl) attachEl.textContent = attachTexts[S.myAttach] || attachTexts['안정형'];
+  if (attachTitleEl) attachTitleEl.textContent = myName + '의 애착유형 분석';
 
   startCountdown();
   window.scrollTo({ top: 0, behavior: 'smooth' });
