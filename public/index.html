@@ -391,9 +391,66 @@ body::before {
       <div class="field"><label>태어난 해</label><select id="myYear"><option value="">년도</option></select></div>
       <div class="field"><label>태어난 달</label><select id="myMonth"><option value="">월</option></select></div>
     </div>
+    <div class="field-row">
+      <div class="field"><label>태어난 날</label><select id="myDay"><option value="">일</option></select></div>
+      <div class="field">
+        <label>태어난 시간 <span style="font-size:10px;color:var(--mist);font-weight:400">(선택)</span></label>
+        <select id="myHour">
+          <option value="">모름</option>
+          <option value="자시">자시 (23~01시)</option>
+          <option value="축시">축시 (01~03시)</option>
+          <option value="인시">인시 (03~05시)</option>
+          <option value="묘시">묘시 (05~07시)</option>
+          <option value="진시">진시 (07~09시)</option>
+          <option value="사시">사시 (09~11시)</option>
+          <option value="오시">오시 (11~13시)</option>
+          <option value="미시">미시 (13~15시)</option>
+          <option value="신시">신시 (15~17시)</option>
+          <option value="유시">유시 (17~19시)</option>
+          <option value="술시">술시 (19~21시)</option>
+          <option value="해시">해시 (21~23시)</option>
+        </select>
+      </div>
+    </div>
     <div class="field">
       <label>성별</label>
       <select id="myGender"><option value="">선택</option><option>여성</option><option>남성</option></select>
+    </div>
+    <div class="field">
+      <label>태어난 지역 <span style="font-size:10px;color:var(--mist);font-weight:400">(선택 — 지역 기운 분석에 활용)</span></label>
+      <select id="myRegion">
+        <option value="">선택 안 함</option>
+        <optgroup label="서울/경기">
+          <option value="서울">서울</option>
+          <option value="경기">경기도</option>
+          <option value="인천">인천</option>
+        </optgroup>
+        <optgroup label="충청">
+          <option value="충북">충청북도</option>
+          <option value="충남">충청남도</option>
+          <option value="대전">대전</option>
+          <option value="세종">세종</option>
+        </optgroup>
+        <optgroup label="경상">
+          <option value="경북">경상북도</option>
+          <option value="경남">경상남도</option>
+          <option value="부산">부산</option>
+          <option value="대구">대구</option>
+          <option value="울산">울산</option>
+        </optgroup>
+        <optgroup label="전라">
+          <option value="전북">전라북도</option>
+          <option value="전남">전라남도</option>
+          <option value="광주">광주</option>
+        </optgroup>
+        <optgroup label="강원/제주">
+          <option value="강원">강원도</option>
+          <option value="제주">제주도</option>
+        </optgroup>
+        <optgroup label="해외">
+          <option value="해외">해외 출생</option>
+        </optgroup>
+      </select>
     </div>
   </div>
 
@@ -576,15 +633,25 @@ body::before {
     <div class="free-card-body" id="attachResultBody"></div>
   </div>
 
-  <div class="unlock-bar" onclick="showPremiumPopup()">
-    <div class="unlock-left">
-      <strong>🔐 전체 궁합 리포트 열기</strong>
-      <span>갈등 패턴 · 결혼운 · 이달 연애운 · 관상 분석</span>
+  <!-- 관상 부각 배너 -->
+  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;" onclick="showPremiumPopup()">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="font-size:22px;">📸</span>
+      <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;">사진 한 장으로 관상까지 분석해드려요</span>
     </div>
-    <div class="unlock-right">
-      <span class="unlock-old">₩3,900</span>
-      <span class="unlock-price">₩1,900</span>
-      <span class="unlock-arrow">›</span>
+    <p style="font-size:13px;opacity:0.85;line-height:1.7;margin-bottom:14px;">얼굴 사진을 올리면 눈빛·이마·코·입·턱선에서 읽히는<br>성격과 연애 스타일까지 분석해드려요 👁</p>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">👁 관상 분석</span>
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">💢 갈등 패턴</span>
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">💍 결혼 가능성</span>
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">📅 이달 연애운</span>
+    </div>
+    <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <span style="font-size:12px;opacity:0.6;text-decoration:line-through;">₩3,900</span>
+        <span style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;margin-left:8px;color:#f5c842;">₩1,900</span>
+      </div>
+      <div style="background:var(--rose);border-radius:10px;padding:10px 20px;font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;">전체 리포트 보기 →</div>
     </div>
   </div>
 
@@ -724,6 +791,7 @@ const mbtiList = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ'
     const s = document.getElementById(id);
     for (let m = 1; m <= 12; m++) s.innerHTML += `<option value="${m}">${m}월</option>`;
   });
+  // 날(일) 초기화
   ['myMbtiChips','partnerMbtiChips'].forEach((id, i) => {
     const key = i === 0 ? 'myMbti' : 'partnerMbti';
     document.getElementById(id).innerHTML = mbtiList.map(v =>
@@ -981,6 +1049,75 @@ function showResult(myName, partnerName, data) {
   document.getElementById('loadingSection').style.display = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
+  // ── 오행 계산 (showResult 안에서 직접) ──
+  var myYearVal = parseInt(document.getElementById('myYear').value) || 1995;
+  var myHourVal = document.getElementById('myHour') ? (document.getElementById('myHour').value || '') : '';
+  var myRegionVal = document.getElementById('myRegion') ? (document.getElementById('myRegion').value || '') : '';
+  var myDayVal = document.getElementById('myDay') ? (document.getElementById('myDay').value || '') : '';
+  var partnerYearVal = parseInt(document.getElementById('partnerYear').value) || 1993;
+
+  var ohangByYear = function(y) {
+    var idx = y % 10;
+    if (idx === 0 || idx === 1) return '금(金)';
+    if (idx === 2 || idx === 3) return '수(水)';
+    if (idx === 4 || idx === 5) return '목(木)';
+    if (idx === 6 || idx === 7) return '화(火)';
+    return '토(土)';
+  };
+  var myOhang = ohangByYear(myYearVal);
+  var partnerOhang = ohangByYear(partnerYearVal);
+
+  var ohangPairs = {
+    '목(木)-화(火)': {rel:'상생(相生)', txt:'목이 화를 키워주는 상생 관계예요. 두 분의 에너지가 자연스럽게 서로를 향해 흘러요.'},
+    '화(火)-목(木)': {rel:'상생(相生)', txt:'목이 화를 키워주는 상생 관계예요. 두 분의 에너지가 자연스럽게 서로를 향해 흘러요.'},
+    '화(火)-토(土)': {rel:'상생(相生)', txt:'화가 토를 만들어주는 상생 관계예요. 함께할수록 서로를 단단하게 만들어줘요.'},
+    '토(土)-화(火)': {rel:'상생(相生)', txt:'화가 토를 만들어주는 상생 관계예요. 함께할수록 서로를 단단하게 만들어줘요.'},
+    '토(土)-금(金)': {rel:'상생(相生)', txt:'토가 금을 품어주는 상생 관계예요. 서로에게 든든한 버팀목이 되는 인연이에요.'},
+    '금(金)-토(土)': {rel:'상생(相生)', txt:'토가 금을 품어주는 상생 관계예요. 서로에게 든든한 버팀목이 되는 인연이에요.'},
+    '금(金)-수(水)': {rel:'상생(相生)', txt:'금이 수를 낳는 상생 관계예요. 서로 영감을 주고받으며 함께 성장해요.'},
+    '수(水)-금(金)': {rel:'상생(相生)', txt:'금이 수를 낳는 상생 관계예요. 서로 영감을 주고받으며 함께 성장해요.'},
+    '수(水)-목(木)': {rel:'상생(相生)', txt:'수가 목을 키워주는 상생 관계예요. 상대방의 성장을 자연스럽게 도와주는 인연이에요.'},
+    '목(木)-수(水)': {rel:'상생(相生)', txt:'수가 목을 키워주는 상생 관계예요. 상대방의 성장을 자연스럽게 도와주는 인연이에요.'},
+    '목(木)-토(土)': {rel:'상극(相剋)', txt:'목이 토를 파고드는 상극 기운이 있어요. 서로의 다름을 이해하는 연습이 필요해요.'},
+    '토(土)-목(木)': {rel:'상극(相剋)', txt:'목이 토를 파고드는 상극 기운이 있어요. 서로의 다름을 이해하는 연습이 필요해요.'},
+    '토(土)-수(水)': {rel:'상극(相剋)', txt:'토가 수를 막는 기운이 있어요. 가끔 답답함을 느낄 수 있지만 극복하면 더 단단해져요.'},
+    '수(水)-토(土)': {rel:'상극(相剋)', txt:'토가 수를 막는 기운이 있어요. 가끔 답답함을 느낄 수 있지만 극복하면 더 단단해져요.'},
+    '수(水)-화(火)': {rel:'상극(相剋)', txt:'수와 화는 서로 부딪히는 상극 기운이에요. 강렬한 케미가 있지만 감정 충돌도 있어요.'},
+    '화(火)-수(水)': {rel:'상극(相剋)', txt:'수와 화는 서로 부딪히는 상극 기운이에요. 강렬한 케미가 있지만 감정 충돌도 있어요.'},
+    '화(火)-금(金)': {rel:'상극(相剋)', txt:'화가 금을 녹이는 기운이 있어요. 서로의 개성이 강해 조율하는 과정이 필요해요.'},
+    '금(金)-화(火)': {rel:'상극(相剋)', txt:'화가 금을 녹이는 기운이 있어요. 서로의 개성이 강해 조율하는 과정이 필요해요.'},
+    '금(金)-목(木)': {rel:'상극(相剋)', txt:'금이 목을 자르는 기운이 있어요. 방향성과 가치관 차이가 생길 수 있어요.'},
+    '목(木)-금(金)': {rel:'상극(相剋)', txt:'금이 목을 자르는 기운이 있어요. 방향성과 가치관 차이가 생길 수 있어요.'},
+  };
+  var pKey = myOhang + '-' + partnerOhang;
+  var ohangData = ohangPairs[pKey] || {rel:'비화(比和)', txt:'같은 오행의 기운을 가졌어요. 서로 너무 비슷해서 편하지만 가끔 답답할 수 있어요.'};
+
+  // 오행 카드 내용
+  var ohangEl = document.getElementById('ohangBody');
+  if (ohangEl) {
+    var ohangTxt = myName + '은 ' + myOhang + ' 기운, ' + partnerName + '은 ' + partnerOhang + ' 기운을 타고났어요.\n\n두 분은 오행으로 보면 ' + ohangData.rel + ' 관계예요. ' + ohangData.txt;
+    if (myHourVal) ohangTxt += '\n\n' + myName + '의 태어난 시간(' + myHourVal + ')까지 더하면 시주(時柱) 분석이 가능해요. 타고난 기질과 감정 표현 방식까지 더 세밀하게 보려면 전체 리포트를 확인해보세요.';
+    if (myRegionVal) ohangTxt += '\n\n' + myRegionVal + ' 출생의 기운도 흥미로운 요소예요. 지역의 산세와 물길은 그 지역에서 태어난 사람의 기운에 영향을 준다고 해요.';
+    ohangEl.textContent = ohangTxt;
+  }
+
+  // 애착유형 추론 (연락스타일 기반)
+  var inferAttach = '안정형';
+  if (S.myContact === '읽씹 가끔 함') inferAttach = '회피형';
+  else if (S.myContact === '항상 빠른 답장') inferAttach = '불안형';
+  else if (S.myContact === '먼저 연락 잘 함') inferAttach = '안정형';
+  S.myAttach = inferAttach;
+
+  var attachTexts = {
+    '안정형': myName + '의 연애 행동 패턴을 분석해보면 안정형 애착에 가까워요.\n\n안정형은 자신을 믿고 상대방도 믿는 타입이에요. 먼저 표현하고 상대가 힘들 때 옆에 있어주는 걸 자연스럽게 해요. ' + myName + '은 함께 있으면 왜인지 편안한, 그런 사람이에요.\n\n안정형의 강점은 관계에서 불필요한 감정 소모가 적다는 거예요. 상대방이 조금 늦게 연락해도 크게 흔들리지 않고, 다툼이 생겨도 차분하게 해결하려는 경향이 있어요.',
+    '불안형': myName + '의 연애 행동 패턴을 분석해보면 불안형 애착에 가까워요.\n\n불안형은 사랑받고 있다는 확인이 자주 필요하고 상대방의 작은 변화에도 감정이 흔들리는 편이에요. 연락이 늦으면 혼자 여러 가지 생각을 하게 되죠.\n\n이건 약점이 아니에요. 그만큼 관계를 소중히 여기고 깊이 사랑하는 사람이라는 뜻이거든요. ' + myName + '이 이 부분을 인식하고 상대방에게 솔직하게 말해준다면 오히려 관계가 더 깊어질 수 있어요.',
+    '회피형': myName + '의 연애 행동 패턴을 분석해보면 회피형 애착에 가까워요.\n\n회피형은 혼자만의 공간이 꼭 필요하고 가까워질수록 오히려 거리를 두고 싶어지는 느낌을 받아요. 표현이 서툴러서 오해받을 때도 많지만 마음속엔 따뜻함이 가득해요.\n\n"나 지금 혼자 있고 싶어"라고 솔직하게 말해주는 것만으로도 갈등의 절반이 사라질 수 있어요. 회피형의 진심은 행동으로 드러나거든요.'
+  };
+  var attachEl = document.getElementById('attachResultBody');
+  var attachTitleEl = document.getElementById('attachResultTitle');
+  if (attachEl) attachEl.textContent = attachTexts[inferAttach] || attachTexts['안정형'];
+  if (attachTitleEl) attachTitleEl.textContent = myName + '의 애착유형 분석';
+
   const score = data.score || 83;
   document.getElementById('resCouple').textContent = `${myName} ❤ ${partnerName}`;
   document.getElementById('resVerdict').textContent = data.verdict || '달콤한 설렘 그 이상 💗';
@@ -1088,25 +1225,59 @@ async function proceedPremium() {
     clearInterval(piv);
     document.getElementById('progFill').style.width = '100%';
 
-    var conflictText = '';
-    if (S.myAttach === '불안형') {
-      conflictText = myName + '의 불안형 애착이 자주 확인을 요구하게 만들어요. ' + partnerName + '이 잠시 거리를 둘 때 "싫어진 건가?" 오해할 수 있어요. 해결법: "바빠서 그래, 곧 연락할게" 한마디면 불안이 사라져요.';
-    } else if (S.myAttach === '회피형') {
-      conflictText = myName + '은 가까워지면 본능적으로 거리를 두게 돼서 ' + partnerName + '이 "나를 피하나?" 느낄 수 있어요. 해결법: "혼자 있고 싶을 뿐이야"라고 먼저 말해주면 갈등이 줄어요.';
+    // ── 나이 계산 ──
+    var myBirthYear = parseInt(document.getElementById('myYear').value) || 2000;
+    var myAge = new Date().getFullYear() - myBirthYear;
+    var partnerBirthYear = parseInt(document.getElementById('partnerYear').value) || 2000;
+    var partnerAge = new Date().getFullYear() - partnerBirthYear;
+    var avgAge = Math.round((myAge + partnerAge) / 2);
+    var myHourP = document.getElementById('myHour') ? (document.getElementById('myHour').value || '') : '';
+    var myRegionP = document.getElementById('myRegion') ? (document.getElementById('myRegion').value || '') : '';
+
+    // ── 나이대별 맞춤 조언 텍스트 생성 ──
+    var ageContext = '';
+    var conflictContext = '';
+    var longtermContext = '';
+    var fortuneContext = '';
+
+    if (avgAge <= 19) {
+      ageContext = '10대';
+      conflictContext = myName + '과 ' + partnerName + ', 두 분의 마음이 서로를 향해 있다는 건 정말 아름다운 일이에요. 하지만 지금 이 시기에 연애가 깊어질수록 가장 먼저 챙겨야 할 게 있어요. 바로 두 사람 모두의 "지금 해야 할 일"이에요.\n\n아직 학창 시절을 보내고 있는 지금, 감정이 너무 강렬해지면 공부에 집중하기 어려워지는 경우가 많아요. 시험 기간에 연락이 줄어들면 불안해지고, 그게 다툼으로 이어지는 패턴이 10대 커플에게서 가장 많이 나타나요. ' + myName + '이 먼저 이 부분을 솔직하게 이야기해보세요. "우리 서로 중요한 시험 때는 응원해주는 관계가 되자"고요.\n\n진짜 잘 맞는 두 사람이라면, 지금 당장 뜨겁게 타오르는 것보다 서로의 꿈을 응원해주며 천천히 가는 게 훨씬 오래가요. 졸업 이후 더 멋진 모습으로 다시 만난 두 사람의 모습을 상상해보세요. 지금의 설렘을 그때까지 간직할 수 있다면, 그게 진짜 인연이에요.';
+      longtermContext = '두 분이 지금 느끼는 감정은 진짜예요. 하지만 10대의 연애는 앞으로의 인생에서 굉장히 중요한 기반을 만드는 시기이기도 해요. 장기적으로 보면, 지금 두 사람이 서로에게 어떤 사람이 되어주느냐가 앞으로의 관계를 결정해요.\n\n지금 당장 "우리 사귀어?"보다 "우리 서로 좋은 영향을 주고 있나?"를 먼저 물어보세요. 서로의 성적이 오를 때 함께 기뻐해주고, 힘든 날엔 위로가 되어주고, 나쁜 길로 가려 할 때 솔직하게 말해줄 수 있는 관계라면 — 그건 단순한 연애를 넘어 인생의 동반자 관계의 시작이에요.\n\n통계적으로 10대에 시작된 관계가 성인이 된 후에도 이어지는 경우는 많지 않아요. 하지만 그게 두 분의 경우가 된다면, 그건 정말 특별한 인연이에요. 지금은 서로를 소유하려 하기보다 서로의 성장을 응원하는 관계를 만들어가는 게 중요해요.';
+      fortuneContext = '이달 두 분에게 가장 중요한 건 균형이에요. 감정에만 치우치지 말고, 각자의 일상을 충실하게 유지하면서 서로를 좋아하는 연습을 해보세요. 특히 시험이나 중요한 일정이 있을 때 서로 "파이팅"이라고 응원 문자 하나 보내주는 것, 그 작은 배려가 관계를 단단하게 만들어요. 이달 중순쯤 서로의 일상을 공유할 수 있는 작은 약속 하나를 잡아보는 게 좋아요.';
+    } else if (avgAge <= 24) {
+      ageContext = '20대 초반';
+      var militaryNote = '';
+      if (document.getElementById('myGender') && document.getElementById('myGender').value === '남성' && myAge >= 19 && myAge <= 27) {
+        militaryNote = '\n\n특히 ' + myName + '이 아직 군 복무를 하지 않았거나 앞으로 입대를 앞두고 있다면, 이 부분이 두 사람의 관계에서 중요한 변수가 될 수 있어요. 군 복무 기간 동안 연락이 줄어들고, 만남이 제한되면서 감정이 흔들리는 커플이 많아요. 미리 솔직하게 대화해두는 게 중요해요. "나 입대하면 우리 어떻게 할 거야?"라는 질문을 피하지 말고 함께 준비해두세요.';
+      } else if (document.getElementById('partnerGender') && document.getElementById('partnerGender').value === '남성' && partnerAge >= 19 && partnerAge <= 27) {
+        militaryNote = '\n\n' + partnerName + '이 아직 군 복무를 하지 않았거나 앞으로 입대를 앞두고 있다면, 이 부분이 두 사람의 관계에서 가장 큰 시험대가 될 수 있어요. 군 복무 기간 동안 연락이 줄어들고 만남이 제한되면서 감정이 흔들리는 커플이 정말 많아요. ' + myName + '이 이 기간 동안 어떻게 버틸 수 있을지, 둘이 함께 미리 이야기해두는 게 정말 중요해요. 기다림이 관계를 망가뜨리는 게 아니라, 기다리는 방법을 모르는 게 관계를 망가뜨려요.';
+      }
+      conflictContext = myName + '과 ' + partnerName + '의 갈등 패턴을 분석해보면, 20대 초반 커플에게서 가장 흔하게 나타나는 "각자의 세계가 넓어지면서 생기는 방향 차이"가 보여요.' + militaryNote + '\n\n이 나이대는 각자 학교, 취업 준비, 새로운 친구 관계, 자기 계발 등 개인적인 영역이 빠르게 넓어지는 시기예요. 그러다 보면 "요즘 왜 이렇게 바빠?" "나보다 친구들이 더 중요해?" 같은 갈등이 생기기 쉬워요.\n\n해결의 핵심은 "각자의 성장을 질투하지 않는 것"이에요. ' + partnerName + '이 새로운 것을 배우고 성장하는 모습을 위협으로 느끼지 말고, 응원해주세요. 그 응원이 돌아와서 ' + myName + '의 성장도 함께 응원받게 되거든요.';
+      longtermContext = '20대 초반은 인생에서 가장 많이 변하는 시기예요. 지금의 두 분이 5년 뒤에도 같은 모습일 거라고 단정짓지 마세요. 두 사람 모두 지금과는 다른 사람이 될 가능성이 높아요.\n\n그래서 장기적으로 함께 가려면, 지금의 감정에만 의지하지 말고 "이 사람이 변해도 함께 있고 싶을까?"를 생각해보세요. 외모, 직업, 취미보다 상대방의 본질적인 가치관이 나와 맞는지를 보는 게 중요해요.\n\n취업 준비나 진로 선택 같은 중요한 순간에 서로 어떻게 반응하는지가 장기 관계 가능성의 가장 큰 지표예요. 힘든 시간에 옆에 있어주고, 좋은 소식에 함께 기뻐해줄 수 있는 관계라면 — 충분히 오래 갈 수 있어요.';
+      fortuneContext = '이달은 두 분 모두 개인적으로 바쁜 시기일 가능성이 높아요. 취업 준비, 학교 과제, 각자의 일들이 쌓여있을 수 있어요. 그럴수록 "나 요즘 힘들어"라고 솔직하게 말해주는 게 중요해요. 억지로 밝은 척하다가 폭발하는 것보다, 작은 감정들을 자주 나눠주세요. 이달 중 하루만이라도 둘만의 시간을 만들어서 서로의 근황을 천천히 이야기해보세요.';
+    } else if (avgAge <= 29) {
+      ageContext = '20대 후반';
+      conflictContext = myName + '과 ' + partnerName + '은 20대 후반에 만난 커플이에요. 이 시기의 연애는 10대나 20대 초반과는 다른 무게감이 있어요. 서로가 어느 정도 삶의 방향이 잡혀있고, 결혼에 대한 생각도 서서히 현실적으로 다가오는 나이예요.\n\n이 나이대에서 가장 많이 나타나는 갈등은 "속도의 차이"예요. 한 명은 이미 결혼을 진지하게 생각하는데 상대방은 아직 준비가 안 됐다고 느끼거나, 미래에 대한 계획이 서로 달라서 충돌하는 경우가 많아요.\n\n' + myName + '과 ' + partnerName + '에게 필요한 건 "우리 앞으로 어떻게 할 거야?"라는 대화를 더 이상 미루지 않는 것이에요. 무섭고 어색하더라도 이 대화를 먼저 꺼내는 사람이 관계를 지키는 사람이에요.';
+      longtermContext = '20대 후반에 시작된 관계는 결혼으로 이어질 가능성이 통계적으로 가장 높아요. 두 분 모두 어느 정도 자신이 원하는 삶의 모습을 알고 있고, 그 기준에 맞는 사람을 찾고 있는 시기이기 때문이에요.\n\n장기적으로 두 사람이 함께 가려면 경제적인 현실도 함께 고려해야 해요. 직업, 수입, 미래 계획 — 이런 것들이 연애에서 중요하지 않다고 말하는 건 현실을 외면하는 거예요. 두 사람이 이 부분에 대해 솔직하게 대화할 수 있는 사이라면, 장기 관계 가능성은 매우 높아요.';
+      fortuneContext = '이달 두 분에게는 "작은 결단"이 필요한 시기예요. 관계를 더 진지하게 발전시킬지, 아니면 지금의 상태를 유지할지 — 어느 쪽이든 명확하게 하는 게 서로에 대한 예의예요. 미루고 애매하게 두는 것이 두 사람 모두를 지치게 만들 수 있어요. 이달 안에 솔직한 대화 한 번을 꼭 해보세요.';
     } else {
-      conflictText = '두 분의 갈등은 주로 감정 표현 속도 차이에서 생겨요. ' + myName + '이 빠르게 표현하고 싶을 때 ' + partnerName + '은 생각 정리 시간이 필요할 수 있어요. 서로의 속도를 이해하면 대부분의 갈등은 자연스럽게 풀려요.';
+      ageContext = '30대 이상';
+      conflictContext = myName + '과 ' + partnerName + ', 두 분 모두 삶의 경험이 충분히 쌓인 시기에 만난 거예요. 이 나이대의 연애는 설렘과 현실이 동시에 찾아와요.\n\n30대 이상의 커플에게서 가장 많이 나타나는 갈등은 "각자의 생활 방식 고착화"예요. 오랫동안 혼자 살아온 방식이 있고, 그게 자연스럽게 굳어져 있어요. 상대방의 습관이나 생활 방식이 불편하게 느껴질 때, "원래 이런 사람인가?"가 아니라 "함께 맞춰갈 수 있을까?"로 질문을 바꿔보세요.\n\n이 나이대에서 관계를 오래 유지하는 커플의 공통점은 하나예요. 서로의 독립성을 존중하면서도 함께하는 시간을 소중히 여기는 것이에요.';
+      longtermContext = '30대 이상에서 시작된 관계는 훨씬 더 현실적인 기반 위에서 성장해요. 두 분 모두 자신이 무엇을 원하는지 알고, 무엇을 원하지 않는지도 알아요. 그게 오히려 관계를 더 명확하고 건강하게 만들어줘요.\n\n결혼을 생각한다면, 감정뿐만 아니라 가치관, 경제 계획, 가족 관계, 미래 거주지 등 현실적인 부분을 함께 이야기해보는 게 중요해요. 이런 대화를 편하게 나눌 수 있는 관계라면, 두 분은 충분히 오래 함께할 수 있어요.';
+      fortuneContext = '이달 두 분에게는 "표현"이 핵심 키워드예요. 나이가 들수록 감정을 직접적으로 표현하는 게 어색하게 느껴질 수 있어요. 하지만 상대방은 그 표현을 기다리고 있어요. 오늘 "오늘 좋았어", "고마워"라는 말 한마디를 해보세요. 작은 표현들이 쌓여서 두 사람의 관계를 더 따뜻하게 만들어줘요.';
     }
 
     var demoP = {
-      conflict: conflictText,
-      longterm: '장기연애 가능성은 충분히 있어요. 두 분이 가진 서로 다른 에너지가 시간이 지나면서 서로를 더 단단하게 만들어주는 힘이 돼요. 위기 상황에서 서로를 믿고 의지하는 패턴이 강해서 깊은 관계로 발전할 가능성이 높아요.',
-      monthlyFortune: '이달은 솔직한 표현이 중요한 시기예요. ' + myName + '이 먼저 작은 신호를 보내보세요. ' + partnerName + '의 반응이 생각보다 따뜻할 수 있어요. 이달 중순이 특히 중요한 전환점이에요.',
-      letter: myName + '에게,\n\n' + partnerName + '을 향한 마음이 진심이라면 반드시 전해져요. 조급해하지 말고 지금 이 순간을 즐겨봐요. 두 분의 이야기는 아직 시작 중이에요. \uD83D\uDC98',
-      myFace: hasPhotos ? myName + '의 눈빛에서 깊고 따뜻한 감수성이 느껴져요. 눈썹의 부드러운 곡선은 공감 능력을 나타내고 입 꼬리의 미소 선에서 상대를 편안하게 해주는 기질이 보여요.' : null,
+      conflict: conflictContext,
+      longterm: longtermContext,
+      monthlyFortune: fortuneContext,
+      letter: myName + '에게,\n\n' + ageContext + '에 ' + partnerName + '을 만난 건 우연이 아닐 거예요. 지금 이 감정이 설레든, 복잡하든, 확신이 없든 — 그 모든 감정이 다 자연스러운 거예요.\n\n한 가지만 기억해주세요. 좋은 관계는 완벽한 상대를 찾는 게 아니라, 서로의 불완전함을 받아들이면서 함께 성장하는 거예요. ' + partnerName + '이 완벽한 사람이길 바라지 말고, ' + myName + '도 완벽한 모습을 보여주려 하지 마세요. 그냥 솔직한 ' + myName + '이, 솔직한 ' + partnerName + '을 만나는 것 — 그게 가장 좋은 시작이에요.\n\n앞으로도 두 분의 인연이 아름답게 이어지길 바랍니다. 💘',
+      myFace: hasPhotos ? myName + '의 눈빛에서는 깊고 따뜻한 감수성이 느껴져요. 눈썹의 부드러운 곡선은 타인의 감정을 잘 읽는 공감 능력을 나타내고, 입 꼬리의 자연스러운 미소 선에서 상대를 편안하게 해주는 기질이 보여요. 이마의 넓이는 신중한 판단력을 드러내요.' : null,
       myFaceTraits: hasPhotos ? ['따뜻한 눈빛', '높은 공감력', '섬세한 감수성'] : [],
-      partnerFace: hasPhotos ? partnerName + '은 뚜렷한 이목구비에서 강한 의지력이 느껴져요. 겉으로는 단단해 보이지만 눈가에서 진심 어린 다정함도 함께 읽혀요.' : null,
+      partnerFace: hasPhotos ? partnerName + '은 뚜렷한 이목구비에서 강한 의지력이 느껴져요. 겉으로는 단단해 보이지만 눈가에서 상대를 향한 진심 어린 다정함도 함께 읽혀요. 코의 선이 또렷해 목표 지향적인 성격이 보여요.' : null,
       partnerFaceTraits: hasPhotos ? ['강한 의지', '카리스마', '숨겨진 다정함'] : [],
-      faceChemistry: hasPhotos ? '두 사람의 눈빛이 만났을 때 서로의 부족한 부분을 채워주는 음양의 조화가 자연스럽게 만들어져요.' : null
+      faceChemistry: hasPhotos ? myName + '의 부드러운 눈빛과 ' + partnerName + '의 강한 눈빛이 만났을 때, 서로의 부족한 부분을 채워주는 음양의 조화가 자연스럽게 만들어져요. 관상학적으로 이런 눈빛 조합은 처음 만났을 때부터 "이 사람, 왠지 편하다"는 느낌을 만들어내는 케미예요.' : null
     };
 
     setTimeout(function() { showPremiumResult(myName, partnerName, hasPhotos, demoP); }, 400);
