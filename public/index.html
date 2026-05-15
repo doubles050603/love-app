@@ -756,6 +756,10 @@ body::before {
     <div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--deep);">전체 리포트가 열렸어요!</div>
     <div style="font-size:13px;color:var(--mist);margin-top:5px;" id="premResNames"></div>
   </div>
+  <div style="background:rgba(201,148,58,0.1);border:1px solid rgba(201,148,58,0.3);border-radius:12px;padding:12px 16px;margin-bottom:14px;text-align:center;">
+    <div style="font-size:13px;color:var(--gold);font-weight:600;">📥 리포트 저장 안내</div>
+    <div style="font-size:12px;color:var(--mist);margin-top:4px;line-height:1.6;">본 리포트는 <strong style="color:var(--ink);">결제일로부터 30일 이내</strong>에 저장하시기 바랍니다.<br>기간 경과 후 재열람이 제한될 수 있습니다.</div>
+  </div>
   <div id="faceSection" style="display:none;">
     <div class="premium-card">
       <div class="premium-card-hd"><span class="premium-card-icon">👁</span><span class="premium-card-title" id="myFaceTitle"></span></div>
@@ -807,10 +811,12 @@ body::before {
     <button onclick="showLegal('refund')">환불정책</button>
   </div>
   <div class="footer-biz">
-    상호: 연애운명 · 사업자번호: <span id="bizNum">000-00-00000</span><br>
-    대표자: <span id="bizCeo">대표자명</span> · 유선번호: <span id="bizTel">000-0000-0000</span><br>
+    <strong style="color:var(--ink);font-size:12px;" id="bizNameFooter">연애운명</strong><br>
+    대표자: <span id="bizCeo">대표자명</span> &nbsp;|&nbsp; 사업자등록번호: <span id="bizNum">000-00-00000</span><br>
+    통신판매업신고번호: <span id="bizSaleNum">제0000-부산동래-0000호</span><br>
     주소: <span id="bizAddr">사업장 주소</span><br>
-    이메일: contact@yeonae-unmyeong.com
+    연락처: <span id="bizTel">000-0000-0000</span> &nbsp;|&nbsp; 이메일: contact@yeonae-unmyeong.com<br>
+    <span style="font-size:10px;color:rgba(138,112,96,0.5);">© 2025 연애운명. All rights reserved.</span>
   </div>
 
 </div><!-- /wrap -->
@@ -1129,14 +1135,83 @@ async function startAnalysis() {
       ? '⚠️ 두 사람 사이 가장 큰 위기: ' + S.myName + '의 불안감이 ' + partnerName + '을 지치게 만들 수 있는 상황이 올 수 있어요. 예방하는 방법은...'
       : '⚠️ 두 사람 사이 숨겨진 갈등 포인트: 겉으로는 잘 맞아 보여도 특정 상황에서 충돌이 생길 수 있어요. 어떤 상황인지, 어떻게 풀어야 하는지는...';
 
+    // ── 입력값 기반 추가 맞춤 분석 ──
+    var myYearV = parseInt(document.getElementById('myYear').value) || 1995;
+    var myMonthV = parseInt(document.getElementById('myMonth').value) || 1;
+    var myDayV = parseInt(document.getElementById('myDay') ? document.getElementById('myDay').value : '15') || 15;
+    var myHourV = document.getElementById('myHour') ? (document.getElementById('myHour').value || '') : '';
+    var partnerYearV = parseInt(document.getElementById('partnerYear').value) || 1993;
+    var partnerMonthV = parseInt(document.getElementById('partnerMonth').value) || 1;
+
+    function getStarQ(m, d) {
+      if((m===3&&d>=21)||(m===4&&d<=19)) return '양자리';
+      if((m===4&&d>=20)||(m===5&&d<=20)) return '황소자리';
+      if((m===5&&d>=21)||(m===6&&d<=20)) return '쌍둥이자리';
+      if((m===6&&d>=21)||(m===7&&d<=22)) return '게자리';
+      if((m===7&&d>=23)||(m===8&&d<=22)) return '사자자리';
+      if((m===8&&d>=23)||(m===9&&d<=22)) return '처녀자리';
+      if((m===9&&d>=23)||(m===10&&d<=22)) return '천칭자리';
+      if((m===10&&d>=23)||(m===11&&d<=21)) return '전갈자리';
+      if((m===11&&d>=22)||(m===12&&d<=21)) return '사수자리';
+      if((m===12&&d>=22)||(m===1&&d<=19)) return '염소자리';
+      if((m===1&&d>=20)||(m===2&&d<=18)) return '물병자리';
+      return '물고기자리';
+    }
+    function getOhangQ(y) {
+      var i=y%10;
+      if(i===0||i===1) return '금(金)'; if(i===2||i===3) return '수(水)';
+      if(i===4||i===5) return '목(木)'; if(i===6||i===7) return '화(火)';
+      return '토(土)';
+    }
+    var myStarQ = getStarQ(myMonthV, myDayV);
+    var partnerStarQ = getStarQ(partnerMonthV, 15);
+    var myOhangQ = getOhangQ(myYearV);
+    var partnerOhangQ = getOhangQ(partnerYearV);
+
+    // 연락스타일 맞춤 문구
+    var contactAdd = '';
+    if (S.myContact === '항상 빠른 답장') contactAdd = '\n\n📱 ' + S.myName + '은 연락이 오면 거의 바로 답장하는 편이에요. 상대방이 늦게 답하면 은근히 신경 쓰이기도 하죠. 이 부분이 ' + partnerName + '과의 관계에서 어떤 영향을 줄지는 전체 리포트에서 확인하세요.';
+    else if (S.myContact === '읽씹 가끔 함') contactAdd = '\n\n📱 ' + S.myName + '은 가끔 읽고 나중에 답장하는 편이에요. 일부러 밀당하는 게 아닌데 상대방이 오해할 수 있어요. ' + partnerName + '이 이걸 어떻게 받아들이는지가 관계의 포인트예요.';
+    else if (S.myContact === '먼저 연락 잘 함') contactAdd = '\n\n📱 ' + S.myName + '은 궁금하면 먼저 연락하는 스타일이에요. 그 용기가 ' + S.myName + '의 큰 매력이에요. ' + partnerName + '이 이 적극성을 어떻게 느끼는지 분석해드려요.';
+    else if (S.myContact === '바쁘면 느린 편') contactAdd = '\n\n📱 ' + S.myName + '은 바쁠 때 연락이 느려지는 편이에요. ' + partnerName + '이 이걸 이해하는 타입인지가 두 사람 관계의 핵심 변수예요.';
+
+    // 사랑의 언어 맞춤 문구
+    var loveLangAdd = '';
+    if (S.myLoveLang) loveLangAdd = '\n\n💝 ' + S.myName + '의 사랑의 언어는 "' + S.myLoveLang + '"이에요. 그렇다면 ' + partnerName + '은 이 언어를 자연스럽게 쓸 수 있는 사람일까요? 두 분의 사랑의 언어 궁합은 전체 리포트에서 확인하세요.';
+
+    // 별자리+오행 케미 추가
+    var starOhangAdd = '\n\n' + myStarQ + '(' + myOhangQ + ')인 ' + S.myName + '과 ' + partnerStarQ + '(' + partnerOhangQ + ')인 ' + partnerName + '의 조합 — ';
+    starOhangAdd += (myOhangQ === partnerOhangQ)
+      ? '같은 오행 기운이라 처음 만나도 오래 알던 사람처럼 편안한 느낌이 들어요.'
+      : '서로 다른 기운이 만나 강한 끌림을 만들어내는 조합이에요.';
+    if (myHourV) starOhangAdd += ' (시주 분석 포함 시 더 정밀한 결과 가능)';
+
+    // 블러 힌트 — 구체적이고 자극적으로
+    var blurHints = {
+      '불안형': '⚠️ ' + S.myName + '이 ' + partnerName + '의 연락을 기다리다 불안해지는 순간이 올 거예요. 그 순간을 어떻게 넘겨야 관계가 깨지지 않는지, 구체적인 패턴과 대처법은 전체 리포트에...',
+      '회피형': '⚠️ ' + S.myName + '이 갑자기 거리를 두는 순간 ' + partnerName + '이 상처받는 상황이 반복될 수 있어요. 이 사이클을 끊는 딱 하나의 방법이 전체 리포트에...',
+      '혼란형': '⚠️ ' + S.myName + '의 "가까워지고 싶으면서 도망가고 싶은" 패턴이 ' + partnerName + '을 지치게 만들 수 있어요. 이 관계를 지키려면 지금 당장 해야 할 것이 있어요...',
+      '안정형': '⚠️ ' + S.myName + '이 아무리 안정적이어도 ' + partnerName + '과 딱 한 가지 상황에서 크게 부딪힐 수 있어요. 그게 어떤 상황인지, 미리 알고 있으면 막을 수 있어요...'
+    };
+    var finalBlurHint = blurHints[S.myAttach] || '⚠️ 두 분이 가장 크게 충돌하는 순간이 반드시 찾아와요. 언제, 어떤 이유로 생기는지 전체 리포트에서 확인하세요...';
+
+    // 점수 계산 (입력 풍부할수록 높게)
+    var baseScore = 78;
+    if (S.myMbti && S.partnerMbti) baseScore += 3;
+    if (S.myLoveLang) baseScore += 2;
+    if (S.myContact) baseScore += 1;
+    if (myHourV) baseScore += 2;
+    if (S.partnerAttitude) baseScore += 1;
+    baseScore = Math.min(baseScore, 95);
+
     var demoData = {
-      score: 83,
-      verdict: '달콤한 설렘 그 이상 💗',
-      oneline: S.myName + '과 ' + partnerName + ', 운명이 이어준 인연',
-      myStyle: myStyleText,
+      score: baseScore,
+      verdict: baseScore >= 88 ? '운명처럼 찾아온 인연 💫' : baseScore >= 83 ? '달콤한 설렘 그 이상 💗' : '특별한 가능성의 만남 ✨',
+      oneline: S.myName + '과 ' + partnerName + ', ' + (S.myStatus ? S.myStatus + '인 지금' : '두 사람의 인연') + '에서 읽히는 것들',
+      myStyle: myStyleText + contactAdd + loveLangAdd,
       partnerStyle: partnerStyleText,
-      chemistry: chemText,
-      blurHint: blurText
+      chemistry: chemText + starOhangAdd,
+      blurHint: finalBlurHint
     };
 
     setTimeout(function() { showResult(S.myName, partnerName, demoData); }, 400);
@@ -1691,13 +1766,14 @@ function showToast(msg) {
   <div class="legal-modal">
     <button class="legal-close" onclick="closeLegal('biz')">✕</button>
     <h2>사업자 정보</h2>
-    <p><strong>상호명</strong>: 연애운명</p>
+    <p><strong>상호명</strong>: <span id="m-bizName">연애운명</span></p>
     <p><strong>사업자등록번호</strong>: <span id="m-bizNum">000-00-00000</span></p>
     <p><strong>대표자명</strong>: <span id="m-bizCeo">대표자명</span></p>
     <p><strong>사업장 주소</strong>: <span id="m-bizAddr">사업장 주소</span></p>
-    <p><strong>유선번호</strong>: <span id="m-bizTel">000-0000-0000</span></p>
+    <p><strong>연락처</strong>: <span id="m-bizTel">000-0000-0000</span></p>
     <p><strong>이메일</strong>: contact@yeonae-unmyeong.com</p>
-    <p><strong>통신판매업 신고번호</strong>: 신고 후 기재</p>
+    <p><strong>통신판매업신고번호</strong>: <span id="m-bizSaleNum">제0000-부산동래-0000호</span></p>
+    <p><strong>호스팅 서비스 제공자</strong>: Vercel Inc.</p>
   </div>
 </div>
 
@@ -1716,7 +1792,9 @@ function showToast(msg) {
     <p>이용자가 입력한 정보는 콘텐츠 생성 목적으로만 사용되며 별도 저장되지 않습니다. 자세한 내용은 개인정보처리방침을 확인해주세요.</p>
     <h3>제5조 (면책)</h3>
     <p>서비스는 분석 결과의 정확성을 보장하지 않으며, 이용자가 분석 결과를 신뢰하여 발생한 손해에 대해 책임지지 않습니다.</p>
-    <h3>제6조 (준거법)</h3>
+    <h3>제6조 (인공지능 기술 사용 고지)</h3>
+    <p>본 서비스는 생성형 인공지능(AI) 기술을 활용하여 분석 결과를 생성합니다. 인공지능 발전과 신뢰 기반 조성 등에 관한 기본법(AI 기본법) 제31조에 따라 사전 고지하며, AI가 생성한 분석 결과는 오락 목적으로만 활용되어야 합니다.</p>
+    <h3>제7조 (준거법)</h3>
     <p>본 약관은 대한민국 법률에 따라 해석되며, 분쟁 발생 시 민사소송법상 관할법원을 제1심 법원으로 합니다.</p>
     <p style="color:var(--mist);font-size:11px;margin-top:16px;">시행일: 2025년 1월 1일</p>
   </div>
@@ -1748,20 +1826,38 @@ function showToast(msg) {
   <div class="legal-modal">
     <button class="legal-close" onclick="closeLegal('refund')">✕</button>
     <h2>환불 정책</h2>
-    <h3>디지털 콘텐츠 특성상 환불 제한</h3>
-    <p>프리미엄 리포트는 결제 즉시 제공되는 디지털 콘텐츠로, 전자상거래법 제17조 제2항에 따라 콘텐츠 제공이 개시된 경우 청약 철회가 제한됩니다.</p>
-    <h3>환불 가능한 경우</h3>
+
+    <h3>📥 리포트 제공 및 다운로드 기간</h3>
+    <p>프리미엄 리포트는 결제 완료 즉시 화면에서 확인하실 수 있으며, <strong>결제일로부터 30일 이내</strong>에 다운로드 가능합니다. 30일이 경과한 경우 리포트 재발급이 제한될 수 있으므로 기간 내 저장해 두시기 바랍니다.</p>
+
+    <h3>📋 청약 철회 및 환불 규정</h3>
+    <p>프리미엄 리포트는 결제 즉시 제공되는 디지털 콘텐츠로, <strong>전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 제5호</strong>에 따라 콘텐츠의 제공이 개시된 경우 청약 철회가 제한됩니다.</p>
+    <p>단, 소비자의 권익 보호를 위해 아래의 경우에는 환불이 가능합니다.</p>
+
+    <h3>✅ 환불 가능한 경우</h3>
     <ul>
-      <li>결제 완료 후 콘텐츠가 정상 제공되지 않은 경우</li>
-      <li>서비스 오류로 인해 결제가 중복 처리된 경우</li>
-      <li>기타 서비스 귀책 사유가 명백한 경우</li>
+      <li>결제 완료 후 콘텐츠(리포트)가 정상적으로 제공되지 않은 경우</li>
+      <li>서비스 오류로 인해 동일 건이 중복 결제된 경우</li>
+      <li>결제 후 리포트 열람 전 취소 요청한 경우 (결제 후 10분 이내)</li>
+      <li>기타 회사의 귀책 사유가 명백히 인정되는 경우</li>
     </ul>
-    <h3>환불 신청 방법</h3>
-    <p>환불 사유 발생 시 결제일로부터 7일 이내에 아래로 연락해주세요.</p>
-    <p>이메일: contact@yeonae-unmyeong.com</p>
-    <p>처리 기간: 접수 후 3~5 영업일 이내</p>
-    <h3>환불 금액</h3>
-    <p>환불 승인 시 결제 금액 전액을 원결제 수단으로 환불해드립니다.</p>
+
+    <h3>❌ 환불 불가한 경우</h3>
+    <ul>
+      <li>리포트 열람(확인) 후 단순 변심에 의한 취소</li>
+      <li>결제 후 30일이 경과한 경우</li>
+      <li>이용자의 입력 오류로 인한 분석 결과 불만족</li>
+    </ul>
+
+    <h3>📞 환불 신청 방법</h3>
+    <p>환불 사유 발생 시 <strong>결제일로부터 7일 이내</strong>에 아래 연락처로 신청해 주세요.</p>
+    <p>• 이메일: contact@yeonae-unmyeong.com</p>
+    <p>• 처리 기간: 접수 후 영업일 기준 3~5일 이내</p>
+    <p>• 환불 금액: 결제 금액 전액을 원결제 수단으로 환불</p>
+
+    <h3>📌 소비자 분쟁 해결</h3>
+    <p>본 환불 정책과 관련한 분쟁은 공정거래위원회 소비자분쟁해결기준에 따르며, 해결되지 않을 경우 소비자원 또는 관할 법원에 분쟁 해결을 신청할 수 있습니다.</p>
+
     <p style="color:var(--mist);font-size:11px;margin-top:16px;">시행일: 2025년 1월 1일</p>
   </div>
 </div>
@@ -1781,16 +1877,22 @@ function closeLegalOutside(e, type) {
 }
 
 // 사업자 정보 동기화 (여기서 실제 정보로 변경하세요)
+// ★★★ 아래 정보를 실제 사업자 정보로 변경하세요 ★★★
 var BIZ_INFO = {
-  num:  '886-18-01577'
-  ceo:  '이은비'
-  addr: '부산시 동래구 명륜로 170'
-  tel:  '07080805939'
+  name: '연애운명',                    // 상호명 (사업자등록증과 동일하게)
+  num:  '886-18-01577',               // 사업자등록번호
+  ceo:  '이은비',                      // 대표자명
+  addr: '부산시 동래구 명륜로 170',      // 사업장 주소
+  tel:  '0708-080-5939',              // 연락처
+  sale: '제0000-부산동래-0000호'        // ← 통신판매업신고번호로 변경 필요
 };
+// 자동 동기화
 ['bizNum','m-bizNum'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.num; });
 ['bizCeo','m-bizCeo','m-ceo2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.ceo; });
 ['bizAddr','m-bizAddr'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.addr; });
 ['bizTel','m-bizTel'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.tel; });
+['bizNameFooter','m-bizName'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.name; });
+['bizSaleNum','m-bizSaleNum'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.sale; });
 </script>
 
 </body>
