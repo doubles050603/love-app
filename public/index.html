@@ -322,6 +322,47 @@ body::before {
 /* 프리미엄 결과 */
 #premiumResultSection { display:none; }
 .premium-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(201,148,58,0.2); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+
+/* 차트/게이지 스타일 */
+.gauge-wrap { margin:16px 0 8px; }
+.gauge-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.gauge-label { font-size:12px; color:var(--mist); width:80px; flex-shrink:0; }
+.gauge-bar { flex:1; height:10px; background:rgba(192,55,90,0.1); border-radius:10px; overflow:hidden; }
+.gauge-fill { height:100%; border-radius:10px; transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+.gauge-pct { font-size:12px; font-weight:700; color:var(--deep); width:36px; text-align:right; flex-shrink:0; }
+
+/* 레이더 차트 */
+.radar-wrap { display:flex; justify-content:center; margin:16px 0; }
+
+/* 궁합 점수 카드 */
+.compat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+.compat-item { background:var(--cream); border-radius:12px; padding:12px; text-align:center; border:1px solid rgba(192,55,90,0.1); }
+.compat-item .ci-score { font-family:'Noto Serif KR',serif; font-size:28px; font-weight:900; color:var(--rose); line-height:1; }
+.compat-item .ci-label { font-size:11px; color:var(--mist); margin-top:4px; }
+
+/* PDF 저장 버튼 */
+.btn-save-pdf {
+  width:100%; padding:14px;
+  background:linear-gradient(135deg,#2a6496,#1a4060);
+  color:white; border:none; border-radius:13px;
+  font-family:'Noto Serif KR',serif; font-size:15px; font-weight:700;
+  cursor:pointer; margin-bottom:10px; transition:all .2s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.btn-save-pdf:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(42,100,150,0.4); }
+
+/* 재열람 코드 */
+.reaccess-box { background:linear-gradient(135deg,rgba(201,148,58,0.08),rgba(107,18,48,0.05)); border:1px solid rgba(201,148,58,0.3); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
+.reaccess-box p { font-size:12px; color:var(--mist); margin-bottom:8px; }
+.reaccess-code { font-family:monospace; font-size:20px; font-weight:700; color:var(--deep); letter-spacing:3px; background:white; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:8px; border:1px solid rgba(201,148,58,0.3); }
+.reaccess-box .rc-note { font-size:11px; color:rgba(138,112,96,0.7); }
+
+/* 재열람 입력창 */
+.reaccess-input-wrap { background:var(--cream); border:1px solid rgba(192,55,90,0.2); border-radius:14px; padding:20px; margin-bottom:12px; text-align:center; display:none; }
+.reaccess-input-wrap.show { display:block; }
+.reaccess-input-wrap h3 { font-family:'Noto Serif KR',serif; font-size:15px; color:var(--deep); margin-bottom:10px; }
+.reaccess-input { width:100%; padding:12px; border:1.5px solid rgba(192,55,90,0.25); border-radius:10px; font-size:16px; font-family:monospace; text-align:center; letter-spacing:3px; background:white; }
+.btn-reaccess { width:100%; padding:13px; background:var(--rose); color:white; border:none; border-radius:10px; font-size:14px; font-family:'Noto Serif KR',serif; font-weight:700; cursor:pointer; margin-top:10px; }
 .premium-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(201,148,58,0.12); }
 .premium-card-icon { font-size:20px; }
 .premium-card-title { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:700; color:var(--deep); }
@@ -751,15 +792,37 @@ body::before {
 
 <!-- ════ 프리미엄 결과 ════ -->
 <div id="premiumResultSection">
-  <div style="text-align:center;padding:28px 0 18px;">
+  <!-- 헤더 -->
+  <div style="text-align:center;padding:28px 0 14px;">
     <div style="font-size:36px;margin-bottom:8px;">🎉</div>
     <div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--deep);">전체 리포트가 열렸어요!</div>
     <div style="font-size:13px;color:var(--mist);margin-top:5px;" id="premResNames"></div>
   </div>
-  <div style="background:rgba(201,148,58,0.1);border:1px solid rgba(201,148,58,0.3);border-radius:12px;padding:12px 16px;margin-bottom:14px;text-align:center;">
-    <div style="font-size:13px;color:var(--gold);font-weight:600;">📥 리포트 저장 안내</div>
-    <div style="font-size:12px;color:var(--mist);margin-top:4px;line-height:1.6;">본 리포트는 <strong style="color:var(--ink);">결제일로부터 30일 이내</strong>에 저장하시기 바랍니다.<br>기간 경과 후 재열람이 제한될 수 있습니다.</div>
+
+  <!-- 재열람 코드 박스 -->
+  <div class="reaccess-box">
+    <p>📌 이 코드로 30일 이내 언제든 다시 열람할 수 있어요</p>
+    <div class="reaccess-code" id="myAccessCode">----</div>
+    <div class="rc-note">코드를 캡처하거나 메모해두세요 · 타인과 공유하지 마세요</div>
   </div>
+
+  <!-- PDF 저장 버튼 -->
+  <button class="btn-save-pdf" onclick="savePDF()">
+    📥 리포트 PDF로 저장하기
+  </button>
+
+  <!-- 궁합 종합 점수 차트 -->
+  <div class="premium-card">
+    <div class="premium-card-hd"><span class="premium-card-icon">📊</span><span class="premium-card-title">궁합 종합 분석</span></div>
+    <div class="compat-grid" id="compatGrid"></div>
+    <div class="gauge-wrap" id="gaugeWrap"></div>
+    <div style="margin-top:12px;">
+      <svg id="radarChart" width="100%" height="220" viewBox="0 0 300 220"></svg>
+    </div>
+    <div class="premium-card-body" style="margin-top:12px;" id="compatSummary"></div>
+  </div>
+
+  <!-- 관상 분석 -->
   <div id="faceSection" style="display:none;">
     <div class="premium-card">
       <div class="premium-card-hd"><span class="premium-card-icon">👁</span><span class="premium-card-title" id="myFaceTitle"></span></div>
@@ -776,18 +839,55 @@ body::before {
       <div class="premium-card-body" id="faceChem"></div>
     </div>
   </div>
+
+  <!-- 갈등 패턴 -->
   <div class="premium-card">
     <div class="premium-card-hd"><span class="premium-card-icon">💢</span><span class="premium-card-title">갈등 패턴 &amp; 극복 방법</span></div>
     <div class="premium-card-body" id="conflictBody"></div>
+    <!-- 갈등 위험도 게이지 -->
+    <div class="gauge-wrap" style="margin-top:16px;">
+      <div style="font-size:12px;font-weight:600;color:var(--deep);margin-bottom:8px;">⚡ 갈등 유형별 위험도</div>
+      <div class="gauge-row"><span class="gauge-label">감정 충돌</span><div class="gauge-bar"><div class="gauge-fill" id="g-emotion" style="width:0%;background:linear-gradient(90deg,#e05070,#c0375a)"></div></div><span class="gauge-pct" id="gp-emotion">0%</span></div>
+      <div class="gauge-row"><span class="gauge-label">연락 갈등</span><div class="gauge-bar"><div class="gauge-fill" id="g-contact" style="width:0%;background:linear-gradient(90deg,#e08050,#c07030)"></div></div><span class="gauge-pct" id="gp-contact">0%</span></div>
+      <div class="gauge-row"><span class="gauge-label">가치관 차이</span><div class="gauge-bar"><div class="gauge-fill" id="g-value" style="width:0%;background:linear-gradient(90deg,#5080e0,#3060c0)"></div></div><span class="gauge-pct" id="gp-value">0%</span></div>
+      <div class="gauge-row"><span class="gauge-label">신뢰 문제</span><div class="gauge-bar"><div class="gauge-fill" id="g-trust" style="width:0%;background:linear-gradient(90deg,#50c080,#30a060)"></div></div><span class="gauge-pct" id="gp-trust">0%</span></div>
+    </div>
+    <div class="premium-card-body" style="margin-top:12px;" id="conflictDetail"></div>
   </div>
+
+  <!-- 장기연애·결혼 -->
   <div class="premium-card">
     <div class="premium-card-hd"><span class="premium-card-icon">💍</span><span class="premium-card-title">장기연애 · 결혼 가능성</span></div>
+    <!-- 연애 형태 예측 바 -->
+    <div style="margin:14px 0;">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mist);margin-bottom:6px;"><span>단기연애</span><span>장기연애</span><span>결혼</span></div>
+      <div style="height:12px;background:linear-gradient(90deg,rgba(192,55,90,0.15),rgba(107,18,48,0.15));border-radius:10px;position:relative;overflow:hidden;">
+        <div id="longtermBar" style="height:100%;border-radius:10px;background:linear-gradient(90deg,var(--rose),var(--deep));width:0%;transition:width 1.5s cubic-bezier(.4,0,.2,1);"></div>
+      </div>
+      <div style="text-align:center;margin-top:6px;font-size:13px;font-weight:700;color:var(--deep);" id="longtermLabel"></div>
+    </div>
     <div class="premium-card-body" id="longtermBody"></div>
+    <!-- 결혼 가능성 점수 -->
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="marriageGrid"></div>
+    <div class="premium-card-body" style="margin-top:12px;" id="longtermDetail"></div>
   </div>
+
+  <!-- 이달의 연애운 -->
   <div class="premium-card">
     <div class="premium-card-hd"><span class="premium-card-icon">📅</span><span class="premium-card-title">이달의 연애운</span></div>
+    <!-- 월별 흐름 바 -->
+    <div style="margin:14px 0;" id="monthlyBars"></div>
     <div class="premium-card-body" id="fortuneBody"></div>
+    <div class="premium-card-body" style="margin-top:12px;" id="fortuneDetail"></div>
   </div>
+
+  <!-- 대시 전략 (상세) -->
+  <div class="premium-card">
+    <div class="premium-card-hd"><span class="premium-card-icon">💌</span><span class="premium-card-title" id="dashDetailTitle">단계별 대시 전략</span></div>
+    <div class="premium-card-body" id="dashDetailBody"></div>
+  </div>
+
+  <!-- 편지 -->
   <div class="letter-card">
     <h3>💌 두 분만을 위한 편지</h3>
     <p id="letterBody"></p>
@@ -1690,25 +1790,222 @@ async function proceedPremium() {
   }, 3000);
 }
 
+function generateAccessCode(myName, partnerName) {
+  var base = myName + partnerName + new Date().toDateString();
+  var hash = 0;
+  for (var i = 0; i < base.length; i++) { hash = ((hash << 5) - hash) + base.charCodeAt(i); hash |= 0; }
+  var code = Math.abs(hash).toString(36).toUpperCase().slice(0,8);
+  while (code.length < 8) code = '0' + code;
+  return code.slice(0,4) + '-' + code.slice(4,8);
+}
+
+function savePDF() {
+  showToast('PDF 저장 기능은 결제 연동 후 활성화돼요 📄');
+}
+
+function drawRadarChart(scores) {
+  var svg = document.getElementById('radarChart');
+  if (!svg) return;
+  var cx = 150, cy = 110, r = 80;
+  var labels = ['감정교감','소통','신뢰','가치관','미래'];
+  var n = labels.length;
+  var points = scores.map(function(s, i) {
+    var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    var ratio = s / 100;
+    return { x: cx + r * ratio * Math.cos(angle), y: cy + r * ratio * Math.sin(angle),
+             lx: cx + (r+24) * Math.cos(angle), ly: cy + (r+24) * Math.sin(angle) };
+  });
+  var gridHtml = '';
+  [0.25, 0.5, 0.75, 1].forEach(function(ratio) {
+    var gpts = Array.from({length:n}, function(_, i) {
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      return (cx + r * ratio * Math.cos(angle)).toFixed(1) + ',' + (cy + r * ratio * Math.sin(angle)).toFixed(1);
+    }).join(' ');
+    gridHtml += '<polygon points="' + gpts + '" fill="none" stroke="rgba(192,55,90,0.12)" stroke-width="1"/>';
+  });
+  var polyPts = points.map(function(p) { return p.x.toFixed(1)+','+p.y.toFixed(1); }).join(' ');
+  var labelsHtml = points.map(function(p, i) {
+    return '<text x="' + p.lx.toFixed(1) + '" y="' + p.ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#8a7060" font-family="Noto Sans KR,sans-serif">' + labels[i] + '</text>';
+  }).join('');
+  svg.innerHTML = gridHtml +
+    '<polygon points="' + polyPts + '" fill="rgba(192,55,90,0.15)" stroke="var(--rose)" stroke-width="2"/>' +
+    points.map(function(p) { return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="4" fill="var(--rose)"/>'; }).join('') +
+    labelsHtml;
+}
+
+function animateGauge(id, pctId, target, delay) {
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    var pe = document.getElementById(pctId);
+    if (!el || !pe) return;
+    el.style.width = target + '%';
+    pe.textContent = target + '%';
+  }, delay || 0);
+}
+
 function showPremiumResult(myName, partnerName, hasPhotos, data) {
   document.getElementById('loadingSection').style.display = 'none';
   document.getElementById('premiumResultSection').style.display = 'block';
-  document.getElementById('premResNames').textContent = `${myName} ❤ ${partnerName} 전체 리포트`;
+  document.getElementById('premResNames').textContent = myName + ' ❤ ' + partnerName + ' 전체 리포트';
 
+  // 재열람 코드 생성 & 저장
+  var code = generateAccessCode(myName, partnerName);
+  document.getElementById('myAccessCode').textContent = code;
+  try { localStorage.setItem('yeonae_code_' + code, JSON.stringify({myName:myName,partnerName:partnerName,data:data,ts:Date.now()})); } catch(e) {}
+
+  // 관상 분석
   if (hasPhotos && data.myFace) {
     document.getElementById('faceSection').style.display = 'block';
-    document.getElementById('myFaceTitle').textContent = `${myName}의 관상 특성`;
+    document.getElementById('myFaceTitle').textContent = myName + '의 관상 특성';
     document.getElementById('myFaceBody').textContent = data.myFace;
-    document.getElementById('myFaceTags').innerHTML = (data.myFaceTraits||[]).map(t=>`<span class="trait-tag">${t}</span>`).join('');
-    document.getElementById('partnerFaceTitle').textContent = `${partnerName}의 관상 특성`;
+    document.getElementById('myFaceTags').innerHTML = (data.myFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
+    document.getElementById('partnerFaceTitle').textContent = partnerName + '의 관상 특성';
     document.getElementById('partnerFaceBody').textContent = data.partnerFace;
-    document.getElementById('partnerFaceTags').innerHTML = (data.partnerFaceTraits||[]).map(t=>`<span class="trait-tag">${t}</span>`).join('');
+    document.getElementById('partnerFaceTags').innerHTML = (data.partnerFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
     document.getElementById('faceChem').textContent = data.faceChemistry;
   }
 
+  // ── 궁합 종합 점수 차트 ──
+  var myYearR = parseInt(document.getElementById('myYear').value)||1995;
+  var partnerYearR = parseInt(document.getElementById('partnerYear').value)||1993;
+  var myAge = new Date().getFullYear() - myYearR;
+  function getOhangR(y){var i=y%10;if(i===0||i===1)return '금';if(i===2||i===3)return '수';if(i===4||i===5)return '목';if(i===6||i===7)return '화';return '토';}
+  var myO=getOhangR(myYearR), partO=getOhangR(partnerYearR);
+  var isShengsheng = (myO==='목'&&partO==='화')||(myO==='화'&&partO==='토')||(myO==='토'&&partO==='금')||(myO==='금'&&partO==='수')||(myO==='수'&&partO==='목')||(myO==='화'&&partO==='목')||(myO==='토'&&partO==='화')||(myO==='금'&&partO==='토')||(myO==='수'&&partO==='금')||(myO==='목'&&partO==='수');
+  var radarScores = [
+    Math.min(95, 65 + (isShengsheng?20:5) + (S.myLoveLang?5:0)),
+    Math.min(95, 60 + (S.myContact?15:0) + (S.myMbti?10:0)),
+    Math.min(95, 70 + (S.partnerAttitude==='먼저 연락해 옴'?15:0)),
+    Math.min(95, 65 + (isShengsheng?15:0) + (S.myMbti&&S.partnerMbti?10:0)),
+    Math.min(95, 60 + (myAge>=25?15:5) + (isShengsheng?10:0))
+  ];
+  drawRadarChart(radarScores);
+
+  // 궁합 그리드
+  var compatItems = [
+    {label:'감정 교감', score:radarScores[0]},
+    {label:'소통 궁합', score:radarScores[1]},
+    {label:'신뢰 지수', score:radarScores[2]},
+    {label:'미래 가능성', score:radarScores[4]}
+  ];
+  var compatGrid = document.getElementById('compatGrid');
+  if (compatGrid) {
+    compatGrid.innerHTML = compatItems.map(function(item) {
+      var color = item.score>=80?'var(--rose)':item.score>=65?'var(--gold)':'#888';
+      return '<div class="compat-item"><div class="ci-score" style="color:'+color+'">'+item.score+'</div><div class="ci-label">'+item.label+'</div></div>';
+    }).join('');
+  }
+
+  // 전체 요약
+  var avgScore = Math.round(radarScores.reduce(function(a,b){return a+b;},0)/radarScores.length);
+  var compatSummary = document.getElementById('compatSummary');
+  if (compatSummary) {
+    compatSummary.textContent = myName + '과 ' + partnerName + '의 종합 궁합 점수는 ' + avgScore + '점이에요. ' +
+    (avgScore>=85?'오행 기운이 잘 흘러 두 분의 에너지가 자연스럽게 맞닿아 있어요. 감정 교감 지수가 특히 높아 서로의 감정을 잘 읽는 관계예요.':
+     avgScore>=75?'전반적으로 좋은 궁합이에요. 소통과 신뢰 지수를 조금 더 쌓아가면 더 단단한 관계가 될 수 있어요.':
+     '가능성 있는 만남이에요. 서로의 차이를 이해하는 과정이 이 관계의 핵심이에요.');
+  }
+
+  // ── 갈등 패턴 ──
   document.getElementById('conflictBody').textContent = data.conflict || '';
+
+  // 갈등 게이지 애니메이션
+  var attachType = S.myAttach || '안정형';
+  var gaugeVals = {
+    '불안형': {emotion:82,contact:75,value:45,trust:60},
+    '회피형': {emotion:55,contact:85,value:50,trust:70},
+    '혼란형': {emotion:78,contact:68,value:60,trust:80},
+    '안정형': {emotion:40,contact:35,value:50,trust:30}
+  };
+  var gv = gaugeVals[attachType] || gaugeVals['안정형'];
+  setTimeout(function(){
+    animateGauge('g-emotion','gp-emotion',gv.emotion,100);
+    animateGauge('g-contact','gp-contact',gv.contact,300);
+    animateGauge('g-value','gp-value',gv.value,500);
+    animateGauge('g-trust','gp-trust',gv.trust,700);
+  }, 400);
+
+  // 갈등 상세
+  var conflictDetails = {
+    '불안형': myName + '의 불안형 애착이 실제 갈등으로 이어지는 주요 시나리오 3가지가 있어요.\n\n첫 번째: 연락 공백 시나리오 — ' + partnerName + '이 바빠서 답장이 늦어질 때 ' + myName + '의 머릿속에서는 "혹시 화난 건 아닐까?", "나한테 관심이 식은 건가?", "다른 사람 생기는 거 아니야?"가 동시에 떠올라요. 이 생각들이 쌓이면 결국 서운함이나 다툼으로 폭발하게 돼요.\n\n두 번째: 확인 반복 시나리오 — "나 좋아해?", "나한테 관심 있어?" 같은 질문을 반복하게 되는데, ' + partnerName + '이 처음엔 괜찮아도 반복되면 지칠 수 있어요.\n\n세 번째: 작은 변화 과민 반응 — 프로필 사진이 바뀌거나, 평소보다 답장이 10분 늦거나, 말투가 조금 달라지면 과민 반응하게 돼요.\n\n💡 극복법: ' + partnerName + '이 바빠도 짧게 "나중에 연락할게"라고 한마디 해주는 것만으로 갈등의 80%가 예방돼요. ' + myName + '도 불안이 올라올 때 바로 연락하기보다 30분 기다려보는 연습을 해보세요.',
+    '회피형': myName + '의 회피형 애착이 갈등을 만드는 주요 패턴이에요.\n\n첫 번째 패턴: 가까워지면 도망가기 — 관계가 깊어질수록 ' + myName + '은 본능적으로 거리를 두고 싶어져요. ' + partnerName + '은 이게 자신을 거부하는 것처럼 느껴져 상처받아요.\n\n두 번째 패턴: 연락 두절 — 힘들거나 감당이 안 될 때 연락을 아예 안 하는 경우가 생겨요. ' + partnerName + ' 입장에선 "내가 뭘 잘못한 건가?" 혼란스러워요.\n\n세 번째 패턴: 감정 표현 회피 — 좋아도 "좋아"라고 말하기 어렵고, 고마워도 "고마워"가 잘 안 나와요. ' + partnerName + '이 "나를 좋아하긴 하는 건가?" 의심하게 만들어요.\n\n💡 극복법: "혼자 있고 싶어"라고 솔직하게 말해주세요. 이유 없이 사라지는 것보다 훨씬 나아요. ' + partnerName + '도 ' + myName + '의 공간을 존중해주는 연습이 필요해요.',
+    '안정형': myName + '이 안정형이라 갈등 위험도는 전반적으로 낮은 편이에요. 하지만 안정형도 갈등이 생기는 특정 상황이 있어요.\n\n첫 번째: 과도한 배려로 인한 소진 — ' + myName + '이 너무 배려하다 정작 본인의 감정을 억누르는 경우가 생겨요. 참다 참다 한꺼번에 폭발하면 ' + partnerName + '이 당황할 수 있어요.\n\n두 번째: 감정 동조 요구 — 안정형은 상대방도 비슷하게 안정적이길 기대해요. ' + partnerName + '이 감정 기복이 심한 타입이라면 ' + myName + '이 지칠 수 있어요.\n\n💡 극복법: ' + myName + '도 "나 요즘 좀 지쳐"라고 솔직하게 말해주세요. 항상 강한 척하지 않아도 돼요.'
+  };
+  var conflictDetailEl = document.getElementById('conflictDetail');
+  if (conflictDetailEl) conflictDetailEl.textContent = conflictDetails[attachType] || conflictDetails['안정형'];
+
+  // ── 장기연애·결혼 ──
+  var ltScore = isShengsheng ? 78 : 62;
+  if (myAge >= 25) ltScore += 8;
+  if (S.myMbti && S.partnerMbti) ltScore += 5;
+  ltScore = Math.min(ltScore, 95);
+  var ltBar = document.getElementById('longtermBar');
+  var ltLabel = document.getElementById('longtermLabel');
+  if (ltBar) setTimeout(function(){ ltBar.style.width = ltScore + '%'; }, 400);
+  if (ltLabel) ltLabel.textContent = ltScore >= 80 ? '결혼 가능성 높음 (' + ltScore + '%)' : ltScore >= 65 ? '장기연애 가능성 높음 (' + ltScore + '%)' : '가능성 있음 (' + ltScore + '%)';
+
   document.getElementById('longtermBody').textContent = data.longterm || '';
+
+  // 결혼 가능성 그리드
+  var marriageItems = [
+    {label:'경제적 궁합', score:Math.min(95,60+(myAge>=27?20:5)), emoji:'💰'},
+    {label:'성격 호환', score:radarScores[3], emoji:'🧠'},
+    {label:'가족 가치관', score:Math.min(95,65+(isShengsheng?20:0)), emoji:'🏠'}
+  ];
+  var mgEl = document.getElementById('marriageGrid');
+  if (mgEl) {
+    mgEl.innerHTML = marriageItems.map(function(item){
+      var color=item.score>=80?'var(--rose)':item.score>=65?'var(--gold)':'#888';
+      return '<div style="background:var(--cream);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(192,55,90,0.1);"><div style="font-size:20px;margin-bottom:4px;">'+item.emoji+'</div><div style="font-size:20px;font-weight:700;color:'+color+'">'+item.score+'</div><div style="font-size:10px;color:var(--mist);">'+item.label+'</div></div>';
+    }).join('');
+  }
+
+  var ltDetailTexts = {
+    '상생(相生)': myName + '과 ' + partnerName + '의 오행이 상생 관계라 장기적으로 에너지가 자연스럽게 흘러요. 이런 관계는 시간이 지날수록 오히려 더 편안해지고 깊어지는 특징이 있어요. 처음 1~2년 사이에 서로의 다른 점이 충돌할 수 있지만, 그 시기를 넘기면 누구보다 단단한 파트너십을 만들 수 있어요.',
+    '상극(相剋)': myName + '과 ' + partnerName + '의 오행이 상극 관계예요. 처음엔 강한 끌림이 있지만 갈등도 많아요. 하지만 상극 관계가 반드시 나쁜 건 아니에요. 오히려 서로에게 강한 자극을 주며 함께 성장하는 커플이 많아요. 관건은 갈등이 생겼을 때 상대방을 바꾸려 하지 않고 이해하려 노력하는 것이에요.'
+  };
+  var ltDetailEl = document.getElementById('longtermDetail');
+  var ohangRelQ = isShengsheng ? '상생(相生)' : '상극(相剋)';
+  if (ltDetailEl) ltDetailEl.textContent = ltDetailTexts[ohangRelQ] || ltDetailTexts['상생(相生)'];
+
+  // ── 이달의 연애운 ──
   document.getElementById('fortuneBody').textContent = data.monthlyFortune || '';
+
+  // 월별 흐름 바
+  var monthBarsEl = document.getElementById('monthlyBars');
+  if (monthBarsEl) {
+    var months = ['이번달','다음달','2개월후'];
+    var mScores = [72, 85, 68];
+    monthBarsEl.innerHTML = '<div style="font-size:12px;font-weight:600;color:var(--deep);margin-bottom:10px;">📈 향후 3개월 연애 흐름</div>' +
+    months.map(function(m,i){
+      return '<div class="gauge-row"><span class="gauge-label" style="width:64px;">'+m+'</span><div class="gauge-bar"><div class="gauge-fill" id="mbar'+i+'" style="width:0%;background:linear-gradient(90deg,var(--rose),var(--gold))"></div></div><span class="gauge-pct">'+mScores[i]+'점</span></div>';
+    }).join('');
+    setTimeout(function(){
+      months.forEach(function(_,i){ var e=document.getElementById('mbar'+i); if(e) e.style.width=mScores[i]+'%'; });
+    }, 600);
+  }
+
+  var fortuneDetail = myName + '이 이달에 특히 주목해야 할 날짜가 있어요. ' +
+    (S.myStatus==='썸 타는 중'?'이달 중순 전후로 감정을 확인할 수 있는 기회가 찾아올 수 있어요. 그 타이밍을 놓치지 마세요. 특히 주말 오후에 둘만의 시간을 만들면 자연스럽게 감정을 확인할 수 있는 분위기가 만들어져요.':
+     S.myStatus==='사귀는 중'?'이달은 평소보다 솔직한 대화가 필요한 시기예요. 작은 오해나 서운함이 쌓이기 전에 먼저 털어놓는 게 좋아요. 특히 주중보다 주말에 대화하는 게 효과적이에요.':
+     '이달은 자신에게 집중하는 시기예요. '+myName+'이 더 빛나고 매력적인 모습을 보여줄 때 상대방의 마음이 자연스럽게 열려요.');
+  var fdEl = document.getElementById('fortuneDetail');
+  if (fdEl) fdEl.textContent = fortuneDetail;
+
+  // ── 대시 전략 ──
+  var dashDetailTitleEl = document.getElementById('dashDetailTitle');
+  var dashDetailBodyEl = document.getElementById('dashDetailBody');
+  if (dashDetailTitleEl) dashDetailTitleEl.textContent = partnerName + '에게 통하는 단계별 대시 전략';
+  if (dashDetailBodyEl) {
+    var dashStrategies = {
+      '썸 타는 중': '지금 썸 단계에서 가장 효과적인 대시 전략을 단계별로 알려드릴게요.\n\n[1단계 — 존재감 각인 (1~2주)] 매일 연락하는 것보다 기억에 남는 연락 한 번이 더 효과적이에요. ' + partnerName + '이 좋아하는 것, 관심 있는 것을 기억했다가 자연스럽게 언급해보세요. "어제 네가 말했던 거 생각해봤는데"라는 말 한마디가 강렬한 인상을 남겨요.\n\n[2단계 — 단둘이 만날 기회 만들기] 그룹 모임이 아닌 1:1로 만날 수 있는 자연스러운 이유를 만드세요. "이 카페 맛있다던데 같이 가볼래?"처럼 부담 없이.\n\n[3단계 — 감정 신호 보내기] 직접 고백하기 전에 감정 신호를 먼저 보내보세요. "너랑 있으면 왜 이렇게 시간이 빨리 가지?"같은 말이 효과적이에요.\n\n[4단계 — 고백 타이밍] 두 번째 단둘이 만나는 날이 고백 타이밍으로 가장 좋아요. 첫 번째는 어색하지만 두 번째는 편안해진 상태라 감정이 자연스럽게 전달돼요.',
+      '짝사랑 중': '짝사랑 상황에서 상대방의 마음을 얻는 단계별 전략이에요.\n\n[1단계 — 친해지기 단계] 연애감정을 너무 빨리 드러내면 부담스러워해요. 먼저 편한 친구처럼 자연스럽게 가까워지는 게 우선이에요.\n\n[2단계 — 신뢰 쌓기] 힘든 일이 있을 때 먼저 연락해서 "괜찮아?"라고 물어봐 주세요. 힘들 때 옆에 있어주는 사람이 가장 강한 인상을 남겨요.\n\n[3단계 — 매력 어필] 상대방 앞에서만 특별히 잘 보이려 하지 말고, 평소의 빛나는 모습을 자연스럽게 보여주세요.\n\n[4단계 — 감정 확인] "나 요즘 네 생각이 자꾸 나는데, 너는 어때?"라고 직접적으로 물어보는 것도 방법이에요.',
+      '사귀는 중': '이미 사귀고 있는 두 분에게는 관계를 더 깊게 만드는 전략이에요.\n\n[신선함 유지] 매너리즘이 찾아오기 전에 새로운 경험을 함께 만들어보세요. 처음 가보는 곳, 처음 해보는 것들이 관계를 리프레시해줘요.\n\n[감사 표현] 오래 사귀다 보면 당연해지는 것들이 생겨요. "고마워", "덕분에 행복해"라는 말을 의도적으로 자주 해주세요.\n\n[미래 이야기] 1~2년 후의 계획을 함께 이야기해보세요. "그때 우리 어디서 뭐 하고 있을까?" 같은 대화가 관계를 더 단단하게 만들어요.'
+    };
+    dashDetailBodyEl.textContent = dashStrategies[S.myStatus] || dashStrategies['썸 타는 중'];
+  }
+
+  // ── 편지 ──
   document.getElementById('letterBody').textContent = data.letter || '';
 
   window.scrollTo({ top:0, behavior:'smooth' });
