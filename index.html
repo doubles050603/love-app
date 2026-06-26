@@ -998,7 +998,10 @@ body::before {
 const S = {
   myName:'', myStatus:'', myAttach:'', myLoveLang:'', myContact:'', myMbti:'',
   partnerName:'', partnerAttitude:'', partnerInterest:'', partnerMbti:'',
-  myPhoto:false, partnerPhoto:false
+  myPhoto:false, partnerPhoto:false,
+  myPhotoData: null, myPhotoType: null,
+  partnerPhotoData: null, partnerPhotoType: null,
+  names: { my:'', partner:'' }
 };
 
 // ── 초기화 ──
@@ -1102,6 +1105,7 @@ function goToStep1() {
 async function startAnalysis() {
   var partnerName = document.getElementById('partnerName').value.trim() || '상대방';
   S.partnerName = partnerName;
+  S.names = { my: S.myName || document.getElementById('myName').value.trim() || '나', partner: partnerName };
 
   document.getElementById('page2').classList.remove('active');
   document.getElementById('loadingSection').style.display = 'block';
@@ -1343,6 +1347,8 @@ async function startAnalysis() {
 // ── 결과 표시 ──
 function showResult(myName, partnerName, data) {
   // 이름 저장 (결제 시 사용)
+  S.myName = myName;
+  S.partnerName = partnerName;
   S.names = { my: myName, partner: partnerName };
   document.getElementById('loadingSection').style.display = 'none';
   document.getElementById('resultSection').style.display = 'block';
@@ -1691,9 +1697,17 @@ function showResult(myName, partnerName, data) {
 
 // ── 팝업 ──
 function showPremiumPopup() {
-  document.getElementById('popupSub').innerHTML = `<strong>${S.myName}</strong>과 <strong>${S.partnerName || '상대방'}</strong>의<br>진짜 궁합을 더 깊이 확인해봐요`;
-  document.getElementById('popupOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  var mn = S.myName || S.names && S.names.my || '나';
+  var pn = S.partnerName || S.names && S.names.partner || '상대방';
+  var sub = document.getElementById('popupSub');
+  if (sub) sub.innerHTML = '<strong>' + mn + '</strong>과 <strong>' + pn + '</strong>의<br>진짜 궁합을 더 깊이 확인해봐요';
+  var overlay = document.getElementById('popupOverlay');
+  if (overlay) { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  // 체크박스 초기화
+  var ar = document.getElementById('agreeRefund');
+  var ap = document.getElementById('agreePrivacy');
+  if (ar) ar.checked = false;
+  if (ap) ap.checked = false;
 }
 function closePopup() {
   document.getElementById('popupOverlay').classList.remove('show');
