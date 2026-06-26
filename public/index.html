@@ -38,7 +38,7 @@ body::before {
 
 /* ── 진행 바 ── */
 .progress-nav {
-  position:sticky; top:0; z-index:10; pointer-events:none;
+  position:sticky; top:0; z-index:5; pointer-events:none;
   background:rgba(253,248,242,0.92); backdrop-filter:blur(12px);
   padding:14px 20px 10px;
   max-width:480px; margin:0 auto;
@@ -269,10 +269,10 @@ body::before {
 /* ── 프리미엄 팝업 ── */
 .popup-overlay {
   position:fixed; inset:0; background:rgba(18,4,10,0.65);
-  z-index:500; display:none; align-items:flex-end; justify-content:center;
+  z-index:9000; display:none; align-items:flex-end; justify-content:center;
   backdrop-filter:blur(4px);
 }
-.popup-overlay.show { display:flex; animation:bgin .25s ease; }
+.popup-overlay.show { display:flex !important; animation:bgin .25s ease; }
 @keyframes bgin { from{opacity:0} to{opacity:1} }
 .popup-sheet {
   background:white; border-radius:24px 24px 0 0;
@@ -760,7 +760,7 @@ body::before {
   </div>
 
   <!-- 관상 부각 배너 -->
-  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;" onclick="showPremiumPopup()">
+  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;" onclick="showPremiumPopup()">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
       <span style="font-size:22px;">📸</span>
       <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;">사진 한 장으로 관상까지 분석해드려요</span>
@@ -1697,20 +1697,27 @@ function showResult(myName, partnerName, data) {
 
 // ── 팝업 ──
 function showPremiumPopup() {
-  var mn = S.myName || S.names && S.names.my || '나';
-  var pn = S.partnerName || S.names && S.names.partner || '상대방';
+  var mn = S.myName || (S.names && S.names.my) || '나';
+  var pn = S.partnerName || (S.names && S.names.partner) || '상대방';
   var sub = document.getElementById('popupSub');
   if (sub) sub.innerHTML = '<strong>' + mn + '</strong>과 <strong>' + pn + '</strong>의<br>진짜 궁합을 더 깊이 확인해봐요';
   var overlay = document.getElementById('popupOverlay');
-  if (overlay) { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
-  // 체크박스 초기화
+  if (overlay) {
+    overlay.style.display = 'flex';
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
   var ar = document.getElementById('agreeRefund');
   var ap = document.getElementById('agreePrivacy');
   if (ar) ar.checked = false;
   if (ap) ap.checked = false;
 }
 function closePopup() {
-  document.getElementById('popupOverlay').classList.remove('show');
+  var overlay = document.getElementById('popupOverlay');
+  if (overlay) {
+    overlay.classList.remove('show');
+    overlay.style.display = 'none';
+  }
   document.body.style.overflow = '';
 }
 function closePopupOutside(e) {
