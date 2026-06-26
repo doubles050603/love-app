@@ -434,6 +434,8 @@ body::before {
 .toast { position:fixed; bottom:26px; left:50%; transform:translateX(-50%); background:var(--ink); color:white; padding:11px 22px; border-radius:100px; font-size:13px; opacity:0; transition:opacity .3s; z-index:600; white-space:nowrap; pointer-events:none; }
 .toast.show { opacity:1; }
 </style>
+  <!-- 포트원 결제 SDK -->
+  <script src="https://cdn.iamport.kr/js/iamport.payment-1.0.0.js"></script>
 </head>
 <body>
 
@@ -787,7 +789,7 @@ body::before {
     </div>
   </div>
   <button class="retry-btn" onclick="resetAll()">↩ 처음부터 다시하기</button>
-  <div class="footer">재미 목적의 궁합 서비스 © 2025 연애운명</div>
+  <div class="footer">재미 목적의 궁합 서비스 © 2025 셀럽</div>
 </div>
 
 <!-- ════ 프리미엄 결과 ════ -->
@@ -900,7 +902,7 @@ body::before {
     </div>
   </div>
   <button class="retry-btn" onclick="resetAll()">↩ 처음부터 다시하기</button>
-  <div class="footer">재미 목적의 궁합 서비스 © 2025 연애운명</div>
+  <div class="footer">재미 목적의 궁합 서비스 © 2025 셀럽</div>
 </div>
 
   <!-- 법적 정보 푸터 -->
@@ -911,12 +913,13 @@ body::before {
     <button onclick="showLegal('refund')">환불정책</button>
   </div>
   <div class="footer-biz">
-    <strong style="color:var(--ink);font-size:12px;" id="bizNameFooter">연애운명</strong><br>
+    <strong style="color:var(--ink);font-size:12px;">셀럽 (서비스명: 연애운명)</strong><br>
     대표자: <span id="bizCeo">대표자명</span> &nbsp;|&nbsp; 사업자등록번호: <span id="bizNum">000-00-00000</span><br>
     통신판매업신고번호: <span id="bizSaleNum">제2026-부산동래-0344호</span><br>
     주소: <span id="bizAddr">사업장 주소</span><br>
     연락처: <span id="bizTel">000-0000-0000</span> &nbsp;|&nbsp; 이메일: kdw8808@kakao.com<br>
-    <span style="font-size:10px;color:rgba(138,112,96,0.5);">© 2025 연애운명. All rights reserved.</span>
+    호스팅 서비스 제공자: Vercel Inc.<br>
+    <span style="font-size:10px;color:rgba(138,112,96,0.5);">© 2025 셀럽(연애운명). All rights reserved.</span>
   </div>
 
 </div><!-- /wrap -->
@@ -960,7 +963,26 @@ body::before {
       </div>
       <div class="photo-hint">🔒 사진은 분석 후 즉시 삭제돼요</div>
     </div>
-    <button class="btn-popup-pay" onclick="proceedPremium()">전체 리포트 열기</button>
+    <!-- 결제 전 동의 체크박스 -->
+    <div style="background:var(--cream);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="agreeRefund" style="margin-top:3px;flex-shrink:0;width:16px;height:16px;accent-color:var(--rose);">
+        <span style="font-size:12px;color:var(--mist);line-height:1.6;">
+          <strong style="color:var(--ink);">[필수]</strong> 디지털 콘텐츠 특성상 열람 후 환불이 제한되며,
+          결제일로부터 30일 이내 저장해야 함을 확인했습니다.
+          <button onclick="showLegal('refund');return false;" style="background:none;border:none;color:var(--rose);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;">환불정책 보기</button>
+        </span>
+      </label>
+    </div>
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:14px;padding:0 2px;">
+      <input type="checkbox" id="agreePrivacy" style="margin-top:3px;flex-shrink:0;width:16px;height:16px;accent-color:var(--rose);">
+      <span style="font-size:12px;color:var(--mist);line-height:1.6;">
+        <strong style="color:var(--ink);">[필수]</strong> 개인정보 수집·이용 및 제3자 제공에 동의합니다.
+        <button onclick="showLegal('privacy');return false;" style="background:none;border:none;color:var(--rose);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;">개인정보처리방침 보기</button>
+      </span>
+    </label>
+
+    <button class="btn-popup-pay" onclick="proceedPayment()">전체 리포트 열기</button>
     <div class="popup-price-row">
       <span class="p-old">₩3,900</span>
       <span class="p-new">₩1,900</span>
@@ -976,7 +998,10 @@ body::before {
 const S = {
   myName:'', myStatus:'', myAttach:'', myLoveLang:'', myContact:'', myMbti:'',
   partnerName:'', partnerAttitude:'', partnerInterest:'', partnerMbti:'',
-  myPhoto:false, partnerPhoto:false
+  myPhoto:false, partnerPhoto:false,
+  myPhotoData: null, myPhotoType: null,
+  partnerPhotoData: null, partnerPhotoType: null,
+  names: { my:'', partner:'' }
 };
 
 // ── 초기화 ──
@@ -1080,6 +1105,7 @@ function goToStep1() {
 async function startAnalysis() {
   var partnerName = document.getElementById('partnerName').value.trim() || '상대방';
   S.partnerName = partnerName;
+  S.names = { my: S.myName || document.getElementById('myName').value.trim() || '나', partner: partnerName };
 
   document.getElementById('page2').classList.remove('active');
   document.getElementById('loadingSection').style.display = 'block';
@@ -1320,6 +1346,10 @@ async function startAnalysis() {
 
 // ── 결과 표시 ──
 function showResult(myName, partnerName, data) {
+  // 이름 저장 (결제 시 사용)
+  S.myName = myName;
+  S.partnerName = partnerName;
+  S.names = { my: myName, partner: partnerName };
   document.getElementById('loadingSection').style.display = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
@@ -1667,9 +1697,17 @@ function showResult(myName, partnerName, data) {
 
 // ── 팝업 ──
 function showPremiumPopup() {
-  document.getElementById('popupSub').innerHTML = `<strong>${S.myName}</strong>과 <strong>${S.partnerName || '상대방'}</strong>의<br>진짜 궁합을 더 깊이 확인해봐요`;
-  document.getElementById('popupOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  var mn = S.myName || S.names && S.names.my || '나';
+  var pn = S.partnerName || S.names && S.names.partner || '상대방';
+  var sub = document.getElementById('popupSub');
+  if (sub) sub.innerHTML = '<strong>' + mn + '</strong>과 <strong>' + pn + '</strong>의<br>진짜 궁합을 더 깊이 확인해봐요';
+  var overlay = document.getElementById('popupOverlay');
+  if (overlay) { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  // 체크박스 초기화
+  var ar = document.getElementById('agreeRefund');
+  var ap = document.getElementById('agreePrivacy');
+  if (ar) ar.checked = false;
+  if (ap) ap.checked = false;
 }
 function closePopup() {
   document.getElementById('popupOverlay').classList.remove('show');
@@ -1788,6 +1826,71 @@ async function proceedPremium() {
 
     setTimeout(function() { showPremiumResult(myName, partnerName, hasPhotos, demoP); }, 400);
   }, 3000);
+}
+
+// ★★★ 포트원 설정 - 실제 값으로 변경하세요 ★★★
+var PORTONE_CONFIG = {
+  impCode: 'imp82570050',
+  channelKey: 'channel-key-50d90168-5304-4096-8db2-3be6bdf7aca6',
+  pg: 'kcp',
+  amount: 1900,
+  name: '연애운명 프리미엄 리포트',
+};
+
+// 결제 실행 함수
+function proceedPayment() {
+  // 체크박스 확인
+  var agreeRefund = document.getElementById('agreeRefund');
+  var agreePrivacy = document.getElementById('agreePrivacy');
+
+  if (!agreeRefund || !agreeRefund.checked) {
+    showToast('환불정책 동의가 필요해요 📋'); return;
+  }
+  if (!agreePrivacy || !agreePrivacy.checked) {
+    showToast('개인정보 동의가 필요해요 🔒'); return;
+  }
+
+  // 포트원 초기화
+  if (typeof IMP === 'undefined') {
+    showToast('결제 모듈을 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+
+  IMP.init(PORTONE_CONFIG.impCode);
+
+  var myName = S.names ? S.names.my : (S.myName || '고객');
+  var partnerName = S.names ? S.names.partner : (S.partnerName || '상대방');
+  var orderId = 'yeonae_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+
+  closePopup();
+
+  // NHN KCP 결제창 호출
+  IMP.request_pay({
+    channel_key: PORTONE_CONFIG.channelKey,
+    pg: PORTONE_CONFIG.pg,
+    pay_method: 'card',
+    merchant_uid: orderId,
+    name: PORTONE_CONFIG.name,
+    amount: PORTONE_CONFIG.amount,
+    buyer_name: myName,
+    buyer_email: '',
+    buyer_tel: '',
+    m_redirect_url: window.location.href,
+  }, function(rsp) {
+    if (rsp.success) {
+      // 결제 성공
+      showToast('결제 완료! 리포트를 열고 있어요 💘');
+      proceedPremium();
+    } else {
+      // 결제 실패 or 취소
+      if (rsp.error_msg && rsp.error_msg.indexOf('취소') > -1) {
+        showToast('결제가 취소됐어요');
+      } else {
+        showToast('결제 오류: ' + (rsp.error_msg || '다시 시도해주세요'));
+        showPremiumPopup(); // 팝업 다시 열기
+      }
+    }
+  });
 }
 
 function generateAccessCode(myName, partnerName) {
@@ -2063,7 +2166,7 @@ function showToast(msg) {
   <div class="legal-modal">
     <button class="legal-close" onclick="closeLegal('biz')">✕</button>
     <h2>사업자 정보</h2>
-    <p><strong>상호명</strong>: <span id="m-bizName">연애운명</span></p>
+    <p><strong>상호명</strong>: <span id="m-bizName">셀럽</span></p>
     <p><strong>사업자등록번호</strong>: <span id="m-bizNum">000-00-00000</span></p>
     <p><strong>대표자명</strong>: <span id="m-bizCeo">대표자명</span></p>
     <p><strong>사업장 주소</strong>: <span id="m-bizAddr">사업장 주소</span></p>
@@ -2080,7 +2183,7 @@ function showToast(msg) {
     <button class="legal-close" onclick="closeLegal('terms')">✕</button>
     <h2>이용약관</h2>
     <h3>제1조 (목적)</h3>
-    <p>본 약관은 연애운명(이하 "서비스")이 제공하는 온라인 궁합 분석 콘텐츠 서비스의 이용에 관한 조건 및 절차를 규정함을 목적으로 합니다.</p>
+    <p>본 약관은 셀럽이 운영하는 연애운명 서비스(이하 "서비스")이 제공하는 온라인 궁합 분석 콘텐츠 서비스의 이용에 관한 조건 및 절차를 규정함을 목적으로 합니다.</p>
     <h3>제2조 (서비스 내용)</h3>
     <p>본 서비스는 생년월일, MBTI, 별자리 등 이용자가 입력한 정보를 기반으로 재미 목적의 궁합 분석 콘텐츠를 제공합니다. 본 서비스의 분석 결과는 오락적 목적으로만 제공되며 실제 운명, 점술, 과학적 사실과 무관합니다.</p>
     <h3>제3조 (유료 서비스)</h3>
@@ -2176,7 +2279,7 @@ function closeLegalOutside(e, type) {
 // 사업자 정보 동기화 (여기서 실제 정보로 변경하세요)
 // ★★★ 아래 정보를 실제 사업자 정보로 변경하세요 ★★★
 var BIZ_INFO = {
-  name: '연애운명',                    // 상호명 (사업자등록증과 동일하게)
+  name: '셀럽',                        // 상호명 (사업자등록증과 동일하게)
   num:  '886-18-01577',               // 사업자등록번호
   ceo:  '이은비',                      // 대표자명
   addr: '부산시 동래구 명륜로 170',      // 사업장 주소
@@ -2188,7 +2291,7 @@ var BIZ_INFO = {
 ['bizCeo','m-bizCeo','m-ceo2'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.ceo; });
 ['bizAddr','m-bizAddr'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.addr; });
 ['bizTel','m-bizTel'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.tel; });
-['bizNameFooter','m-bizName'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.name; });
+var mn=document.getElementById('m-bizName'); if(mn) mn.textContent=BIZ_INFO.name;
 ['bizSaleNum','m-bizSaleNum'].forEach(function(id){ var e=document.getElementById(id); if(e) e.textContent=BIZ_INFO.sale; });
 </script>
 
