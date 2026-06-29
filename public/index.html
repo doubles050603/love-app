@@ -767,7 +767,7 @@ body::before {
   </div>
 
   <!-- 관상 부각 배너 -->
-  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;" onclick="event.stopPropagation();showPremiumPopup();">
+  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;-webkit-tap-highlight-color:rgba(0,0,0,0);user-select:none;" onclick="event.stopPropagation();showPremiumPopup();" ontouchend="event.stopPropagation();showPremiumPopup();event.preventDefault();">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
       <span style="font-size:22px;">📸</span>
       <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;">사진 한 장으로 관상까지 분석해드려요</span>
@@ -1965,23 +1965,23 @@ function animateGauge(id, pctId, target, delay) {
 function showPremiumResult(myName, partnerName, hasPhotos, data) {
   document.getElementById('loadingSection').style.display = 'none';
   document.getElementById('premiumResultSection').style.display = 'block';
-  document.getElementById('premResNames').textContent = myName + ' ❤ ' + partnerName + ' 전체 리포트';
+  var _premResNames = document.getElementById('premResNames'); if(_premResNames) _premResNames.textContent = myName + ' ❤ ' + partnerName + ' 전체 리포트';
 
   // 재열람 코드 생성 & 저장
   var code = generateAccessCode(myName, partnerName);
-  document.getElementById('myAccessCode').textContent = code;
+  var _myAccessCode = document.getElementById('myAccessCode'); if(_myAccessCode) _myAccessCode.textContent = code;
   try { localStorage.setItem('yeonae_code_' + code, JSON.stringify({myName:myName,partnerName:partnerName,data:data,ts:Date.now()})); } catch(e) {}
 
   // 관상 분석
   if (hasPhotos && data.myFace) {
     document.getElementById('faceSection').style.display = 'block';
-    document.getElementById('myFaceTitle').textContent = myName + '의 관상 특성';
-    document.getElementById('myFaceBody').textContent = data.myFace;
+    var _myFaceTitle = document.getElementById('myFaceTitle'); if(_myFaceTitle) _myFaceTitle.textContent = myName + '의 관상 특성';
+    var _myFaceBody = document.getElementById('myFaceBody'); if(_myFaceBody) _myFaceBody.textContent = data.myFace;
     document.getElementById('myFaceTags').innerHTML = (data.myFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
-    document.getElementById('partnerFaceTitle').textContent = partnerName + '의 관상 특성';
-    document.getElementById('partnerFaceBody').textContent = data.partnerFace;
+    var _partnerFaceTitle = document.getElementById('partnerFaceTitle'); if(_partnerFaceTitle) _partnerFaceTitle.textContent = partnerName + '의 관상 특성';
+    var _partnerFaceBody = document.getElementById('partnerFaceBody'); if(_partnerFaceBody) _partnerFaceBody.textContent = data.partnerFace;
     document.getElementById('partnerFaceTags').innerHTML = (data.partnerFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
-    document.getElementById('faceChem').textContent = data.faceChemistry;
+    var _faceChem = document.getElementById('faceChem'); if(_faceChem) _faceChem.textContent = data.faceChemistry;
   }
 
   // ── 궁합 종합 점수 차트 ──
@@ -2026,7 +2026,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   }
 
   // ── 갈등 패턴 ──
-  document.getElementById('conflictBody').textContent = data.conflict || '';
+  var _conflictBody = document.getElementById('conflictBody'); if(_conflictBody) _conflictBody.textContent = data.conflict || '';
 
   // 갈등 게이지 애니메이션
   var attachType = S.myAttach || '안정형';
@@ -2063,7 +2063,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   if (ltBar) setTimeout(function(){ ltBar.style.width = ltScore + '%'; }, 400);
   if (ltLabel) ltLabel.textContent = ltScore >= 80 ? '결혼 가능성 높음 (' + ltScore + '%)' : ltScore >= 65 ? '장기연애 가능성 높음 (' + ltScore + '%)' : '가능성 있음 (' + ltScore + '%)';
 
-  document.getElementById('longtermBody').textContent = data.longterm || '';
+  var _longtermBody = document.getElementById('longtermBody'); if(_longtermBody) _longtermBody.textContent = data.longterm || '';
 
   // 결혼 가능성 그리드
   var marriageItems = [
@@ -2088,7 +2088,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   if (ltDetailEl) ltDetailEl.textContent = ltDetailTexts[ohangRelQ] || ltDetailTexts['상생(相生)'];
 
   // ── 이달의 연애운 ──
-  document.getElementById('fortuneBody').textContent = data.monthlyFortune || '';
+  var _fortuneBody = document.getElementById('fortuneBody'); if(_fortuneBody) _fortuneBody.textContent = data.monthlyFortune || '';
 
   // 월별 흐름 바
   var monthBarsEl = document.getElementById('monthlyBars');
@@ -2125,7 +2125,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   }
 
   // ── 편지 ──
-  document.getElementById('letterBody').textContent = data.letter || '';
+  var _letterBody = document.getElementById('letterBody'); if(_letterBody) _letterBody.textContent = data.letter || '';
 
   window.scrollTo({ top:0, behavior:'smooth' });
 }
@@ -2170,9 +2170,12 @@ function resetAll() {
 }
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2600);
+  var t = document.getElementById('toast');
+  if (!t) { console.log('Toast:', msg); return; }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.display = 'block';
+  setTimeout(function() { t.style.opacity = '0'; setTimeout(function(){ t.style.display = 'none'; }, 300); }, 2600);
 }
 </script>
 <!-- ═══ 법적 정보 모달들 ═══ -->
