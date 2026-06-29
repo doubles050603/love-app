@@ -766,6 +766,18 @@ body::before {
     </div>
   </div>
 
+  <!-- 상품 정보 표시 (NHN KCP 심사 요건) -->
+  <div style="background:white;border:1px solid rgba(201,148,58,0.3);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--deep);">연애운명 프리미엄 리포트</div>
+      <div style="font-size:11px;color:var(--mist);margin-top:2px;">갈등패턴·결혼운·이달연애운·관상분석 포함</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:11px;color:var(--mist);text-decoration:line-through;">₩3,900</div>
+      <div style="font-size:20px;font-weight:900;color:var(--rose);">₩1,900</div>
+    </div>
+  </div>
+
   <!-- 관상 부각 배너 -->
   <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;-webkit-tap-highlight-color:rgba(0,0,0,0);user-select:none;" onclick="event.stopPropagation();showPremiumPopup();" ontouchend="event.stopPropagation();showPremiumPopup();event.preventDefault();">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
@@ -920,11 +932,11 @@ body::before {
     <button onclick="showLegal('refund')">환불정책</button>
   </div>
   <div class="footer-biz">
-    <strong style="color:var(--ink);font-size:12px;">셀럽 (서비스명: 연애운명)</strong><br>
-    대표자: <span id="bizCeo">대표자명</span> &nbsp;|&nbsp; 사업자등록번호: <span id="bizNum">000-00-00000</span><br>
+    <strong style="color:var(--ink);font-size:12px;">상호: 셀럽 &nbsp;|&nbsp; 서비스명: 연애운명</strong><br>
+    대표: <span id="bizCeo">이은비</span> &nbsp;|&nbsp; 사업자등록번호: <span id="bizNum">886-18-01577</span><br>
     통신판매업신고번호: <span id="bizSaleNum">제2026-부산동래-0344호</span><br>
-    주소: <span id="bizAddr">사업장 주소</span><br>
-    연락처: <span id="bizTel">000-0000-0000</span> &nbsp;|&nbsp; 이메일: kdw8808@kakao.com<br>
+    사업장주소: <span id="bizAddr">부산시 동래구 명륜로 170</span><br>
+    유선전화번호: <span id="bizTel">070-8080-5939</span> &nbsp;|&nbsp; 이메일: kdw8808@kakao.com<br>
     호스팅 서비스 제공자: Vercel Inc.<br>
     <span style="font-size:10px;color:rgba(138,112,96,0.5);">© 2025 셀럽(연애운명). All rights reserved.</span>
   </div>
@@ -1847,8 +1859,7 @@ async function proceedPremium() {
 // ★★★ 포트원 설정 - 실제 값으로 변경하세요 ★★★
 var PORTONE_CONFIG = {
   impCode: 'imp82570050',
-  channelKey: 'channel-key-50d90168-5304-4096-8db2-3be6bdf7aca6',
-  pg: 'kcp',
+  pg: 'kcp.AO09C',       // V1 방식: kcp.{사이트코드}
   amount: 1900,
   name: '연애운명 프리미엄 리포트',
 };
@@ -1880,31 +1891,27 @@ function proceedPayment() {
 
   closePopup();
 
-  // NHN KCP 결제창 호출
+  // NHN KCP 결제창 호출 (V1 방식)
   IMP.request_pay({
-    channel_key: PORTONE_CONFIG.channelKey,
     pg: PORTONE_CONFIG.pg,
     pay_method: 'card',
     merchant_uid: orderId,
     name: PORTONE_CONFIG.name,
     amount: PORTONE_CONFIG.amount,
-    buyer_name: myName,
-    buyer_email: '',
-    buyer_tel: '',
-    m_redirect_url: window.location.href,
+    buyer_name: myName || '구매자',
+    buyer_email: 'kdw8808@kakao.com',
+    buyer_tel: '07080805939',
+    buyer_addr: '부산시 동래구 명륜로 170',
+    buyer_postcode: '47792',
   }, function(rsp) {
-    if (rsp.success) {
-      // 결제 성공
-      showToast('결제 완료! 리포트를 열고 있어요 💘');
+    if (rsp && rsp.success) {
       proceedPremium();
     } else {
-      // 결제 실패 or 취소
-      if (rsp.error_msg && rsp.error_msg.indexOf('취소') > -1) {
-        showToast('결제가 취소됐어요');
-      } else {
-        showToast('결제 오류: ' + (rsp.error_msg || '다시 시도해주세요'));
-        showPremiumPopup(); // 팝업 다시 열기
+      var msg = (rsp && rsp.error_msg) || '';
+      if (msg.indexOf('취소') === -1 && msg !== '') {
+        alert('결제 오류: ' + msg);
       }
+      showPremiumPopup();
     }
   });
 }
