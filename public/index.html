@@ -1898,9 +1898,9 @@ function proceedPayment() {
   // ✅ closePopup()은 여기서 호출하지 않음 — 결제창 팝업 차단 방지
   // ✅ 콜백 성공 시에만 팝업 닫기
 
-  // NHN KCP 결제창 호출 (V1 방식)
+  // NHN KCP 결제창 호출 (V1 방식 — 채널키 방식)
   IMP.request_pay({
-    pg: PORTONE_CONFIG.pg,
+    channel_key: PORTONE_CONFIG.channelKey,  // pg 대신 channel_key 사용 (신규 포트원 계정)
     pay_method: 'card',
     merchant_uid: orderId,
     name: PORTONE_CONFIG.name,
