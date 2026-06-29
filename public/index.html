@@ -268,18 +268,25 @@ body::before {
 
 /* ── 프리미엄 팝업 ── */
 .popup-overlay {
-  position:fixed; inset:0; background:rgba(18,4,10,0.65);
-  z-index:9000; display:none; align-items:flex-end; justify-content:center;
-  backdrop-filter:blur(4px);
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  background:rgba(18,4,10,0.75);
+  z-index:99999;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
 }
-.popup-overlay.show { display:flex !important; animation:bgin .25s ease; }
+.popup-overlay.show { display:flex; }
 @keyframes bgin { from{opacity:0} to{opacity:1} }
 .popup-sheet {
-  background:white; border-radius:24px 24px 0 0;
-  width:100%; max-width:480px;
+  background:white;
+  border-radius:24px 24px 0 0;
+  width:100%;
+  max-width:480px;
   padding:24px 20px 44px;
-  position:relative; animation:slideUp .3s cubic-bezier(.4,0,.2,1);
-  max-height:90vh; overflow-y:auto;
+  position:relative;
+  max-height:88vh;
+  overflow-y:auto;
 }
 @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
 .popup-handle { width:40px; height:4px; background:rgba(0,0,0,0.1); border-radius:10px; margin:0 auto 20px; }
@@ -760,7 +767,7 @@ body::before {
   </div>
 
   <!-- 관상 부각 배너 -->
-  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;" onclick="showPremiumPopup()">
+  <div style="background:linear-gradient(135deg,#1c040e,var(--deep));border-radius:16px;padding:20px 18px;margin-bottom:12px;color:white;cursor:pointer;position:relative;z-index:10;" onclick="event.stopPropagation();showPremiumPopup();">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
       <span style="font-size:22px;">📸</span>
       <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;">사진 한 장으로 관상까지 분석해드려요</span>
@@ -925,7 +932,7 @@ body::before {
 </div><!-- /wrap -->
 
 <!-- ════ 프리미엄 팝업 ════ -->
-<div class="popup-overlay" id="popupOverlay" onclick="closePopupOutside(event)">
+<div class="popup-overlay" id="popupOverlay">
   <div class="popup-sheet">
     <div class="popup-handle"></div>
     <button class="popup-close" onclick="closePopup()">✕</button>
@@ -1703,8 +1710,11 @@ function showPremiumPopup() {
   if (sub) sub.innerHTML = '<strong>' + mn + '</strong>과 <strong>' + pn + '</strong>의<br>진짜 궁합을 더 깊이 확인해봐요';
   var overlay = document.getElementById('popupOverlay');
   if (overlay) {
-    overlay.style.display = 'flex';
-    overlay.classList.add('show');
+    overlay.style.cssText = 'display:flex !important; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(18,4,10,0.75); z-index:99999; align-items:flex-end; justify-content:center;';
+    // 배경 클릭시 닫기
+    overlay.onclick = function(e) {
+      if (e.target === overlay) closePopup();
+    };
     document.body.style.overflow = 'hidden';
   }
   var ar = document.getElementById('agreeRefund');
@@ -1715,13 +1725,12 @@ function showPremiumPopup() {
 function closePopup() {
   var overlay = document.getElementById('popupOverlay');
   if (overlay) {
-    overlay.classList.remove('show');
-    overlay.style.display = 'none';
+    overlay.style.cssText = 'display:none;';
   }
   document.body.style.overflow = '';
 }
 function closePopupOutside(e) {
-  if (e.target === document.getElementById('popupOverlay')) closePopup();
+  if (e.target && e.target.id === 'popupOverlay') closePopup();
 }
 
 // ── 사진 ──
