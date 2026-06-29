@@ -441,6 +441,8 @@ body::before {
 .toast { position:fixed; bottom:26px; left:50%; transform:translateX(-50%); background:var(--ink); color:white; padding:11px 22px; border-radius:100px; font-size:13px; opacity:0; transition:opacity .3s; z-index:600; white-space:nowrap; pointer-events:none; }
 .toast.show { opacity:1; }
 </style>
+  <!-- 포트원 V1 SDK 필수 의존성: jQuery 먼저 로드 -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <!-- 포트원 결제 SDK -->
   <script src="https://cdn.iamport.kr/js/iamport.payment-1.0.0.js"></script>
 </head>
