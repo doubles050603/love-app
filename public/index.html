@@ -1115,7 +1115,7 @@ async function startAnalysis() {
   S.names = { my: S.myName || document.getElementById('myName').value.trim() || '나', partner: partnerName };
 
   document.getElementById('page2').classList.remove('active');
-  document.getElementById('loadingSection').style.display = 'block';
+  var __g_loadingSection=document.getElementById('loadingSection');if(__g_loadingSection)__g_loadingSection.style.display='block';
   updateProgressBar(3);
 
   var phases = [
@@ -1129,15 +1129,15 @@ async function startAnalysis() {
   var iv = setInterval(function() {
     if (pi >= phases.length) return;
     var p = phases[pi++];
-    document.getElementById('loadingIcon').textContent = p.icon;
-    document.getElementById('loadingTitle').innerHTML = p.title + '<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
-    document.getElementById('loadingSub').textContent = p.sub;
-    document.getElementById('progFill').style.width = p.p + '%';
+    var __g_loadingIcon=document.getElementById('loadingIcon');if(__g_loadingIcon)__g_loadingIcon.textContent=p.icon;
+    var __g_loadingTitle=document.getElementById('loadingTitle');if(__g_loadingTitle)__g_loadingTitle.innerHTML=p.title + '<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
+    var __g_loadingSub=document.getElementById('loadingSub');if(__g_loadingSub)__g_loadingSub.textContent=p.sub;
+    var __g_progFill=document.getElementById('progFill');if(__g_progFill)__g_progFill.style.width=p.p + '%';
   }, 1100);
 
   setTimeout(function() {
     clearInterval(iv);
-    document.getElementById('progFill').style.width = '100%';
+    var __g_progFill=document.getElementById('progFill');if(__g_progFill)__g_progFill.style.width='100%';
 
     // ── 오행 계산 ──
     var myYear = document.getElementById('myYear').value;
@@ -1357,8 +1357,8 @@ function showResult(myName, partnerName, data) {
   S.myName = myName;
   S.partnerName = partnerName;
   S.names = { my: myName, partner: partnerName };
-  document.getElementById('loadingSection').style.display = 'none';
-  document.getElementById('resultSection').style.display = 'block';
+  var __g_loadingSection=document.getElementById('loadingSection');if(__g_loadingSection)__g_loadingSection.style.display='none';
+  var __g_resultSection=document.getElementById('resultSection');if(__g_resultSection)__g_resultSection.style.display='block';
 
   // ── 오행 계산 (showResult 안에서 직접) ──
   var myYearVal = parseInt(document.getElementById('myYear').value) || 1995;
@@ -1546,21 +1546,21 @@ function showResult(myName, partnerName, data) {
   }
 
   const score = data.score || 83;
-  document.getElementById('resCouple').textContent = `${myName} ❤ ${partnerName}`;
-  document.getElementById('resVerdict').textContent = data.verdict || '달콤한 설렘 그 이상 💗';
-  document.getElementById('resOneline').textContent = data.oneline || '';
+  var __g_resCouple=document.getElementById('resCouple');if(__g_resCouple)__g_resCouple.textContent=`${myName} ❤ ${partnerName}`;
+  var __g_resVerdict=document.getElementById('resVerdict');if(__g_resVerdict)__g_resVerdict.textContent=data.verdict || '달콤한 설렘 그 이상 💗';
+  var __g_resOneline=document.getElementById('resOneline');if(__g_resOneline)__g_resOneline.textContent=data.oneline || '';
 
   const circ = 327, offset = circ - (score / 100) * circ;
   let cur = 0;
-  const ni = setInterval(() => { cur = Math.min(cur+2, score); document.getElementById('scoreNum').textContent = cur; if(cur>=score) clearInterval(ni); }, 25);
-  setTimeout(() => { document.getElementById('ringArc').style.strokeDashoffset = offset; }, 150);
+  const ni = setInterval(() => { cur = Math.min(cur+2, score); var __g_scoreNum=document.getElementById('scoreNum');if(__g_scoreNum)__g_scoreNum.textContent=cur; if(cur>=score) clearInterval(ni); }, 25);
+  setTimeout(() => { var __g_ringArc=document.getElementById('ringArc');if(__g_ringArc)__g_ringArc.style.strokeDashoffset=offset; }, 150);
 
-  document.getElementById('myStyleTitle').textContent = `${myName}의 연애 스타일`;
-  document.getElementById('myStyleBody').textContent = data.myStyle || '';
-  document.getElementById('partnerStyleTitle').textContent = `${partnerName}의 연애 스타일`;
-  document.getElementById('partnerStyleBody').textContent = data.partnerStyle || '';
-  document.getElementById('chemBody').textContent = data.chemistry || '';
-  document.getElementById('blurredHint').textContent = data.blurHint || '갈등 포인트와 극복 방법은 전체 리포트에서 확인하세요';
+  var __g_myStyleTitle=document.getElementById('myStyleTitle');if(__g_myStyleTitle)__g_myStyleTitle.textContent=`${myName}의 연애 스타일`;
+  var __g_myStyleBody=document.getElementById('myStyleBody');if(__g_myStyleBody)__g_myStyleBody.textContent=data.myStyle || '';
+  var __g_partnerStyleTitle=document.getElementById('partnerStyleTitle');if(__g_partnerStyleTitle)__g_partnerStyleTitle.textContent=`${partnerName}의 연애 스타일`;
+  var __g_partnerStyleBody=document.getElementById('partnerStyleBody');if(__g_partnerStyleBody)__g_partnerStyleBody.textContent=data.partnerStyle || '';
+  var __g_chemBody=document.getElementById('chemBody');if(__g_chemBody)__g_chemBody.textContent=data.chemistry || '';
+  var __g_blurredHint=document.getElementById('blurredHint');if(__g_blurredHint)__g_blurredHint.textContent=data.blurHint || '갈등 포인트와 극복 방법은 전체 리포트에서 확인하세요';
 
   // 오행 결과 세팅
   var ohangText = myOhang + '의 기운을 가진 ' + myName + '과 ' + partnerOhang + '의 기운을 가진 ' + partnerName + '은 오행(五行)으로 보면 ' + ohangData.rel + ' 관계예요.\n\n' + ohangData.txt;
@@ -1769,21 +1769,21 @@ async function proceedPremium() {
   var partnerName = S.partnerName || '상대방';
   var hasPhotos = S.myPhoto && S.partnerPhoto;
 
-  document.getElementById('resultSection').style.display = 'none';
-  document.getElementById('loadingSection').style.display = 'block';
-  document.getElementById('loadingIcon').textContent = hasPhotos ? '👁' : '🔮';
-  document.getElementById('loadingTitle').innerHTML = '심층 분석 중<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
-  document.getElementById('loadingSub').textContent = hasPhotos ? '관상 + 궁합 전체 분석 중' : '궁합 전체 분석 중';
+  var __g_resultSection=document.getElementById('resultSection');if(__g_resultSection)__g_resultSection.style.display='none';
+  var __g_loadingSection=document.getElementById('loadingSection');if(__g_loadingSection)__g_loadingSection.style.display='block';
+  var __g_loadingIcon=document.getElementById('loadingIcon');if(__g_loadingIcon)__g_loadingIcon.textContent=hasPhotos ? '👁' : '🔮';
+  var __g_loadingTitle=document.getElementById('loadingTitle');if(__g_loadingTitle)__g_loadingTitle.innerHTML='심층 분석 중<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
+  var __g_loadingSub=document.getElementById('loadingSub');if(__g_loadingSub)__g_loadingSub.textContent=hasPhotos ? '관상 + 궁합 전체 분석 중' : '궁합 전체 분석 중';
 
   var p = 20;
   var piv = setInterval(function() {
     p = Math.min(p + 7, 90);
-    document.getElementById('progFill').style.width = p + '%';
+    var __g_progFill=document.getElementById('progFill');if(__g_progFill)__g_progFill.style.width=p + '%';
   }, 500);
 
   setTimeout(function() {
     clearInterval(piv);
-    document.getElementById('progFill').style.width = '100%';
+    var __g_progFill=document.getElementById('progFill');if(__g_progFill)__g_progFill.style.width='100%';
 
     // ── 나이 계산 ──
     var myBirthYear = parseInt(document.getElementById('myYear').value) || 2000;
@@ -1808,9 +1808,9 @@ async function proceedPremium() {
     } else if (avgAge <= 24) {
       ageContext = '20대 초반';
       var militaryNote = '';
-      if (document.getElementById('myGender') && document.getElementById('myGender').value === '남성' && myAge >= 19 && myAge <= 27) {
+      if (document.getElementById('myGender') && document.getElementById('myGender').value=== '남성' && myAge >= 19 && myAge <= 27) {
         militaryNote = '\n\n특히 ' + myName + '이 아직 군 복무를 하지 않았거나 앞으로 입대를 앞두고 있다면, 이 부분이 두 사람의 관계에서 중요한 변수가 될 수 있어요. 군 복무 기간 동안 연락이 줄어들고, 만남이 제한되면서 감정이 흔들리는 커플이 많아요. 미리 솔직하게 대화해두는 게 중요해요. "나 입대하면 우리 어떻게 할 거야?"라는 질문을 피하지 말고 함께 준비해두세요.';
-      } else if (document.getElementById('partnerGender') && document.getElementById('partnerGender').value === '남성' && partnerAge >= 19 && partnerAge <= 27) {
+      } else if (document.getElementById('partnerGender') && document.getElementById('partnerGender').value=== '남성' && partnerAge >= 19 && partnerAge <= 27) {
         militaryNote = '\n\n' + partnerName + '이 아직 군 복무를 하지 않았거나 앞으로 입대를 앞두고 있다면, 이 부분이 두 사람의 관계에서 가장 큰 시험대가 될 수 있어요. 군 복무 기간 동안 연락이 줄어들고 만남이 제한되면서 감정이 흔들리는 커플이 정말 많아요. ' + myName + '이 이 기간 동안 어떻게 버틸 수 있을지, 둘이 함께 미리 이야기해두는 게 정말 중요해요. 기다림이 관계를 망가뜨리는 게 아니라, 기다리는 방법을 모르는 게 관계를 망가뜨려요.';
       }
       conflictContext = myName + '과 ' + partnerName + '의 갈등 패턴을 분석해보면, 20대 초반 커플에게서 가장 흔하게 나타나는 "각자의 세계가 넓어지면서 생기는 방향 차이"가 보여요.' + militaryNote + '\n\n이 나이대는 각자 학교, 취업 준비, 새로운 친구 관계, 자기 계발 등 개인적인 영역이 빠르게 넓어지는 시기예요. 그러다 보면 "요즘 왜 이렇게 바빠?" "나보다 친구들이 더 중요해?" 같은 갈등이 생기기 쉬워요.\n\n해결의 핵심은 "각자의 성장을 질투하지 않는 것"이에요. ' + partnerName + '이 새로운 것을 배우고 성장하는 모습을 위협으로 느끼지 말고, 응원해주세요. 그 응원이 돌아와서 ' + myName + '의 성장도 함께 응원받게 되거든요.';
@@ -1963,8 +1963,8 @@ function animateGauge(id, pctId, target, delay) {
 }
 
 function showPremiumResult(myName, partnerName, hasPhotos, data) {
-  document.getElementById('loadingSection').style.display = 'none';
-  document.getElementById('premiumResultSection').style.display = 'block';
+  var __g_loadingSection=document.getElementById('loadingSection');if(__g_loadingSection)__g_loadingSection.style.display='none';
+  var __g_premiumResultSection=document.getElementById('premiumResultSection');if(__g_premiumResultSection)__g_premiumResultSection.style.display='block';
   var _premResNames = document.getElementById('premResNames'); if(_premResNames) _premResNames.textContent = myName + ' ❤ ' + partnerName + ' 전체 리포트';
 
   // 재열람 코드 생성 & 저장
@@ -1974,13 +1974,13 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
 
   // 관상 분석
   if (hasPhotos && data.myFace) {
-    document.getElementById('faceSection').style.display = 'block';
+    var __fs = document.getElementById('faceSection'); if(__fs) __fs.style.display = 'block';
     var _myFaceTitle = document.getElementById('myFaceTitle'); if(_myFaceTitle) _myFaceTitle.textContent = myName + '의 관상 특성';
     var _myFaceBody = document.getElementById('myFaceBody'); if(_myFaceBody) _myFaceBody.textContent = data.myFace;
-    document.getElementById('myFaceTags').innerHTML = (data.myFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
+    var __mft = document.getElementById('myFaceTags'); if(__mft) __mft.innerHTML = (data.myFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
     var _partnerFaceTitle = document.getElementById('partnerFaceTitle'); if(_partnerFaceTitle) _partnerFaceTitle.textContent = partnerName + '의 관상 특성';
     var _partnerFaceBody = document.getElementById('partnerFaceBody'); if(_partnerFaceBody) _partnerFaceBody.textContent = data.partnerFace;
-    document.getElementById('partnerFaceTags').innerHTML = (data.partnerFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
+    var __pft = document.getElementById('partnerFaceTags'); if(__pft) __pft.innerHTML = (data.partnerFaceTraits||[]).map(function(t){return '<span class="trait-tag">'+t+'</span>';}).join('');
     var _faceChem = document.getElementById('faceChem'); if(_faceChem) _faceChem.textContent = data.faceChemistry;
   }
 
@@ -2157,14 +2157,14 @@ function resetAll() {
     const inp = document.getElementById(w+'PhotoInput');
     if(inp) inp.value='';
   });
-  document.getElementById('resultSection').style.display = 'none';
-  document.getElementById('premiumResultSection').style.display = 'none';
-  document.getElementById('faceSection').style.display = 'none';
-  document.getElementById('loadingSection').style.display = 'none';
+  var __g_resultSection=document.getElementById('resultSection');if(__g_resultSection)__g_resultSection.style.display='none';
+  var __g_premiumResultSection=document.getElementById('premiumResultSection');if(__g_premiumResultSection)__g_premiumResultSection.style.display='none';
+  var __fsn = document.getElementById('faceSection'); if(__fsn) __fsn.style.display = 'none';
+  var __g_loadingSection=document.getElementById('loadingSection');if(__g_loadingSection)__g_loadingSection.style.display='none';
   document.getElementById('page1').classList.add('active');
   document.getElementById('page2').classList.remove('active');
-  document.getElementById('progressNav').style.display = 'none';
-  document.getElementById('progFill').style.width = '0';
+  var __g_progressNav=document.getElementById('progressNav');if(__g_progressNav)__g_progressNav.style.display='none';
+  var __g_progFill=document.getElementById('progFill');if(__g_progFill)__g_progFill.style.width='0';
   closePopup();
   window.scrollTo({ top:0, behavior:'smooth' });
 }
