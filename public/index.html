@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💘 연애운명</title>
 <meta property="og:title" content="💘 연애운명 — 우리, 운명일까요?">
-<meta property="og:description" content="생년월일·MBTI·애착유형으로 보는 연애 궁합! 지금 바로 확인해봐요 💘">
+<meta property="og:description" content="우리 궁합 몇 점? 전국 상위 몇 %? 생년월일·별자리·MBTI로 30초만에 확인해봐요 💘">
 <meta property="og:image" content="https://love-app-chi-sage.vercel.app/og-image.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://love-app-chi-sage.vercel.app">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --rose: #c0375a;
-  --deep: #6b1230;
-  --gold: #c9943a;
-  --cream: #fdf8f2;
-  --pale: #f5ece0;
-  --mist: #8a7060;
-  --ink: #18100c;
-  --soft: #f9f0f3;
+  --rose: #f2547d;
+  --deep: #b03a64;
+  --gold: #e8963c;
+  --cream: #fffafc;
+  --pale: #ffeef4;
+  --mist: #9b7f8b;
+  --ink: #241a20;
+  --soft: #fff4f8;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { scroll-behavior:smooth; }
@@ -31,8 +31,8 @@ body {
 body::before {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(192,55,90,0.08) 0%, transparent 65%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 14c-2-5-10-5-10 2 0 8 10 14 10 14s10-6 10-14c0-7-8-7-10-2z' fill='%23c0375a' fill-opacity='.03'/%3E%3C/svg%3E");
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(242,84,125,0.08) 0%, transparent 65%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 14c-2-5-10-5-10 2 0 8 10 14 10 14s10-6 10-14c0-7-8-7-10-2z' fill='%23f2547d' fill-opacity='.05'/%3E%3C/svg%3E");
 }
 .wrap { position:relative; z-index:1; max-width:480px; margin:0 auto; padding:0 20px 80px; }
 
@@ -51,14 +51,14 @@ body::before {
 }
 .step-dot {
   width:28px; height:28px; border-radius:50%;
-  background:rgba(192,55,90,0.12); border:2px solid rgba(192,55,90,0.2);
+  background:rgba(242,84,125,0.12); border:2px solid rgba(242,84,125,0.2);
   display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:700; color:rgba(192,55,90,0.4);
+  font-size:11px; font-weight:700; color:rgba(242,84,125,0.4);
   transition:all .35s;
 }
-.step-dot.active { background:var(--rose); border-color:var(--rose); color:white; box-shadow:0 2px 12px rgba(192,55,90,0.35); }
+.step-dot.active { background:var(--rose); border-color:var(--rose); color:white; box-shadow:0 2px 12px rgba(242,84,125,0.35); }
 .step-dot.done { background:var(--deep); border-color:var(--deep); color:white; }
-.step-line { width:36px; height:2px; background:rgba(192,55,90,0.15); transition:background .35s; }
+.step-line { width:36px; height:2px; background:rgba(242,84,125,0.15); transition:background .35s; }
 .step-line.done { background:var(--deep); }
 .step-label-row {
   display:flex; justify-content:space-between;
@@ -86,7 +86,7 @@ body::before {
   padding:5px 16px; border-radius:20px; margin-bottom:14px;
   animation:glow 2.5s ease-in-out infinite;
 }
-@keyframes glow { 0%,100%{box-shadow:0 0 0 0 rgba(192,55,90,.35)} 50%{box-shadow:0 0 0 8px rgba(192,55,90,0)} }
+@keyframes glow { 0%,100%{box-shadow:0 0 0 0 rgba(242,84,125,.35)} 50%{box-shadow:0 0 0 8px rgba(242,84,125,0)} }
 .hero h1 { font-family:'Noto Serif KR',serif; font-size:28px; font-weight:900; color:var(--deep); line-height:1.3; margin-bottom:8px; }
 .hero h1 b { color:var(--rose); }
 .hero p { font-size:13px; color:var(--mist); line-height:1.8; }
@@ -97,8 +97,8 @@ body::before {
 /* ── 섹션 카드 ── */
 .q-section {
   background:white; border-radius:18px; padding:22px 18px;
-  margin-bottom:13px; border:1px solid rgba(192,55,90,0.09);
-  box-shadow:0 3px 18px rgba(192,55,90,0.05);
+  margin-bottom:13px; border:1px solid rgba(242,84,125,0.09);
+  box-shadow:0 3px 18px rgba(242,84,125,0.05);
   position:relative; overflow:hidden;
 }
 .q-section::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--rose),var(--gold),var(--rose)); }
@@ -108,11 +108,11 @@ body::before {
 .field { margin-bottom:12px; }
 .field label { display:block; font-size:11px; font-weight:500; color:var(--mist); letter-spacing:.4px; margin-bottom:5px; }
 .field input, .field select {
-  width:100%; padding:12px 14px; border:1.5px solid rgba(192,55,90,0.18); border-radius:11px;
+  width:100%; padding:12px 14px; border:1.5px solid rgba(242,84,125,0.18); border-radius:11px;
   font-size:14px; font-family:inherit; color:var(--ink); background:var(--cream);
   transition:all .2s; -webkit-appearance:none;
 }
-.field input:focus, .field select:focus { outline:none; border-color:var(--rose); box-shadow:0 0 0 3px rgba(192,55,90,0.1); background:white; }
+.field input:focus, .field select:focus { outline:none; border-color:var(--rose); box-shadow:0 0 0 3px rgba(242,84,125,0.1); background:white; }
 .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
 /* ── 칩 선택 ── */
@@ -120,23 +120,23 @@ body::before {
 .chip-label { font-size:11px; font-weight:700; color:var(--mist); letter-spacing:.4px; margin-bottom:8px; display:block; }
 .chips { display:flex; flex-wrap:wrap; gap:7px; }
 .chip {
-  padding:8px 14px; border:1.5px solid rgba(192,55,90,0.2);
+  padding:8px 14px; border:1.5px solid rgba(242,84,125,0.2);
   border-radius:22px; background:var(--soft);
   font-size:12.5px; font-family:inherit; color:var(--mist);
   cursor:pointer; transition:all .2s; user-select:none;
 }
 .chip:active { transform:scale(.96); }
-.chip.on { border-color:var(--rose); background:var(--rose); color:white; font-weight:600; box-shadow:0 2px 10px rgba(192,55,90,0.3); }
+.chip.on { border-color:var(--rose); background:var(--rose); color:white; font-weight:600; box-shadow:0 2px 10px rgba(242,84,125,0.3); }
 .chip.on-soft { border-color:var(--deep); background:var(--deep); color:white; font-weight:600; }
 
 /* ── 태그 카드 (애착유형 등 설명) ── */
 .attach-cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .attach-card {
-  border:1.5px solid rgba(192,55,90,0.18); border-radius:12px;
+  border:1.5px solid rgba(242,84,125,0.18); border-radius:12px;
   padding:11px 12px; background:var(--soft); cursor:pointer; transition:all .2s;
 }
 .attach-card:active { transform:scale(.97); }
-.attach-card.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(192,55,90,0.07),rgba(107,18,48,0.04)); }
+.attach-card.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(242,84,125,0.07),rgba(176,58,100,0.04)); }
 .attach-card .ac-emoji { font-size:20px; margin-bottom:4px; }
 .attach-card .ac-name { font-size:12px; font-weight:700; color:var(--deep); margin-bottom:2px; }
 .attach-card .ac-desc { font-size:10.5px; color:var(--mist); line-height:1.4; }
@@ -144,23 +144,23 @@ body::before {
 /* ── 상태 버튼 ── */
 .status-chips { display:flex; flex-direction:column; gap:8px; }
 .status-chip {
-  padding:13px 16px; border:1.5px solid rgba(192,55,90,0.18);
+  padding:13px 16px; border:1.5px solid rgba(242,84,125,0.18);
   border-radius:12px; background:var(--soft);
   font-size:13px; font-family:inherit; color:var(--ink);
   cursor:pointer; transition:all .2s; text-align:left;
   display:flex; align-items:center; gap:10px;
 }
 .status-chip .sc-emoji { font-size:18px; flex-shrink:0; }
-.status-chip.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(192,55,90,0.08),rgba(107,18,48,0.04)); font-weight:600; color:var(--deep); }
+.status-chip.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(242,84,125,0.08),rgba(176,58,100,0.04)); font-weight:600; color:var(--deep); }
 
 /* ── 사랑의 언어 ── */
 .love-lang-cards { display:flex; flex-direction:column; gap:8px; }
 .ll-card {
-  border:1.5px solid rgba(192,55,90,0.15); border-radius:12px;
+  border:1.5px solid rgba(242,84,125,0.15); border-radius:12px;
   padding:12px 14px; background:var(--soft); cursor:pointer; transition:all .2s;
   display:flex; align-items:center; gap:12px;
 }
-.ll-card.on { border-color:var(--rose); background:rgba(192,55,90,0.06); }
+.ll-card.on { border-color:var(--rose); background:rgba(242,84,125,0.06); }
 .ll-card .ll-icon { font-size:22px; flex-shrink:0; }
 .ll-card .ll-text strong { display:block; font-size:13px; color:var(--ink); margin-bottom:2px; }
 .ll-card .ll-text span { font-size:11px; color:var(--mist); }
@@ -168,7 +168,7 @@ body::before {
 /* ── 연락 스타일 ── */
 .contact-chips { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .contact-chip {
-  padding:11px 10px; border:1.5px solid rgba(192,55,90,0.18);
+  padding:11px 10px; border:1.5px solid rgba(242,84,125,0.18);
   border-radius:12px; background:var(--soft); cursor:pointer; transition:all .2s;
   font-size:12px; font-family:inherit; color:var(--mist); text-align:center; line-height:1.4;
 }
@@ -184,15 +184,15 @@ body::before {
   transition:transform .2s,box-shadow .2s; letter-spacing:.5px; margin-top:6px;
 }
 .btn-next::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.15),transparent); }
-.btn-next:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(192,55,90,.4); }
+.btn-next:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(242,84,125,.4); }
 .btn-next:active { transform:scale(.98); }
 .btn-back { background:none; border:none; color:var(--mist); font-size:13px; font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:4px; margin-bottom:8px; padding:4px 0; }
 .btn-back:hover { color:var(--rose); }
 
 /* ── 상대방 입력 힌트 ── */
 .partner-hint {
-  background:linear-gradient(135deg,rgba(192,55,90,0.07),rgba(201,148,58,0.05));
-  border:1px solid rgba(192,55,90,0.15); border-radius:14px;
+  background:linear-gradient(135deg,rgba(242,84,125,0.07),rgba(232,150,60,0.05));
+  border:1px solid rgba(242,84,125,0.15); border-radius:14px;
   padding:16px 18px; margin-bottom:18px;
   text-align:center;
 }
@@ -201,7 +201,7 @@ body::before {
 .partner-hint span { font-size:12px; color:var(--mist); }
 
 /* 상대방 몰라도 됨 안내 */
-.optional-note { font-size:11.5px; color:rgba(138,112,96,0.7); background:rgba(192,55,90,0.04); border-radius:8px; padding:8px 12px; margin-bottom:12px; line-height:1.5; }
+.optional-note { font-size:11.5px; color:rgba(138,112,96,0.7); background:rgba(242,84,125,0.04); border-radius:8px; padding:8px 12px; margin-bottom:12px; line-height:1.5; }
 
 /* ── 로딩 ── */
 #loadingSection { display:none; text-align:center; padding:80px 20px; }
@@ -211,31 +211,35 @@ body::before {
 .dots span { animation:dot 1.4s ease-in-out infinite; display:inline-block; }
 .dots span:nth-child(2){animation-delay:.2s} .dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-.prog-wrap { width:220px; height:3px; background:rgba(192,55,90,.1); border-radius:10px; margin:24px auto 0; overflow:hidden; }
+.prog-wrap { width:220px; height:3px; background:rgba(242,84,125,.1); border-radius:10px; margin:24px auto 0; overflow:hidden; }
 .prog-fill { height:100%; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:10px; width:0; transition:width .6s ease; }
 
 /* ── 결과 ── */
 #resultSection { display:none; }
 
 .result-hero {
-  background:linear-gradient(160deg,#1c040e,var(--deep) 55%,#7a2a10);
-  border-radius:20px; padding:32px 22px 28px; color:white; text-align:center;
+  background:linear-gradient(160deg,#ff85a8,#f2547d 58%,#ffb36b);
+  border-radius:22px; padding:32px 22px 28px; color:white; text-align:center;
   margin-bottom:13px; position:relative; overflow:hidden;
 }
-.result-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 25%,rgba(201,148,58,0.2),transparent 60%); }
+.result-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 20%,rgba(255,255,255,0.28),transparent 60%); }
 .result-couple { font-family:'Noto Serif KR',serif; font-size:13px; opacity:.85; margin-bottom:16px; letter-spacing:1px; }
 .ring-wrap { position:relative; width:120px; height:120px; margin:0 auto 14px; }
 .ring-wrap svg { width:100%; height:100%; transform:rotate(-90deg); }
-.ring-bg { fill:none; stroke:rgba(255,255,255,.12); stroke-width:8; }
-.ring-arc { fill:none; stroke:var(--gold); stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1); }
+.ring-bg { fill:none; stroke:rgba(255,255,255,.28); stroke-width:8; }
+.ring-arc { fill:none; stroke:#ffffff; stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1); }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.ring-center .n { font-family:'Noto Serif KR',serif; font-size:38px; font-weight:900; line-height:1; }
+.ring-center .n { font-family:'Noto Serif KR',serif; font-size:33px; font-weight:900; line-height:1; }
 .ring-center .u { font-size:12px; opacity:.75; }
 .result-verdict { font-family:'Noto Serif KR',serif; font-size:22px; font-weight:700; margin-bottom:5px; }
-.result-oneline { font-size:13px; opacity:.85; }
+.result-oneline { font-size:13px; opacity:.9; }
+.score-percentile { display:inline-block; margin-top:12px; background:rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.4); border-radius:100px; padding:6px 16px; font-size:12.5px; position:relative; }
+.score-percentile b { color:#fff3c9; }
+.btn-share-score { display:block; margin:14px auto 0; background:white; color:var(--rose); border:none; border-radius:100px; padding:12px 28px; font-size:13.5px; font-weight:700; font-family:inherit; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,0.18); position:relative; transition:transform .2s; }
+.btn-share-score:active { transform:scale(.95); }
 
-.free-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(192,55,90,0.09); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
-.free-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(192,55,90,0.08); }
+.free-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(242,84,125,0.09); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+.free-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(242,84,125,0.08); }
 .free-card-icon { font-size:20px; }
 .free-card-title { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:700; color:var(--deep); }
 .free-card-body { font-size:13.5px; line-height:1.9; color:#2a1810; }
@@ -244,11 +248,11 @@ body::before {
 .unlock-bar {
   background:white; border-radius:14px; padding:17px 20px;
   display:flex; align-items:center; justify-content:space-between;
-  border:1.5px solid rgba(201,148,58,0.45);
-  box-shadow:0 3px 18px rgba(201,148,58,0.14);
+  border:1.5px solid rgba(232,150,60,0.45);
+  box-shadow:0 3px 18px rgba(232,150,60,0.14);
   cursor:pointer; margin-bottom:12px; transition:all .2s;
 }
-.unlock-bar:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(201,148,58,0.25); }
+.unlock-bar:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(232,150,60,0.25); }
 .unlock-left strong { font-family:'Noto Serif KR',serif; font-size:14px; color:var(--deep); display:block; margin-bottom:3px; }
 .unlock-left span { font-size:12px; color:var(--mist); }
 .unlock-right { display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex-shrink:0; margin-left:12px; }
@@ -256,14 +260,14 @@ body::before {
 .unlock-old { font-size:11px; color:var(--mist); text-decoration:line-through; }
 .unlock-arrow { font-size:20px; color:var(--gold); line-height:1; }
 
-.share-card { background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(192,55,90,0.09); margin-bottom:12px; }
+.share-card { background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(242,84,125,0.09); margin-bottom:12px; }
 .share-card p { font-size:13px; color:var(--mist); margin-bottom:12px; }
 .share-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 .sbtn { padding:11px 20px; border-radius:10px; border:none; font-size:13px; font-family:inherit; cursor:pointer; font-weight:500; transition:transform .2s; display:flex; align-items:center; gap:6px; }
 .sbtn:hover { transform:translateY(-2px); }
 .s-k { background:#FEE500; color:#3A1D1D; }
 .s-c { background:var(--pale); color:var(--ink); }
-.retry-btn { display:block; width:100%; padding:12px; background:none; border:1px solid rgba(192,55,90,0.2); border-radius:10px; font-size:13px; font-family:inherit; color:var(--mist); cursor:pointer; margin-bottom:12px; transition:all .2s; }
+.retry-btn { display:block; width:100%; padding:12px; background:none; border:1px solid rgba(242,84,125,0.2); border-radius:10px; font-size:13px; font-family:inherit; color:var(--mist); cursor:pointer; margin-bottom:12px; transition:all .2s; }
 .retry-btn:hover { border-color:var(--rose); color:var(--ink); }
 
 /* ── 프리미엄 팝업 ── */
@@ -295,14 +299,14 @@ body::before {
 .popup-title { font-family:'Noto Serif KR',serif; font-size:20px; font-weight:700; color:var(--deep); text-align:center; margin-bottom:6px; }
 .popup-sub { font-size:13px; color:var(--mist); text-align:center; line-height:1.7; margin-bottom:18px; }
 .popup-items { display:flex; flex-direction:column; gap:9px; margin-bottom:20px; }
-.popup-item { display:flex; align-items:center; gap:12px; background:var(--cream); border-radius:12px; padding:12px 14px; border:1px solid rgba(192,55,90,0.08); }
+.popup-item { display:flex; align-items:center; gap:12px; background:var(--cream); border-radius:12px; padding:12px 14px; border:1px solid rgba(242,84,125,0.08); }
 .popup-item-icon { font-size:20px; flex-shrink:0; }
 .popup-item-text strong { display:block; font-size:13px; color:var(--ink); margin-bottom:2px; }
 .popup-item-text span { font-size:11px; color:var(--mist); }
-.popup-photo-section { background:rgba(192,55,90,0.04); border:1.5px dashed rgba(192,55,90,0.25); border-radius:12px; padding:14px; margin-bottom:18px; }
+.popup-photo-section { background:rgba(242,84,125,0.04); border:1.5px dashed rgba(242,84,125,0.25); border-radius:12px; padding:14px; margin-bottom:18px; }
 .popup-photo-title { font-size:12px; font-weight:600; color:var(--rose); margin-bottom:10px; }
 .popup-photo-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.photo-box { border:1.5px dashed rgba(192,55,90,0.3); border-radius:10px; padding:14px 8px; text-align:center; cursor:pointer; background:white; transition:all .2s; min-height:80px; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow:hidden; }
+.photo-box { border:1.5px dashed rgba(242,84,125,0.3); border-radius:10px; padding:14px 8px; text-align:center; cursor:pointer; background:white; transition:all .2s; min-height:80px; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow:hidden; }
 .photo-box:hover { border-color:var(--rose); }
 .photo-box.has { border-style:solid; border-color:var(--gold); padding:6px; justify-content:flex-start; }
 .photo-box img { display:none; width:100%; border-radius:7px; max-height:110px; object-fit:cover; }
@@ -320,21 +324,21 @@ body::before {
   cursor:pointer; transition:all .2s; letter-spacing:.5px; position:relative; overflow:hidden;
 }
 .btn-popup-pay::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.15),transparent); }
-.btn-popup-pay:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,148,58,.45); }
+.btn-popup-pay:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,150,60,.45); }
 .popup-price-row { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; font-size:12px; }
 .p-old { color:var(--mist); text-decoration:line-through; }
 .p-new { color:var(--rose); font-weight:700; font-size:15px; }
-.p-timer { background:rgba(192,55,90,.1); color:var(--rose); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:600; }
+.p-timer { background:rgba(242,84,125,.1); color:var(--rose); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:600; }
 
 /* 프리미엄 결과 */
 #premiumResultSection { display:none; }
-.premium-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(201,148,58,0.2); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+.premium-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(232,150,60,0.2); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
 
 /* 차트/게이지 스타일 */
 .gauge-wrap { margin:16px 0 8px; }
 .gauge-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .gauge-label { font-size:12px; color:var(--mist); width:80px; flex-shrink:0; }
-.gauge-bar { flex:1; height:10px; background:rgba(192,55,90,0.1); border-radius:10px; overflow:hidden; }
+.gauge-bar { flex:1; height:10px; background:rgba(242,84,125,0.1); border-radius:10px; overflow:hidden; }
 .gauge-fill { height:100%; border-radius:10px; transition:width 1.2s cubic-bezier(.4,0,.2,1); }
 .gauge-pct { font-size:12px; font-weight:700; color:var(--deep); width:36px; text-align:right; flex-shrink:0; }
 
@@ -343,7 +347,7 @@ body::before {
 
 /* 궁합 점수 카드 */
 .compat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
-.compat-item { background:var(--cream); border-radius:12px; padding:12px; text-align:center; border:1px solid rgba(192,55,90,0.1); }
+.compat-item { background:var(--cream); border-radius:12px; padding:12px; text-align:center; border:1px solid rgba(242,84,125,0.1); }
 .compat-item .ci-score { font-family:'Noto Serif KR',serif; font-size:28px; font-weight:900; color:var(--rose); line-height:1; }
 .compat-item .ci-label { font-size:11px; color:var(--mist); margin-top:4px; }
 
@@ -359,24 +363,24 @@ body::before {
 .btn-save-pdf:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(42,100,150,0.4); }
 
 /* 재열람 코드 */
-.reaccess-box { background:linear-gradient(135deg,rgba(201,148,58,0.08),rgba(107,18,48,0.05)); border:1px solid rgba(201,148,58,0.3); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
+.reaccess-box { background:linear-gradient(135deg,rgba(232,150,60,0.08),rgba(176,58,100,0.05)); border:1px solid rgba(232,150,60,0.3); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
 .reaccess-box p { font-size:12px; color:var(--mist); margin-bottom:8px; }
-.reaccess-code { font-family:monospace; font-size:20px; font-weight:700; color:var(--deep); letter-spacing:3px; background:white; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:8px; border:1px solid rgba(201,148,58,0.3); }
+.reaccess-code { font-family:monospace; font-size:20px; font-weight:700; color:var(--deep); letter-spacing:3px; background:white; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:8px; border:1px solid rgba(232,150,60,0.3); }
 .reaccess-box .rc-note { font-size:11px; color:rgba(138,112,96,0.7); }
 
 /* 재열람 입력창 */
-.reaccess-input-wrap { background:var(--cream); border:1px solid rgba(192,55,90,0.2); border-radius:14px; padding:20px; margin-bottom:12px; text-align:center; display:none; }
+.reaccess-input-wrap { background:var(--cream); border:1px solid rgba(242,84,125,0.2); border-radius:14px; padding:20px; margin-bottom:12px; text-align:center; display:none; }
 .reaccess-input-wrap.show { display:block; }
 .reaccess-input-wrap h3 { font-family:'Noto Serif KR',serif; font-size:15px; color:var(--deep); margin-bottom:10px; }
-.reaccess-input { width:100%; padding:12px; border:1.5px solid rgba(192,55,90,0.25); border-radius:10px; font-size:16px; font-family:monospace; text-align:center; letter-spacing:3px; background:white; }
+.reaccess-input { width:100%; padding:12px; border:1.5px solid rgba(242,84,125,0.25); border-radius:10px; font-size:16px; font-family:monospace; text-align:center; letter-spacing:3px; background:white; }
 .btn-reaccess { width:100%; padding:13px; background:var(--rose); color:white; border:none; border-radius:10px; font-size:14px; font-family:'Noto Serif KR',serif; font-weight:700; cursor:pointer; margin-top:10px; }
-.premium-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(201,148,58,0.12); }
+.premium-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(232,150,60,0.12); }
 .premium-card-icon { font-size:20px; }
 .premium-card-title { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:700; color:var(--deep); }
 .premium-card-body { font-size:13.5px; line-height:1.9; color:#2a1810; }
 .trait-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
-.trait-tag { background:rgba(192,55,90,0.07); border:1px solid rgba(192,55,90,0.18); border-radius:20px; padding:3px 11px; font-size:11px; color:var(--rose); font-weight:500; }
-.letter-card { background:linear-gradient(160deg,var(--deep),#4a1525); color:white; border-radius:16px; padding:24px 20px; margin-bottom:12px; }
+.trait-tag { background:rgba(242,84,125,0.07); border:1px solid rgba(242,84,125,0.18); border-radius:20px; padding:3px 11px; font-size:11px; color:var(--rose); font-weight:500; }
+.letter-card { background:linear-gradient(160deg,#ff8fb0,#f2547d); color:white; border-radius:18px; padding:24px 20px; margin-bottom:12px; }
 .letter-card h3 { font-family:'Noto Serif KR',serif; font-size:15px; margin-bottom:12px; opacity:.9; }
 .letter-card p { font-size:13.5px; line-height:1.95; opacity:.9; white-space:pre-line; }
 
@@ -401,7 +405,7 @@ body::before {
   font-size:17px; font-weight:700;
   color:var(--deep); margin-bottom:16px;
   padding-bottom:12px;
-  border-bottom:1px solid rgba(181,41,78,0.1);
+  border-bottom:1px solid rgba(242,84,125,0.1);
 }
 .legal-modal p, .legal-modal li {
   font-size:13px; color:#444;
@@ -424,7 +428,7 @@ body::before {
 /* 푸터 법적 링크 */
 .footer-links {
   text-align:center; padding:16px 0 8px;
-  border-top:1px solid rgba(181,41,78,0.08);
+  border-top:1px solid rgba(242,84,125,0.08);
   margin-top:16px;
 }
 .footer-links button {
@@ -482,7 +486,7 @@ body::before {
   </div>
 
   <div class="proof-row">
-    <div class="proof-item">👥 오늘 <strong>4,219명</strong> 참여</div>
+    <div class="proof-item">👥 오늘 <strong id="todayCount">4,219명</strong> 참여</div>
     <div class="proof-item">💬 공유 <strong>1.8만회</strong></div>
     <div class="proof-item">⭐ 만족도 <strong>96%</strong></div>
   </div>
@@ -712,6 +716,8 @@ body::before {
     </div>
     <div class="result-verdict" id="resVerdict"></div>
     <div class="result-oneline" id="resOneline"></div>
+    <div class="score-percentile" id="resPercentile"></div>
+    <button class="btn-share-score" onclick="shareScore()">📤 이 점수 자랑하기</button>
   </div>
 
   <!-- 무료 1: 별자리 + 오행 -->
@@ -730,7 +736,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">🔥</span><span class="free-card-title" id="partnerTypeTitle"></span></div>
     <div class="free-card-body" id="partnerTypeBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 더 자세한 내용은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="partnerTypeBlur"></div>
     </div>
@@ -740,7 +746,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">💌</span><span class="free-card-title" id="dashTitle"></span></div>
     <div class="free-card-body" id="dashBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 구체적인 대시 전략은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="dashBlur"></div>
     </div>
@@ -750,7 +756,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">💍</span><span class="free-card-title">이 관계, 어디까지 갈까?</span></div>
     <div class="free-card-body" id="loveFormBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 결혼 가능성 정밀 분석은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="loveFormBlur"></div>
     </div>
@@ -760,14 +766,14 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">✨</span><span class="free-card-title">두 사람의 케미</span></div>
     <div class="free-card-body" id="chemBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 갈등 패턴과 극복법은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="blurredHint"></div>
     </div>
   </div>
 
   <!-- 상품 정보 표시 (NHN KCP 심사 요건) -->
-  <div style="background:white;border:1px solid rgba(201,148,58,0.3);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+  <div style="background:white;border:1px solid rgba(232,150,60,0.3);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
     <div>
       <div style="font-size:13px;font-weight:700;color:var(--deep);">연애운명 프리미엄 리포트</div>
       <div style="font-size:11px;color:var(--mist);margin-top:2px;">갈등패턴·결혼운·이달연애운·관상분석 포함</div>
@@ -791,7 +797,8 @@ body::before {
       <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">💍 결혼 가능성</span>
       <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">📅 이달 연애운</span>
     </div>
-    <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="margin-top:12px;font-size:12px;opacity:0.9;" id="bannerProof"></div>
+    <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
       <div>
         <span style="font-size:12px;opacity:0.6;text-decoration:line-through;">₩3,900</span>
         <span style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;margin-left:8px;color:#f5c842;">₩1,900</span>
@@ -882,7 +889,7 @@ body::before {
     <!-- 연애 형태 예측 바 -->
     <div style="margin:14px 0;">
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mist);margin-bottom:6px;"><span>단기연애</span><span>장기연애</span><span>결혼</span></div>
-      <div style="height:12px;background:linear-gradient(90deg,rgba(192,55,90,0.15),rgba(107,18,48,0.15));border-radius:10px;position:relative;overflow:hidden;">
+      <div style="height:12px;background:linear-gradient(90deg,rgba(242,84,125,0.15),rgba(176,58,100,0.15));border-radius:10px;position:relative;overflow:hidden;">
         <div id="longtermBar" style="height:100%;border-radius:10px;background:linear-gradient(90deg,var(--rose),var(--deep));width:0%;transition:width 1.5s cubic-bezier(.4,0,.2,1);"></div>
       </div>
       <div style="text-align:center;margin-top:6px;font-size:13px;font-weight:700;color:var(--deep);" id="longtermLabel"></div>
@@ -1001,6 +1008,9 @@ body::before {
       </span>
     </label>
 
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--mist);margin-bottom:10px;flex-wrap:wrap;">
+      <span>🔒 NHN KCP 안전결제</span><span>·</span><span>📥 30일 재열람 보장</span><span>·</span><span>⭐ 만족도 96%</span>
+    </div>
     <button class="btn-popup-pay" onclick="proceedPayment()">전체 리포트 열기</button>
     <div class="popup-price-row">
       <span class="p-old">₩3,900</span>
@@ -1047,6 +1057,46 @@ const mbtiList = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ'
       `<button class="chip" onclick="pickMbti('${key}','${v}',this)">${v}</button>`
     ).join('');
   });
+})();
+
+// ── 점수·공유 헬퍼 ──
+function hashStr(str) {
+  var h = 0;
+  for (var i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
+  return Math.abs(h);
+}
+var STAR_ELEM = {'양자리':'불','사자자리':'불','사수자리':'불','황소자리':'흙','처녀자리':'흙','염소자리':'흙','쌍둥이자리':'바람','천칭자리':'바람','물병자리':'바람','게자리':'물','전갈자리':'물','물고기자리':'물'};
+
+// 점수대별 한마디 (공유 욕구 자극 포인트)
+function getVerdictByScore(s) {
+  if (s >= 96) return {v:'천생연분급 인연 💍', line:'이 조합, 놓치면 평생 후회할 수 있어요'};
+  if (s >= 90) return {v:'운명이 감지됐어요 💫', line:'우주가 등 떠미는 중 — 지금이 타이밍'};
+  if (s >= 85) return {v:'강한 끌림의 궁합 💗', line:'밀당보다 솔직함이 통하는 사이'};
+  if (s >= 78) return {v:'좋은 시그널 ✨', line:'한 끗 차이로 운명이 될 수 있는 사이'};
+  if (s >= 70) return {v:'가능성 충분한 인연 🌱', line:'타이밍만 맞으면 확 가까워지는 조합'};
+  if (s >= 62) return {v:'알아갈수록 빛나는 궁합 🔦', line:'첫인상보다 끝이 좋은 반전 조합'};
+  return {v:'서로를 성장시키는 인연 🌿', line:'다름이 오히려 매력이 되는 특별한 케이스'};
+}
+
+// 점수 → 전국 상위 % (결정적 매핑)
+function scoreToPercentile(s) {
+  if (s >= 96) return Math.max(1, 1 + Math.round(99 - s));
+  if (s >= 90) return 4 + Math.round((95 - s) * 1.2);
+  if (s >= 85) return 11 + Math.round((89 - s) * 1.8);
+  if (s >= 78) return 19 + Math.round((84 - s) * 2.5);
+  if (s >= 70) return 35 + Math.round((77 - s) * 2.8);
+  if (s >= 62) return 56 + Math.round((69 - s) * 2.5);
+  return 74 + Math.round((61 - s) * 1.5);
+}
+
+// 오늘 참여자 수 — 날짜 기반으로 매일 자연스럽게 변동
+(function() {
+  var d = new Date();
+  var n = 3200 + (hashStr(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate()) % 2400);
+  var el = document.getElementById('todayCount');
+  if (el) el.textContent = n.toLocaleString() + '명';
+  var bp = document.getElementById('bannerProof');
+  if (bp) bp.textContent = '🔥 오늘 ' + Math.round(n * 0.31).toLocaleString() + '명이 전체 리포트를 열어봤어요';
 })();
 
 // ── 선택 함수들 ──
@@ -1340,19 +1390,34 @@ async function startAnalysis() {
     };
     var finalBlurHint = blurHints[S.myAttach] || '⚠️ 두 분이 가장 크게 충돌하는 순간이 반드시 찾아와요. 언제, 어떤 이유로 생기는지 전체 리포트에서 확인하세요...';
 
-    // 점수 계산 (입력 풍부할수록 높게)
-    var baseScore = 78;
-    if (S.myMbti && S.partnerMbti) baseScore += 3;
-    if (S.myLoveLang) baseScore += 2;
-    if (S.myContact) baseScore += 1;
-    if (myHourV) baseScore += 2;
-    if (S.partnerAttitude) baseScore += 1;
-    baseScore = Math.min(baseScore, 95);
+    // ── 점수 계산 — 생년월일·이름 기반 결정적 점수 (같은 커플 = 항상 같은 점수, 커플마다 다름) ──
+    var elemA = STAR_ELEM[myStarQ] || '불', elemB = STAR_ELEM[partnerStarQ] || '물';
+    var elemCompat = 1;
+    if (elemA === elemB) elemCompat = 4;
+    else if ((elemA==='불'&&elemB==='바람')||(elemA==='바람'&&elemB==='불')||(elemA==='흙'&&elemB==='물')||(elemA==='물'&&elemB==='흙')) elemCompat = 5;
+    else if ((elemA==='불'&&elemB==='물')||(elemA==='물'&&elemB==='불')) elemCompat = -2;
+
+    var seedStr = (S.myName||'') + '|' + myYearV + '-' + myMonthV + '-' + myDayV + '|' + (partnerName||'') + '|' + partnerYearV + '-' + partnerMonthV;
+    var seedRand = (hashStr(seedStr) % 1000) / 1000;   // 0 ~ 0.999 (입력이 같으면 항상 같은 값)
+
+    var baseScore = 61 + seedRand * 23;               // 기본 분포 61.0 ~ 84.0
+    baseScore += (ohangScore || 0) * 1.6;             // 오행 상생(+8)/상극(-3.2) 실제 반영
+    baseScore += elemCompat;                          // 별자리 원소 궁합 (-2 ~ +5)
+    if (S.myMbti && S.partnerMbti) baseScore += 2;
+    if (myHourV) baseScore += 1.5;
+    if (S.partnerAttitude === '먼저 연락해 옴') baseScore += 2;
+    if (S.partnerInterest === '확실히 좋아하는 것 같음') baseScore += 2.5;
+    else if (S.partnerInterest === '관심 없는 것 같음') baseScore -= 3;
+    baseScore = Math.max(58, Math.min(98.4, baseScore));
+    baseScore = Math.round(baseScore * 10) / 10;      // 소수점 1자리 → "87.4점"처럼 정밀한 느낌
+
+    var band = getVerdictByScore(baseScore);
 
     var demoData = {
       score: baseScore,
-      verdict: baseScore >= 88 ? '운명처럼 찾아온 인연 💫' : baseScore >= 83 ? '달콤한 설렘 그 이상 💗' : '특별한 가능성의 만남 ✨',
-      oneline: S.myName + '과 ' + partnerName + ', ' + (S.myStatus ? S.myStatus + '인 지금' : '두 사람의 인연') + '에서 읽히는 것들',
+      percentile: scoreToPercentile(baseScore),
+      verdict: band.v,
+      oneline: band.line,
       myStyle: myStyleText + contactAdd + loveLangAdd,
       partnerStyle: partnerStyleText,
       chemistry: chemText + starOhangAdd,
@@ -1558,13 +1623,25 @@ function showResult(myName, partnerName, data) {
   }
 
   const score = data.score || 83;
+  S.lastScore = score;
+  S.lastPercentile = data.percentile || scoreToPercentile(score);
   var __g_resCouple=document.getElementById('resCouple');if(__g_resCouple)__g_resCouple.textContent=`${myName} ❤ ${partnerName}`;
   var __g_resVerdict=document.getElementById('resVerdict');if(__g_resVerdict)__g_resVerdict.textContent=data.verdict || '달콤한 설렘 그 이상 💗';
   var __g_resOneline=document.getElementById('resOneline');if(__g_resOneline)__g_resOneline.textContent=data.oneline || '';
+  var __g_resPct=document.getElementById('resPercentile');if(__g_resPct)__g_resPct.innerHTML='🏆 전국 커플 <b>상위 ' + S.lastPercentile + '%</b> 궁합';
 
   const circ = 327, offset = circ - (score / 100) * circ;
+  const scoreInt = Math.floor(score);
   let cur = 0;
-  const ni = setInterval(() => { cur = Math.min(cur+2, score); var __g_scoreNum=document.getElementById('scoreNum');if(__g_scoreNum)__g_scoreNum.textContent=cur; if(cur>=score) clearInterval(ni); }, 25);
+  const ni = setInterval(() => {
+    cur = Math.min(cur+2, scoreInt);
+    var __g_scoreNum=document.getElementById('scoreNum');if(__g_scoreNum)__g_scoreNum.textContent=cur;
+    if(cur>=scoreInt){
+      clearInterval(ni);
+      var fin=document.getElementById('scoreNum');
+      if(fin) fin.textContent = (score % 1 === 0) ? score : score.toFixed(1);
+    }
+  }, 25);
   setTimeout(() => { var __g_ringArc=document.getElementById('ringArc');if(__g_ringArc)__g_ringArc.style.strokeDashoffset=offset; }, 150);
 
   var __g_myStyleTitle=document.getElementById('myStyleTitle');if(__g_myStyleTitle)__g_myStyleTitle.textContent=`${myName}의 연애 스타일`;
@@ -1956,14 +2033,14 @@ function drawRadarChart(scores) {
       var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
       return (cx + r * ratio * Math.cos(angle)).toFixed(1) + ',' + (cy + r * ratio * Math.sin(angle)).toFixed(1);
     }).join(' ');
-    gridHtml += '<polygon points="' + gpts + '" fill="none" stroke="rgba(192,55,90,0.12)" stroke-width="1"/>';
+    gridHtml += '<polygon points="' + gpts + '" fill="none" stroke="rgba(242,84,125,0.12)" stroke-width="1"/>';
   });
   var polyPts = points.map(function(p) { return p.x.toFixed(1)+','+p.y.toFixed(1); }).join(' ');
   var labelsHtml = points.map(function(p, i) {
     return '<text x="' + p.lx.toFixed(1) + '" y="' + p.ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#8a7060" font-family="Noto Sans KR,sans-serif">' + labels[i] + '</text>';
   }).join('');
   svg.innerHTML = gridHtml +
-    '<polygon points="' + polyPts + '" fill="rgba(192,55,90,0.15)" stroke="var(--rose)" stroke-width="2"/>' +
+    '<polygon points="' + polyPts + '" fill="rgba(242,84,125,0.15)" stroke="var(--rose)" stroke-width="2"/>' +
     points.map(function(p) { return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="4" fill="var(--rose)"/>'; }).join('') +
     labelsHtml;
 }
@@ -2091,7 +2168,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   if (mgEl) {
     mgEl.innerHTML = marriageItems.map(function(item){
       var color=item.score>=80?'var(--rose)':item.score>=65?'var(--gold)':'#888';
-      return '<div style="background:var(--cream);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(192,55,90,0.1);"><div style="font-size:20px;margin-bottom:4px;">'+item.emoji+'</div><div style="font-size:20px;font-weight:700;color:'+color+'">'+item.score+'</div><div style="font-size:10px;color:var(--mist);">'+item.label+'</div></div>';
+      return '<div style="background:var(--cream);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(242,84,125,0.1);"><div style="font-size:20px;margin-bottom:4px;">'+item.emoji+'</div><div style="font-size:20px;font-weight:700;color:'+color+'">'+item.score+'</div><div style="font-size:10px;color:var(--mist);">'+item.label+'</div></div>';
     }).join('');
   }
 
@@ -2158,8 +2235,23 @@ function startCountdown() {
   }, 1000);
 }
 
-function shareKakao() { showToast('카카오 SDK 연동 시 공유 가능해요 💬'); }
-function copyLink() { navigator.clipboard.writeText(window.location.href).then(() => showToast('링크 복사 완료! 친구에게 공유하세요 🔗')); }
+// ── 공유 (점수 포함 — 친구가 궁금해지게) ──
+function buildShareText() {
+  if (S.lastScore) {
+    return '💘 ' + (S.names.my||'나') + ' ❤ ' + (S.names.partner||'상대') + ' 궁합 ' + S.lastScore + '점!\n전국 커플 상위 ' + S.lastPercentile + '%래 😳\n너네는 몇 점 나올까? 👉 ' + window.location.href;
+  }
+  return '💘 연애운명 — 우리 궁합 몇 점일까? 30초컷 👉 ' + window.location.href;
+}
+function shareScore() {
+  var txt = buildShareText();
+  if (navigator.share) {
+    navigator.share({ text: txt }).catch(function(){});
+  } else {
+    navigator.clipboard.writeText(txt).then(function(){ showToast('결과가 복사됐어요! 친구에게 붙여넣기 📋'); });
+  }
+}
+function shareKakao() { shareScore(); }
+function copyLink() { navigator.clipboard.writeText(buildShareText()).then(function(){ showToast('복사 완료! 친구에게 공유해보세요 🔗'); }); }
 
 function resetAll() {
   S.myPhoto = false; S.partnerPhoto = false;
