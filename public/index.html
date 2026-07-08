@@ -1972,9 +1972,10 @@ function proceedPayment() {
   // ✅ closePopup()은 여기서 호출하지 않음 — 결제창 팝업 차단 방지
   // ✅ 콜백 성공 시에만 팝업 닫기
 
-  // NHN KCP 결제창 호출 (V1 — channel_key 방식, 라우팅 충돌 방지를 위해 pg 파라미터 미사용)
+  // NHN KCP 결제창 호출 (V1 — channel_key + pg 병행, 이 조합이 실제로 KCP 서버까지 도달함을 확인함)
   IMP.request_pay({
     channel_key: PORTONE_CONFIG.channelKey,
+    pg: 'kcp.IP7N5',
     pay_method: 'card',
     merchant_uid: orderId,
     name: PORTONE_CONFIG.name,
