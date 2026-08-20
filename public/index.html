@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💘 연애운명</title>
 <meta property="og:title" content="💘 연애운명 — 우리, 운명일까요?">
-<meta property="og:description" content="우리 궁합 몇 점? 전국 상위 몇 %? 생년월일·별자리·MBTI로 30초만에 확인해봐요 💘">
+<meta property="og:description" content="생년월일·MBTI·애착유형으로 보는 연애 궁합! 지금 바로 확인해봐요 💘">
 <meta property="og:image" content="https://love-app-chi-sage.vercel.app/og-image.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://love-app-chi-sage.vercel.app">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --rose: #f2547d;
-  --deep: #b03a64;
-  --gold: #e8963c;
-  --cream: #fffafc;
-  --pale: #ffeef4;
-  --mist: #9b7f8b;
-  --ink: #241a20;
-  --soft: #fff4f8;
+  --rose: #c0375a;
+  --deep: #6b1230;
+  --gold: #c9943a;
+  --cream: #fdf8f2;
+  --pale: #f5ece0;
+  --mist: #8a7060;
+  --ink: #18100c;
+  --soft: #f9f0f3;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { scroll-behavior:smooth; }
@@ -31,8 +31,8 @@ body {
 body::before {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(242,84,125,0.08) 0%, transparent 65%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 14c-2-5-10-5-10 2 0 8 10 14 10 14s10-6 10-14c0-7-8-7-10-2z' fill='%23f2547d' fill-opacity='.05'/%3E%3C/svg%3E");
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(192,55,90,0.08) 0%, transparent 65%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 14c-2-5-10-5-10 2 0 8 10 14 10 14s10-6 10-14c0-7-8-7-10-2z' fill='%23c0375a' fill-opacity='.03'/%3E%3C/svg%3E");
 }
 .wrap { position:relative; z-index:1; max-width:480px; margin:0 auto; padding:0 20px 80px; }
 
@@ -51,14 +51,14 @@ body::before {
 }
 .step-dot {
   width:28px; height:28px; border-radius:50%;
-  background:rgba(242,84,125,0.12); border:2px solid rgba(242,84,125,0.2);
+  background:rgba(192,55,90,0.12); border:2px solid rgba(192,55,90,0.2);
   display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:700; color:rgba(242,84,125,0.4);
+  font-size:11px; font-weight:700; color:rgba(192,55,90,0.4);
   transition:all .35s;
 }
-.step-dot.active { background:var(--rose); border-color:var(--rose); color:white; box-shadow:0 2px 12px rgba(242,84,125,0.35); }
+.step-dot.active { background:var(--rose); border-color:var(--rose); color:white; box-shadow:0 2px 12px rgba(192,55,90,0.35); }
 .step-dot.done { background:var(--deep); border-color:var(--deep); color:white; }
-.step-line { width:36px; height:2px; background:rgba(242,84,125,0.15); transition:background .35s; }
+.step-line { width:36px; height:2px; background:rgba(192,55,90,0.15); transition:background .35s; }
 .step-line.done { background:var(--deep); }
 .step-label-row {
   display:flex; justify-content:space-between;
@@ -86,7 +86,7 @@ body::before {
   padding:5px 16px; border-radius:20px; margin-bottom:14px;
   animation:glow 2.5s ease-in-out infinite;
 }
-@keyframes glow { 0%,100%{box-shadow:0 0 0 0 rgba(242,84,125,.35)} 50%{box-shadow:0 0 0 8px rgba(242,84,125,0)} }
+@keyframes glow { 0%,100%{box-shadow:0 0 0 0 rgba(192,55,90,.35)} 50%{box-shadow:0 0 0 8px rgba(192,55,90,0)} }
 .hero h1 { font-family:'Noto Serif KR',serif; font-size:28px; font-weight:900; color:var(--deep); line-height:1.3; margin-bottom:8px; }
 .hero h1 b { color:var(--rose); }
 .hero p { font-size:13px; color:var(--mist); line-height:1.8; }
@@ -97,8 +97,8 @@ body::before {
 /* ── 섹션 카드 ── */
 .q-section {
   background:white; border-radius:18px; padding:22px 18px;
-  margin-bottom:13px; border:1px solid rgba(242,84,125,0.09);
-  box-shadow:0 3px 18px rgba(242,84,125,0.05);
+  margin-bottom:13px; border:1px solid rgba(192,55,90,0.09);
+  box-shadow:0 3px 18px rgba(192,55,90,0.05);
   position:relative; overflow:hidden;
 }
 .q-section::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--rose),var(--gold),var(--rose)); }
@@ -108,11 +108,11 @@ body::before {
 .field { margin-bottom:12px; }
 .field label { display:block; font-size:11px; font-weight:500; color:var(--mist); letter-spacing:.4px; margin-bottom:5px; }
 .field input, .field select {
-  width:100%; padding:12px 14px; border:1.5px solid rgba(242,84,125,0.18); border-radius:11px;
+  width:100%; padding:12px 14px; border:1.5px solid rgba(192,55,90,0.18); border-radius:11px;
   font-size:14px; font-family:inherit; color:var(--ink); background:var(--cream);
   transition:all .2s; -webkit-appearance:none;
 }
-.field input:focus, .field select:focus { outline:none; border-color:var(--rose); box-shadow:0 0 0 3px rgba(242,84,125,0.1); background:white; }
+.field input:focus, .field select:focus { outline:none; border-color:var(--rose); box-shadow:0 0 0 3px rgba(192,55,90,0.1); background:white; }
 .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
 /* ── 칩 선택 ── */
@@ -120,23 +120,23 @@ body::before {
 .chip-label { font-size:11px; font-weight:700; color:var(--mist); letter-spacing:.4px; margin-bottom:8px; display:block; }
 .chips { display:flex; flex-wrap:wrap; gap:7px; }
 .chip {
-  padding:8px 14px; border:1.5px solid rgba(242,84,125,0.2);
+  padding:8px 14px; border:1.5px solid rgba(192,55,90,0.2);
   border-radius:22px; background:var(--soft);
   font-size:12.5px; font-family:inherit; color:var(--mist);
   cursor:pointer; transition:all .2s; user-select:none;
 }
 .chip:active { transform:scale(.96); }
-.chip.on { border-color:var(--rose); background:var(--rose); color:white; font-weight:600; box-shadow:0 2px 10px rgba(242,84,125,0.3); }
+.chip.on { border-color:var(--rose); background:var(--rose); color:white; font-weight:600; box-shadow:0 2px 10px rgba(192,55,90,0.3); }
 .chip.on-soft { border-color:var(--deep); background:var(--deep); color:white; font-weight:600; }
 
 /* ── 태그 카드 (애착유형 등 설명) ── */
 .attach-cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .attach-card {
-  border:1.5px solid rgba(242,84,125,0.18); border-radius:12px;
+  border:1.5px solid rgba(192,55,90,0.18); border-radius:12px;
   padding:11px 12px; background:var(--soft); cursor:pointer; transition:all .2s;
 }
 .attach-card:active { transform:scale(.97); }
-.attach-card.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(242,84,125,0.07),rgba(176,58,100,0.04)); }
+.attach-card.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(192,55,90,0.07),rgba(107,18,48,0.04)); }
 .attach-card .ac-emoji { font-size:20px; margin-bottom:4px; }
 .attach-card .ac-name { font-size:12px; font-weight:700; color:var(--deep); margin-bottom:2px; }
 .attach-card .ac-desc { font-size:10.5px; color:var(--mist); line-height:1.4; }
@@ -144,23 +144,23 @@ body::before {
 /* ── 상태 버튼 ── */
 .status-chips { display:flex; flex-direction:column; gap:8px; }
 .status-chip {
-  padding:13px 16px; border:1.5px solid rgba(242,84,125,0.18);
+  padding:13px 16px; border:1.5px solid rgba(192,55,90,0.18);
   border-radius:12px; background:var(--soft);
   font-size:13px; font-family:inherit; color:var(--ink);
   cursor:pointer; transition:all .2s; text-align:left;
   display:flex; align-items:center; gap:10px;
 }
 .status-chip .sc-emoji { font-size:18px; flex-shrink:0; }
-.status-chip.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(242,84,125,0.08),rgba(176,58,100,0.04)); font-weight:600; color:var(--deep); }
+.status-chip.on { border-color:var(--rose); background:linear-gradient(135deg,rgba(192,55,90,0.08),rgba(107,18,48,0.04)); font-weight:600; color:var(--deep); }
 
 /* ── 사랑의 언어 ── */
 .love-lang-cards { display:flex; flex-direction:column; gap:8px; }
 .ll-card {
-  border:1.5px solid rgba(242,84,125,0.15); border-radius:12px;
+  border:1.5px solid rgba(192,55,90,0.15); border-radius:12px;
   padding:12px 14px; background:var(--soft); cursor:pointer; transition:all .2s;
   display:flex; align-items:center; gap:12px;
 }
-.ll-card.on { border-color:var(--rose); background:rgba(242,84,125,0.06); }
+.ll-card.on { border-color:var(--rose); background:rgba(192,55,90,0.06); }
 .ll-card .ll-icon { font-size:22px; flex-shrink:0; }
 .ll-card .ll-text strong { display:block; font-size:13px; color:var(--ink); margin-bottom:2px; }
 .ll-card .ll-text span { font-size:11px; color:var(--mist); }
@@ -168,7 +168,7 @@ body::before {
 /* ── 연락 스타일 ── */
 .contact-chips { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .contact-chip {
-  padding:11px 10px; border:1.5px solid rgba(242,84,125,0.18);
+  padding:11px 10px; border:1.5px solid rgba(192,55,90,0.18);
   border-radius:12px; background:var(--soft); cursor:pointer; transition:all .2s;
   font-size:12px; font-family:inherit; color:var(--mist); text-align:center; line-height:1.4;
 }
@@ -184,15 +184,15 @@ body::before {
   transition:transform .2s,box-shadow .2s; letter-spacing:.5px; margin-top:6px;
 }
 .btn-next::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.15),transparent); }
-.btn-next:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(242,84,125,.4); }
+.btn-next:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(192,55,90,.4); }
 .btn-next:active { transform:scale(.98); }
 .btn-back { background:none; border:none; color:var(--mist); font-size:13px; font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:4px; margin-bottom:8px; padding:4px 0; }
 .btn-back:hover { color:var(--rose); }
 
 /* ── 상대방 입력 힌트 ── */
 .partner-hint {
-  background:linear-gradient(135deg,rgba(242,84,125,0.07),rgba(232,150,60,0.05));
-  border:1px solid rgba(242,84,125,0.15); border-radius:14px;
+  background:linear-gradient(135deg,rgba(192,55,90,0.07),rgba(201,148,58,0.05));
+  border:1px solid rgba(192,55,90,0.15); border-radius:14px;
   padding:16px 18px; margin-bottom:18px;
   text-align:center;
 }
@@ -201,7 +201,7 @@ body::before {
 .partner-hint span { font-size:12px; color:var(--mist); }
 
 /* 상대방 몰라도 됨 안내 */
-.optional-note { font-size:11.5px; color:rgba(138,112,96,0.7); background:rgba(242,84,125,0.04); border-radius:8px; padding:8px 12px; margin-bottom:12px; line-height:1.5; }
+.optional-note { font-size:11.5px; color:rgba(138,112,96,0.7); background:rgba(192,55,90,0.04); border-radius:8px; padding:8px 12px; margin-bottom:12px; line-height:1.5; }
 
 /* ── 로딩 ── */
 #loadingSection { display:none; text-align:center; padding:80px 20px; }
@@ -211,35 +211,31 @@ body::before {
 .dots span { animation:dot 1.4s ease-in-out infinite; display:inline-block; }
 .dots span:nth-child(2){animation-delay:.2s} .dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot { 0%,80%,100%{opacity:0} 40%{opacity:1} }
-.prog-wrap { width:220px; height:3px; background:rgba(242,84,125,.1); border-radius:10px; margin:24px auto 0; overflow:hidden; }
+.prog-wrap { width:220px; height:3px; background:rgba(192,55,90,.1); border-radius:10px; margin:24px auto 0; overflow:hidden; }
 .prog-fill { height:100%; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:10px; width:0; transition:width .6s ease; }
 
 /* ── 결과 ── */
 #resultSection { display:none; }
 
 .result-hero {
-  background:linear-gradient(160deg,#ff85a8,#f2547d 58%,#ffb36b);
-  border-radius:22px; padding:32px 22px 28px; color:white; text-align:center;
+  background:linear-gradient(160deg,#1c040e,var(--deep) 55%,#7a2a10);
+  border-radius:20px; padding:32px 22px 28px; color:white; text-align:center;
   margin-bottom:13px; position:relative; overflow:hidden;
 }
-.result-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 20%,rgba(255,255,255,0.28),transparent 60%); }
+.result-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 25%,rgba(201,148,58,0.2),transparent 60%); }
 .result-couple { font-family:'Noto Serif KR',serif; font-size:13px; opacity:.85; margin-bottom:16px; letter-spacing:1px; }
 .ring-wrap { position:relative; width:120px; height:120px; margin:0 auto 14px; }
 .ring-wrap svg { width:100%; height:100%; transform:rotate(-90deg); }
-.ring-bg { fill:none; stroke:rgba(255,255,255,.28); stroke-width:8; }
-.ring-arc { fill:none; stroke:#ffffff; stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1); }
+.ring-bg { fill:none; stroke:rgba(255,255,255,.12); stroke-width:8; }
+.ring-arc { fill:none; stroke:var(--gold); stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1); }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.ring-center .n { font-family:'Noto Serif KR',serif; font-size:33px; font-weight:900; line-height:1; }
+.ring-center .n { font-family:'Noto Serif KR',serif; font-size:38px; font-weight:900; line-height:1; }
 .ring-center .u { font-size:12px; opacity:.75; }
 .result-verdict { font-family:'Noto Serif KR',serif; font-size:22px; font-weight:700; margin-bottom:5px; }
-.result-oneline { font-size:13px; opacity:.9; }
-.score-percentile { display:inline-block; margin-top:12px; background:rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.4); border-radius:100px; padding:6px 16px; font-size:12.5px; position:relative; }
-.score-percentile b { color:#fff3c9; }
-.btn-share-score { display:block; margin:14px auto 0; background:white; color:var(--rose); border:none; border-radius:100px; padding:12px 28px; font-size:13.5px; font-weight:700; font-family:inherit; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,0.18); position:relative; transition:transform .2s; }
-.btn-share-score:active { transform:scale(.95); }
+.result-oneline { font-size:13px; opacity:.85; }
 
-.free-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(242,84,125,0.09); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
-.free-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(242,84,125,0.08); }
+.free-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(192,55,90,0.09); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+.free-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(192,55,90,0.08); }
 .free-card-icon { font-size:20px; }
 .free-card-title { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:700; color:var(--deep); }
 .free-card-body { font-size:13.5px; line-height:1.9; color:#2a1810; }
@@ -248,11 +244,11 @@ body::before {
 .unlock-bar {
   background:white; border-radius:14px; padding:17px 20px;
   display:flex; align-items:center; justify-content:space-between;
-  border:1.5px solid rgba(232,150,60,0.45);
-  box-shadow:0 3px 18px rgba(232,150,60,0.14);
+  border:1.5px solid rgba(201,148,58,0.45);
+  box-shadow:0 3px 18px rgba(201,148,58,0.14);
   cursor:pointer; margin-bottom:12px; transition:all .2s;
 }
-.unlock-bar:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(232,150,60,0.25); }
+.unlock-bar:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(201,148,58,0.25); }
 .unlock-left strong { font-family:'Noto Serif KR',serif; font-size:14px; color:var(--deep); display:block; margin-bottom:3px; }
 .unlock-left span { font-size:12px; color:var(--mist); }
 .unlock-right { display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex-shrink:0; margin-left:12px; }
@@ -260,14 +256,14 @@ body::before {
 .unlock-old { font-size:11px; color:var(--mist); text-decoration:line-through; }
 .unlock-arrow { font-size:20px; color:var(--gold); line-height:1; }
 
-.share-card { background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(242,84,125,0.09); margin-bottom:12px; }
+.share-card { background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(192,55,90,0.09); margin-bottom:12px; }
 .share-card p { font-size:13px; color:var(--mist); margin-bottom:12px; }
 .share-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 .sbtn { padding:11px 20px; border-radius:10px; border:none; font-size:13px; font-family:inherit; cursor:pointer; font-weight:500; transition:transform .2s; display:flex; align-items:center; gap:6px; }
 .sbtn:hover { transform:translateY(-2px); }
 .s-k { background:#FEE500; color:#3A1D1D; }
 .s-c { background:var(--pale); color:var(--ink); }
-.retry-btn { display:block; width:100%; padding:12px; background:none; border:1px solid rgba(242,84,125,0.2); border-radius:10px; font-size:13px; font-family:inherit; color:var(--mist); cursor:pointer; margin-bottom:12px; transition:all .2s; }
+.retry-btn { display:block; width:100%; padding:12px; background:none; border:1px solid rgba(192,55,90,0.2); border-radius:10px; font-size:13px; font-family:inherit; color:var(--mist); cursor:pointer; margin-bottom:12px; transition:all .2s; }
 .retry-btn:hover { border-color:var(--rose); color:var(--ink); }
 
 /* ── 프리미엄 팝업 ── */
@@ -299,14 +295,14 @@ body::before {
 .popup-title { font-family:'Noto Serif KR',serif; font-size:20px; font-weight:700; color:var(--deep); text-align:center; margin-bottom:6px; }
 .popup-sub { font-size:13px; color:var(--mist); text-align:center; line-height:1.7; margin-bottom:18px; }
 .popup-items { display:flex; flex-direction:column; gap:9px; margin-bottom:20px; }
-.popup-item { display:flex; align-items:center; gap:12px; background:var(--cream); border-radius:12px; padding:12px 14px; border:1px solid rgba(242,84,125,0.08); }
+.popup-item { display:flex; align-items:center; gap:12px; background:var(--cream); border-radius:12px; padding:12px 14px; border:1px solid rgba(192,55,90,0.08); }
 .popup-item-icon { font-size:20px; flex-shrink:0; }
 .popup-item-text strong { display:block; font-size:13px; color:var(--ink); margin-bottom:2px; }
 .popup-item-text span { font-size:11px; color:var(--mist); }
-.popup-photo-section { background:rgba(242,84,125,0.04); border:1.5px dashed rgba(242,84,125,0.25); border-radius:12px; padding:14px; margin-bottom:18px; }
+.popup-photo-section { background:rgba(192,55,90,0.04); border:1.5px dashed rgba(192,55,90,0.25); border-radius:12px; padding:14px; margin-bottom:18px; }
 .popup-photo-title { font-size:12px; font-weight:600; color:var(--rose); margin-bottom:10px; }
 .popup-photo-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.photo-box { border:1.5px dashed rgba(242,84,125,0.3); border-radius:10px; padding:14px 8px; text-align:center; cursor:pointer; background:white; transition:all .2s; min-height:80px; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow:hidden; }
+.photo-box { border:1.5px dashed rgba(192,55,90,0.3); border-radius:10px; padding:14px 8px; text-align:center; cursor:pointer; background:white; transition:all .2s; min-height:80px; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow:hidden; }
 .photo-box:hover { border-color:var(--rose); }
 .photo-box.has { border-style:solid; border-color:var(--gold); padding:6px; justify-content:flex-start; }
 .photo-box img { display:none; width:100%; border-radius:7px; max-height:110px; object-fit:cover; }
@@ -324,21 +320,21 @@ body::before {
   cursor:pointer; transition:all .2s; letter-spacing:.5px; position:relative; overflow:hidden;
 }
 .btn-popup-pay::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.15),transparent); }
-.btn-popup-pay:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,150,60,.45); }
+.btn-popup-pay:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,148,58,.45); }
 .popup-price-row { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; font-size:12px; }
 .p-old { color:var(--mist); text-decoration:line-through; }
 .p-new { color:var(--rose); font-weight:700; font-size:15px; }
-.p-timer { background:rgba(242,84,125,.1); color:var(--rose); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:600; }
+.p-timer { background:rgba(192,55,90,.1); color:var(--rose); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:600; }
 
 /* 프리미엄 결과 */
 #premiumResultSection { display:none; }
-.premium-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(232,150,60,0.2); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
+.premium-card { background:white; border-radius:16px; padding:20px 18px; margin-bottom:12px; border:1px solid rgba(201,148,58,0.2); box-shadow:0 2px 12px rgba(0,0,0,0.04); }
 
 /* 차트/게이지 스타일 */
 .gauge-wrap { margin:16px 0 8px; }
 .gauge-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .gauge-label { font-size:12px; color:var(--mist); width:80px; flex-shrink:0; }
-.gauge-bar { flex:1; height:10px; background:rgba(242,84,125,0.1); border-radius:10px; overflow:hidden; }
+.gauge-bar { flex:1; height:10px; background:rgba(192,55,90,0.1); border-radius:10px; overflow:hidden; }
 .gauge-fill { height:100%; border-radius:10px; transition:width 1.2s cubic-bezier(.4,0,.2,1); }
 .gauge-pct { font-size:12px; font-weight:700; color:var(--deep); width:36px; text-align:right; flex-shrink:0; }
 
@@ -347,7 +343,7 @@ body::before {
 
 /* 궁합 점수 카드 */
 .compat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
-.compat-item { background:var(--cream); border-radius:12px; padding:12px; text-align:center; border:1px solid rgba(242,84,125,0.1); }
+.compat-item { background:var(--cream); border-radius:12px; padding:12px; text-align:center; border:1px solid rgba(192,55,90,0.1); }
 .compat-item .ci-score { font-family:'Noto Serif KR',serif; font-size:28px; font-weight:900; color:var(--rose); line-height:1; }
 .compat-item .ci-label { font-size:11px; color:var(--mist); margin-top:4px; }
 
@@ -363,24 +359,24 @@ body::before {
 .btn-save-pdf:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(42,100,150,0.4); }
 
 /* 재열람 코드 */
-.reaccess-box { background:linear-gradient(135deg,rgba(232,150,60,0.08),rgba(176,58,100,0.05)); border:1px solid rgba(232,150,60,0.3); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
+.reaccess-box { background:linear-gradient(135deg,rgba(201,148,58,0.08),rgba(107,18,48,0.05)); border:1px solid rgba(201,148,58,0.3); border-radius:12px; padding:16px; margin-bottom:12px; text-align:center; }
 .reaccess-box p { font-size:12px; color:var(--mist); margin-bottom:8px; }
-.reaccess-code { font-family:monospace; font-size:20px; font-weight:700; color:var(--deep); letter-spacing:3px; background:white; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:8px; border:1px solid rgba(232,150,60,0.3); }
+.reaccess-code { font-family:monospace; font-size:20px; font-weight:700; color:var(--deep); letter-spacing:3px; background:white; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:8px; border:1px solid rgba(201,148,58,0.3); }
 .reaccess-box .rc-note { font-size:11px; color:rgba(138,112,96,0.7); }
 
 /* 재열람 입력창 */
-.reaccess-input-wrap { background:var(--cream); border:1px solid rgba(242,84,125,0.2); border-radius:14px; padding:20px; margin-bottom:12px; text-align:center; display:none; }
+.reaccess-input-wrap { background:var(--cream); border:1px solid rgba(192,55,90,0.2); border-radius:14px; padding:20px; margin-bottom:12px; text-align:center; display:none; }
 .reaccess-input-wrap.show { display:block; }
 .reaccess-input-wrap h3 { font-family:'Noto Serif KR',serif; font-size:15px; color:var(--deep); margin-bottom:10px; }
-.reaccess-input { width:100%; padding:12px; border:1.5px solid rgba(242,84,125,0.25); border-radius:10px; font-size:16px; font-family:monospace; text-align:center; letter-spacing:3px; background:white; }
+.reaccess-input { width:100%; padding:12px; border:1.5px solid rgba(192,55,90,0.25); border-radius:10px; font-size:16px; font-family:monospace; text-align:center; letter-spacing:3px; background:white; }
 .btn-reaccess { width:100%; padding:13px; background:var(--rose); color:white; border:none; border-radius:10px; font-size:14px; font-family:'Noto Serif KR',serif; font-weight:700; cursor:pointer; margin-top:10px; }
-.premium-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(232,150,60,0.12); }
+.premium-card-hd { display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid rgba(201,148,58,0.12); }
 .premium-card-icon { font-size:20px; }
 .premium-card-title { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:700; color:var(--deep); }
 .premium-card-body { font-size:13.5px; line-height:1.9; color:#2a1810; }
 .trait-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
-.trait-tag { background:rgba(242,84,125,0.07); border:1px solid rgba(242,84,125,0.18); border-radius:20px; padding:3px 11px; font-size:11px; color:var(--rose); font-weight:500; }
-.letter-card { background:linear-gradient(160deg,#ff8fb0,#f2547d); color:white; border-radius:18px; padding:24px 20px; margin-bottom:12px; }
+.trait-tag { background:rgba(192,55,90,0.07); border:1px solid rgba(192,55,90,0.18); border-radius:20px; padding:3px 11px; font-size:11px; color:var(--rose); font-weight:500; }
+.letter-card { background:linear-gradient(160deg,var(--deep),#4a1525); color:white; border-radius:16px; padding:24px 20px; margin-bottom:12px; }
 .letter-card h3 { font-family:'Noto Serif KR',serif; font-size:15px; margin-bottom:12px; opacity:.9; }
 .letter-card p { font-size:13.5px; line-height:1.95; opacity:.9; white-space:pre-line; }
 
@@ -405,7 +401,7 @@ body::before {
   font-size:17px; font-weight:700;
   color:var(--deep); margin-bottom:16px;
   padding-bottom:12px;
-  border-bottom:1px solid rgba(242,84,125,0.1);
+  border-bottom:1px solid rgba(181,41,78,0.1);
 }
 .legal-modal p, .legal-modal li {
   font-size:13px; color:#444;
@@ -428,7 +424,7 @@ body::before {
 /* 푸터 법적 링크 */
 .footer-links {
   text-align:center; padding:16px 0 8px;
-  border-top:1px solid rgba(242,84,125,0.08);
+  border-top:1px solid rgba(181,41,78,0.08);
   margin-top:16px;
 }
 .footer-links button {
@@ -445,8 +441,8 @@ body::before {
 .toast { position:fixed; bottom:26px; left:50%; transform:translateX(-50%); background:var(--ink); color:white; padding:11px 22px; border-radius:100px; font-size:13px; opacity:0; transition:opacity .3s; z-index:600; white-space:nowrap; pointer-events:none; }
 .toast.show { opacity:1; }
 </style>
-  <!-- 포트원 결제 SDK (최신 V1 — channel_key 지원, jQuery 불필요) -->
-  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <!-- 포트원 결제 SDK -->
+  <script src="https://cdn.iamport.kr/js/iamport.payment-1.0.0.js"></script>
 </head>
 <body>
 
@@ -486,9 +482,23 @@ body::before {
   </div>
 
   <div class="proof-row">
-    <div class="proof-item">👥 오늘 <strong id="todayCount">4,219명</strong> 참여</div>
+    <div class="proof-item">👥 오늘 <strong>4,219명</strong> 참여</div>
     <div class="proof-item">💬 공유 <strong>1.8만회</strong></div>
     <div class="proof-item">⭐ 만족도 <strong>96%</strong></div>
+  </div>
+
+  <!-- 이미 결제한 분 재열람 -->
+  <div id="reaccessBox" style="display:none;background:rgba(201,148,58,0.09);border:1px solid rgba(201,148,58,0.35);border-radius:14px;padding:14px 16px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:700;color:var(--deep);margin-bottom:8px;">📂 이미 결제하신 분이신가요?</div>
+    <div style="font-size:11.5px;color:var(--mist);line-height:1.6;margin-bottom:10px;">결제 후 받으신 재열람 코드를 입력하시면 리포트를 다시 열어드려요. (결제일로부터 30일)</div>
+    <div style="display:flex;gap:7px;">
+      <input type="text" id="reaccessInput" placeholder="예: A1B2-C3D4" maxlength="9"
+        style="flex:1;padding:11px;border:1.5px solid rgba(192,55,90,0.25);border-radius:10px;font-size:15px;font-family:monospace;text-align:center;letter-spacing:2px;text-transform:uppercase;background:white;">
+      <button onclick="tryReaccess()" style="padding:11px 18px;background:var(--rose);color:white;border:none;border-radius:10px;font-size:13px;font-family:'Noto Serif KR',serif;font-weight:700;cursor:pointer;white-space:nowrap;">열기</button>
+    </div>
+  </div>
+  <div style="text-align:center;margin-bottom:14px;">
+    <button onclick="toggleReaccess()" style="background:none;border:none;color:var(--mist);font-size:11.5px;text-decoration:underline;cursor:pointer;font-family:inherit;">이미 결제하셨나요? 리포트 다시 보기</button>
   </div>
 
   <!-- 기본 정보 -->
@@ -716,8 +726,6 @@ body::before {
     </div>
     <div class="result-verdict" id="resVerdict"></div>
     <div class="result-oneline" id="resOneline"></div>
-    <div class="score-percentile" id="resPercentile"></div>
-    <button class="btn-share-score" onclick="shareScore()">📤 이 점수 자랑하기</button>
   </div>
 
   <!-- 무료 1: 별자리 + 오행 -->
@@ -736,7 +744,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">🔥</span><span class="free-card-title" id="partnerTypeTitle"></span></div>
     <div class="free-card-body" id="partnerTypeBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 더 자세한 내용은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="partnerTypeBlur"></div>
     </div>
@@ -746,7 +754,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">💌</span><span class="free-card-title" id="dashTitle"></span></div>
     <div class="free-card-body" id="dashBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 구체적인 대시 전략은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="dashBlur"></div>
     </div>
@@ -756,7 +764,7 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">💍</span><span class="free-card-title">이 관계, 어디까지 갈까?</span></div>
     <div class="free-card-body" id="loveFormBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 결혼 가능성 정밀 분석은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="loveFormBlur"></div>
     </div>
@@ -766,14 +774,14 @@ body::before {
   <div class="free-card">
     <div class="free-card-hd"><span class="free-card-icon">✨</span><span class="free-card-title">두 사람의 케미</span></div>
     <div class="free-card-body" id="chemBody"></div>
-    <div style="margin-top:10px;padding:10px 12px;background:rgba(242,84,125,0.06);border-radius:10px;border-left:3px solid var(--rose);">
+    <div style="margin-top:10px;padding:10px 12px;background:rgba(192,55,90,0.06);border-radius:10px;border-left:3px solid var(--rose);">
       <div style="font-size:11px;color:var(--rose);font-weight:700;margin-bottom:4px;">🔒 갈등 패턴과 극복법은 전체 리포트에서</div>
       <div class="free-card-body blurred" id="blurredHint"></div>
     </div>
   </div>
 
   <!-- 상품 정보 표시 (NHN KCP 심사 요건) -->
-  <div style="background:white;border:1px solid rgba(232,150,60,0.3);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+  <div style="background:white;border:1px solid rgba(201,148,58,0.3);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
     <div>
       <div style="font-size:13px;font-weight:700;color:var(--deep);">연애운명 프리미엄 리포트</div>
       <div style="font-size:11px;color:var(--mist);margin-top:2px;">갈등패턴·결혼운·이달연애운·관상분석 포함</div>
@@ -797,8 +805,7 @@ body::before {
       <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">💍 결혼 가능성</span>
       <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;">📅 이달 연애운</span>
     </div>
-    <div style="margin-top:12px;font-size:12px;opacity:0.9;" id="bannerProof"></div>
-    <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;">
       <div>
         <span style="font-size:12px;opacity:0.6;text-decoration:line-through;">₩3,900</span>
         <span style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;margin-left:8px;color:#f5c842;">₩1,900</span>
@@ -831,7 +838,9 @@ body::before {
   <div class="reaccess-box">
     <p>📌 이 코드로 30일 이내 언제든 다시 열람할 수 있어요</p>
     <div class="reaccess-code" id="myAccessCode">----</div>
-    <div class="rc-note">코드를 캡처하거나 메모해두세요 · 타인과 공유하지 마세요</div>
+    <div class="rc-note"><strong style="color:var(--rose);">⚠️ 지금 이 화면을 캡처해두세요</strong><br>
+      다시 볼 때 첫 화면의 "리포트 다시 보기"에 이 코드를 입력하면 돼요<br>
+      문제가 생기면 kdw8808@kakao.com 으로 알려주세요</div>
   </div>
 
   <!-- PDF 저장 버튼 -->
@@ -889,7 +898,7 @@ body::before {
     <!-- 연애 형태 예측 바 -->
     <div style="margin:14px 0;">
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mist);margin-bottom:6px;"><span>단기연애</span><span>장기연애</span><span>결혼</span></div>
-      <div style="height:12px;background:linear-gradient(90deg,rgba(242,84,125,0.15),rgba(176,58,100,0.15));border-radius:10px;position:relative;overflow:hidden;">
+      <div style="height:12px;background:linear-gradient(90deg,rgba(192,55,90,0.15),rgba(107,18,48,0.15));border-radius:10px;position:relative;overflow:hidden;">
         <div id="longtermBar" style="height:100%;border-radius:10px;background:linear-gradient(90deg,var(--rose),var(--deep));width:0%;transition:width 1.5s cubic-bezier(.4,0,.2,1);"></div>
       </div>
       <div style="text-align:center;margin-top:6px;font-size:13px;font-weight:700;color:var(--deep);" id="longtermLabel"></div>
@@ -1008,10 +1017,30 @@ body::before {
       </span>
     </label>
 
-    <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--mist);margin-bottom:10px;flex-wrap:wrap;">
-      <span>🔒 NHN KCP 안전결제</span><span>·</span><span>📥 30일 재열람 보장</span><span>·</span><span>⭐ 만족도 96%</span>
+    <!-- 구매자 이메일 (문제 발생 시 연락용) -->
+    <div style="margin-bottom:12px;">
+      <label style="display:block;font-size:11.5px;color:var(--mist);margin-bottom:6px;line-height:1.6;">
+        📧 이메일 <strong style="color:var(--deep);">(권장)</strong> — 결제 영수증이 발송되고,<br>
+        리포트가 열리지 않을 경우 이 주소로 보내드려요
+      </label>
+      <input type="email" id="buyerEmail" placeholder="example@email.com" autocomplete="email"
+        style="width:100%;padding:11px 12px;border:1.5px solid rgba(192,55,90,0.22);border-radius:10px;font-size:14px;font-family:inherit;background:white;">
     </div>
+
+    <!-- 기기 안내 -->
+    <div style="margin-bottom:12px;padding:11px 13px;background:rgba(201,148,58,0.1);border:1px solid rgba(201,148,58,0.3);border-radius:10px;font-size:11px;color:var(--mist);line-height:1.7;">
+      <strong style="color:var(--deep);">📱 결제 전 꼭 확인해주세요</strong><br>
+      · 리포트는 <strong style="color:var(--ink);">결제하신 기기·브라우저</strong>에서 다시 열 수 있어요<br>
+      · 시크릿 모드에서는 다시 보기가 제한돼요<br>
+      · 결제 후 나오는 <strong style="color:var(--ink);">재열람 코드는 꼭 캡처</strong>해두세요
+    </div>
+
     <button class="btn-popup-pay" onclick="proceedPayment()">전체 리포트 열기</button>
+    <div style="margin-top:10px;padding:9px 12px;background:rgba(0,0,0,0.03);border-radius:9px;font-size:11px;color:var(--mist);line-height:1.65;text-align:center;">
+      결제 후 리포트가 열리지 않으면<br>
+      <strong style="color:var(--deep);">kdw8808@kakao.com</strong> 으로 알려주세요<br>
+      바로 보내드리거나 전액 환불해드려요
+    </div>
     <div class="popup-price-row">
       <span class="p-old">₩3,900</span>
       <span class="p-new">₩1,900</span>
@@ -1057,46 +1086,6 @@ const mbtiList = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ'
       `<button class="chip" onclick="pickMbti('${key}','${v}',this)">${v}</button>`
     ).join('');
   });
-})();
-
-// ── 점수·공유 헬퍼 ──
-function hashStr(str) {
-  var h = 0;
-  for (var i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
-  return Math.abs(h);
-}
-var STAR_ELEM = {'양자리':'불','사자자리':'불','사수자리':'불','황소자리':'흙','처녀자리':'흙','염소자리':'흙','쌍둥이자리':'바람','천칭자리':'바람','물병자리':'바람','게자리':'물','전갈자리':'물','물고기자리':'물'};
-
-// 점수대별 한마디 (공유 욕구 자극 포인트)
-function getVerdictByScore(s) {
-  if (s >= 96) return {v:'천생연분급 인연 💍', line:'이 조합, 놓치면 평생 후회할 수 있어요'};
-  if (s >= 90) return {v:'운명이 감지됐어요 💫', line:'우주가 등 떠미는 중 — 지금이 타이밍'};
-  if (s >= 85) return {v:'강한 끌림의 궁합 💗', line:'밀당보다 솔직함이 통하는 사이'};
-  if (s >= 78) return {v:'좋은 시그널 ✨', line:'한 끗 차이로 운명이 될 수 있는 사이'};
-  if (s >= 70) return {v:'가능성 충분한 인연 🌱', line:'타이밍만 맞으면 확 가까워지는 조합'};
-  if (s >= 62) return {v:'알아갈수록 빛나는 궁합 🔦', line:'첫인상보다 끝이 좋은 반전 조합'};
-  return {v:'서로를 성장시키는 인연 🌿', line:'다름이 오히려 매력이 되는 특별한 케이스'};
-}
-
-// 점수 → 전국 상위 % (결정적 매핑)
-function scoreToPercentile(s) {
-  if (s >= 96) return Math.max(1, 1 + Math.round(99 - s));
-  if (s >= 90) return 4 + Math.round((95 - s) * 1.2);
-  if (s >= 85) return 11 + Math.round((89 - s) * 1.8);
-  if (s >= 78) return 19 + Math.round((84 - s) * 2.5);
-  if (s >= 70) return 35 + Math.round((77 - s) * 2.8);
-  if (s >= 62) return 56 + Math.round((69 - s) * 2.5);
-  return 74 + Math.round((61 - s) * 1.5);
-}
-
-// 오늘 참여자 수 — 날짜 기반으로 매일 자연스럽게 변동
-(function() {
-  var d = new Date();
-  var n = 3200 + (hashStr(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate()) % 2400);
-  var el = document.getElementById('todayCount');
-  if (el) el.textContent = n.toLocaleString() + '명';
-  var bp = document.getElementById('bannerProof');
-  if (bp) bp.textContent = '🔥 오늘 ' + Math.round(n * 0.31).toLocaleString() + '명이 전체 리포트를 열어봤어요';
 })();
 
 // ── 선택 함수들 ──
@@ -1390,34 +1379,19 @@ async function startAnalysis() {
     };
     var finalBlurHint = blurHints[S.myAttach] || '⚠️ 두 분이 가장 크게 충돌하는 순간이 반드시 찾아와요. 언제, 어떤 이유로 생기는지 전체 리포트에서 확인하세요...';
 
-    // ── 점수 계산 — 생년월일·이름 기반 결정적 점수 (같은 커플 = 항상 같은 점수, 커플마다 다름) ──
-    var elemA = STAR_ELEM[myStarQ] || '불', elemB = STAR_ELEM[partnerStarQ] || '물';
-    var elemCompat = 1;
-    if (elemA === elemB) elemCompat = 4;
-    else if ((elemA==='불'&&elemB==='바람')||(elemA==='바람'&&elemB==='불')||(elemA==='흙'&&elemB==='물')||(elemA==='물'&&elemB==='흙')) elemCompat = 5;
-    else if ((elemA==='불'&&elemB==='물')||(elemA==='물'&&elemB==='불')) elemCompat = -2;
-
-    var seedStr = (S.myName||'') + '|' + myYearV + '-' + myMonthV + '-' + myDayV + '|' + (partnerName||'') + '|' + partnerYearV + '-' + partnerMonthV;
-    var seedRand = (hashStr(seedStr) % 1000) / 1000;   // 0 ~ 0.999 (입력이 같으면 항상 같은 값)
-
-    var baseScore = 61 + seedRand * 23;               // 기본 분포 61.0 ~ 84.0
-    baseScore += (ohangScore || 0) * 1.6;             // 오행 상생(+8)/상극(-3.2) 실제 반영
-    baseScore += elemCompat;                          // 별자리 원소 궁합 (-2 ~ +5)
-    if (S.myMbti && S.partnerMbti) baseScore += 2;
-    if (myHourV) baseScore += 1.5;
-    if (S.partnerAttitude === '먼저 연락해 옴') baseScore += 2;
-    if (S.partnerInterest === '확실히 좋아하는 것 같음') baseScore += 2.5;
-    else if (S.partnerInterest === '관심 없는 것 같음') baseScore -= 3;
-    baseScore = Math.max(58, Math.min(98.4, baseScore));
-    baseScore = Math.round(baseScore * 10) / 10;      // 소수점 1자리 → "87.4점"처럼 정밀한 느낌
-
-    var band = getVerdictByScore(baseScore);
+    // 점수 계산 (입력 풍부할수록 높게)
+    var baseScore = 78;
+    if (S.myMbti && S.partnerMbti) baseScore += 3;
+    if (S.myLoveLang) baseScore += 2;
+    if (S.myContact) baseScore += 1;
+    if (myHourV) baseScore += 2;
+    if (S.partnerAttitude) baseScore += 1;
+    baseScore = Math.min(baseScore, 95);
 
     var demoData = {
       score: baseScore,
-      percentile: scoreToPercentile(baseScore),
-      verdict: band.v,
-      oneline: band.line,
+      verdict: baseScore >= 88 ? '운명처럼 찾아온 인연 💫' : baseScore >= 83 ? '달콤한 설렘 그 이상 💗' : '특별한 가능성의 만남 ✨',
+      oneline: S.myName + '과 ' + partnerName + ', ' + (S.myStatus ? S.myStatus + '인 지금' : '두 사람의 인연') + '에서 읽히는 것들',
       myStyle: myStyleText + contactAdd + loveLangAdd,
       partnerStyle: partnerStyleText,
       chemistry: chemText + starOhangAdd,
@@ -1623,25 +1597,13 @@ function showResult(myName, partnerName, data) {
   }
 
   const score = data.score || 83;
-  S.lastScore = score;
-  S.lastPercentile = data.percentile || scoreToPercentile(score);
   var __g_resCouple=document.getElementById('resCouple');if(__g_resCouple)__g_resCouple.textContent=`${myName} ❤ ${partnerName}`;
   var __g_resVerdict=document.getElementById('resVerdict');if(__g_resVerdict)__g_resVerdict.textContent=data.verdict || '달콤한 설렘 그 이상 💗';
   var __g_resOneline=document.getElementById('resOneline');if(__g_resOneline)__g_resOneline.textContent=data.oneline || '';
-  var __g_resPct=document.getElementById('resPercentile');if(__g_resPct)__g_resPct.innerHTML='🏆 전국 커플 <b>상위 ' + S.lastPercentile + '%</b> 궁합';
 
   const circ = 327, offset = circ - (score / 100) * circ;
-  const scoreInt = Math.floor(score);
   let cur = 0;
-  const ni = setInterval(() => {
-    cur = Math.min(cur+2, scoreInt);
-    var __g_scoreNum=document.getElementById('scoreNum');if(__g_scoreNum)__g_scoreNum.textContent=cur;
-    if(cur>=scoreInt){
-      clearInterval(ni);
-      var fin=document.getElementById('scoreNum');
-      if(fin) fin.textContent = (score % 1 === 0) ? score : score.toFixed(1);
-    }
-  }, 25);
+  const ni = setInterval(() => { cur = Math.min(cur+2, score); var __g_scoreNum=document.getElementById('scoreNum');if(__g_scoreNum)__g_scoreNum.textContent=cur; if(cur>=score) clearInterval(ni); }, 25);
   setTimeout(() => { var __g_ringArc=document.getElementById('ringArc');if(__g_ringArc)__g_ringArc.style.strokeDashoffset=offset; }, 150);
 
   var __g_myStyleTitle=document.getElementById('myStyleTitle');if(__g_myStyleTitle)__g_myStyleTitle.textContent=`${myName}의 연애 스타일`;
@@ -1933,80 +1895,295 @@ async function proceedPremium() {
   }, 3000);
 }
 
-// ★★★ 포트원 설정 ★★★
+// ★★★ 포트원 설정 - 실제 값으로 변경하세요 ★★★
 var PORTONE_CONFIG = {
   impCode: 'imp82570050',
-  channelKey: 'channel-key-c1f8a0a8-04c9-4d6a-aca0-b2767d0b4bd2',
+  pg: 'kcp.AO09C',       // V1 방식: kcp.{사이트코드}
   amount: 1900,
   name: '연애운명 프리미엄 리포트',
 };
 
-// 포트원 SDK 페이지 로드 시 1회 초기화 (결제 함수 밖에서 호출)
-window.addEventListener('load', function() {
-  if (typeof IMP !== 'undefined') {
-    IMP.init(PORTONE_CONFIG.impCode);
-  }
-});
+// ══════════════════════════════════════
+//  결제 상태 저장 / 복구 (모바일 리다이렉트 대응)
+// ══════════════════════════════════════
+var PAY_KEY = 'yeonae_pending_order';
 
-// 결제 실행 함수
+// 입력값 전체를 브라우저에 저장
+function savePendingOrder(orderId) {
+  var snap = {
+    orderId: orderId,
+    ts: Date.now(),
+    S: {
+      buyerEmail: S.buyerEmail || '',
+      myName: S.myName, myStatus: S.myStatus, myAttach: S.myAttach,
+      myLoveLang: S.myLoveLang, myContact: S.myContact, myMbti: S.myMbti,
+      partnerName: S.partnerName, partnerAttitude: S.partnerAttitude,
+      partnerInterest: S.partnerInterest, partnerMbti: S.partnerMbti,
+      myPhoto: !!S.myPhoto, partnerPhoto: !!S.partnerPhoto,
+      names: S.names || null
+    },
+    F: {
+      myYear: valOf('myYear'), myMonth: valOf('myMonth'), myDay: valOf('myDay'),
+      myHour: valOf('myHour'), myGender: valOf('myGender'), myRegion: valOf('myRegion'),
+      partnerYear: valOf('partnerYear'), partnerMonth: valOf('partnerMonth'),
+      partnerGender: valOf('partnerGender')
+    }
+  };
+  try { localStorage.setItem(PAY_KEY, JSON.stringify(snap)); } catch(e) {}
+  try { sessionStorage.setItem(PAY_KEY, JSON.stringify(snap)); } catch(e) {}
+}
+
+function valOf(id) {
+  var e = document.getElementById(id);
+  return e ? e.value : '';
+}
+function setVal(id, v) {
+  var e = document.getElementById(id);
+  if (e && v !== undefined && v !== null && v !== '') { e.value = v; }
+}
+
+function loadPendingOrder() {
+  var raw = null;
+  try { raw = localStorage.getItem(PAY_KEY); } catch(e) {}
+  if (!raw) { try { raw = sessionStorage.getItem(PAY_KEY); } catch(e) {} }
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch(e) { return null; }
+}
+
+function clearPendingOrder() {
+  try { localStorage.removeItem(PAY_KEY); } catch(e) {}
+  try { sessionStorage.removeItem(PAY_KEY); } catch(e) {}
+}
+
+// 저장해둔 입력값을 화면과 S 객체에 되살림
+function restoreOrder(snap) {
+  if (!snap) return false;
+  var s = snap.S || {}, f = snap.F || {};
+  for (var k in s) { if (s.hasOwnProperty(k)) S[k] = s[k]; }
+  if (!S.names) S.names = { my: S.myName, partner: S.partnerName };
+  setVal('myYear', f.myYear); setVal('myMonth', f.myMonth); setVal('myDay', f.myDay);
+  setVal('myHour', f.myHour); setVal('myGender', f.myGender); setVal('myRegion', f.myRegion);
+  setVal('partnerYear', f.partnerYear); setVal('partnerMonth', f.partnerMonth);
+  setVal('partnerGender', f.partnerGender);
+  return true;
+}
+
+// URL 파라미터 읽기 (모바일 리다이렉트 복귀 시)
+function qs(name) {
+  var m = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.search);
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+}
+
+// 주소창에서 결제 파라미터 제거 (새로고침 시 중복 방지)
+function cleanUrl() {
+  try {
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  } catch(e) {}
+}
+
+// 결제 성공 처리 (PC 콜백 / 모바일 리다이렉트 공통)
+function onPaySuccess(impUid, merchantUid) {
+  var snap = loadPendingOrder();
+  if (snap) { restoreOrder(snap); }
+  // 결제 완료 기록 (재열람 대비 30일 보관)
+  try {
+    localStorage.setItem('yeonae_paid_' + (merchantUid || Date.now()), JSON.stringify({
+      imp_uid: impUid || '', merchant_uid: merchantUid || '',
+      paidAt: Date.now(), snap: snap || null
+    }));
+  } catch(e) {}
+  clearPendingOrder();
+  // 화면 정리 후 프리미엄 결과 표시
+  var p1 = document.getElementById('page1'); if (p1) p1.classList.remove('active');
+  var p2 = document.getElementById('page2'); if (p2) p2.classList.remove('active');
+  var rs = document.getElementById('resultSection'); if (rs) rs.style.display = 'none';
+  var ls = document.getElementById('loadingSection'); if (ls) ls.style.display = 'none';
+  proceedPremium();
+}
+
+// 결제 실패 안내 (환불 문의 경로 포함)
+function onPayFail(msg) {
+  var m = msg || '';
+  if (m.indexOf('취소') > -1 || m === '') {
+    // 사용자가 직접 취소한 경우 - 조용히 결과 화면으로
+    var rs = document.getElementById('resultSection');
+    if (rs) rs.style.display = 'block';
+    return;
+  }
+  alert('결제가 완료되지 않았어요.\n\n' + m + '\n\n금액이 빠져나갔는데 리포트가 안 열렸다면\nkdw8808@kakao.com 으로 알려주시면 바로 처리해드려요.');
+  var rs2 = document.getElementById('resultSection');
+  if (rs2) rs2.style.display = 'block';
+}
+
+// ══════════════════════════════════════
+//  결제 실행
+// ══════════════════════════════════════
 function proceedPayment() {
-  // 체크박스 확인
   var agreeRefund = document.getElementById('agreeRefund');
   var agreePrivacy = document.getElementById('agreePrivacy');
 
   if (!agreeRefund || !agreeRefund.checked) {
-    showToast('환불정책 동의가 필요해요 📋'); return;
+    alert('환불정책에 동의해주세요'); return;
   }
   if (!agreePrivacy || !agreePrivacy.checked) {
-    showToast('개인정보 동의가 필요해요 🔒'); return;
+    alert('개인정보 수집·이용에 동의해주세요'); return;
   }
 
   if (typeof IMP === 'undefined') {
-    showToast('결제 모듈 로드 실패. 페이지를 새로고침 후 다시 시도해주세요.');
+    alert('결제 모듈을 불러오지 못했어요. 잠시 후 다시 시도해주세요.');
     return;
   }
 
-  var myName = (S.names && S.names.my) ? S.names.my : (S.myName || '구매자');
+  var myName = S.myName || (S.names && S.names.my) || '구매자';
   var orderId = 'yeonae_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
 
-  // ✅ closePopup()은 여기서 호출하지 않음 — 결제창 팝업 차단 방지
-  // ✅ 콜백 성공 시에만 팝업 닫기
+  // 구매자 이메일 (문제 발생 시 연락 / 영수증 발송)
+  var emailEl = document.getElementById('buyerEmail');
+  var buyerEmail = emailEl ? (emailEl.value || '').trim() : '';
+  if (buyerEmail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(buyerEmail)) {
+    alert('이메일 형식을 확인해주세요.\n(비워두셔도 결제는 가능해요)');
+    return;
+  }
+  S.buyerEmail = buyerEmail;
 
-  // NHN KCP 결제창 호출 — PortOne V1 공식 규격 (channelKey 카멜케이스가 정확한 파라미터명)
-  IMP.request_pay({
-    channelKey: PORTONE_CONFIG.channelKey,
-    pay_method: 'card',
-    merchant_uid: orderId,
-    name: PORTONE_CONFIG.name,
-    amount: PORTONE_CONFIG.amount,
-    buyer_name: myName,
-    buyer_email: 'kdw8808@kakao.com',
-    buyer_tel: '07080805939',
-    buyer_addr: '부산시 동래구 명륜로 170',
-    buyer_postcode: '47792',
-    m_redirect_url: 'https://love-app-chi-sage.vercel.app/', // 모바일 결제 후 복귀 URL (필수)
-  }, function(rsp) {
-    if (rsp && rsp.success) {
-      closePopup(); // ✅ 성공 시에만 팝업 닫기
-      proceedPremium();
-    } else {
-      var msg = (rsp && rsp.error_msg) || '알 수 없는 오류';
-      console.error('[포트원 결제 오류]', msg, rsp); // 브라우저 콘솔에 전체 응답 출력
-      if (msg.indexOf('취소') === -1 && msg.indexOf('cancel') === -1) {
-        // 사용자가 직접 취소한 경우가 아닐 때만 오류 알림 (v3 = channelKey 정식규격 적용 버전)
-        alert('[v3] 결제 중 오류가 발생했어요:\n' + msg);
+  // ★ 결제창 열기 전에 입력값 전부 저장 (모바일 복귀 대비)
+  savePendingOrder(orderId);
+
+  closePopup();
+
+  try {
+    IMP.init(PORTONE_CONFIG.impCode);
+
+    // 모바일 복귀 주소 (주문번호 포함)
+    var redirectUrl = window.location.origin + window.location.pathname + '?mid=' + orderId;
+
+    IMP.request_pay({
+      pg: PORTONE_CONFIG.pg,
+      pay_method: 'card',
+      merchant_uid: orderId,
+      name: PORTONE_CONFIG.name,
+      amount: PORTONE_CONFIG.amount,
+      buyer_name: myName,
+      buyer_email: buyerEmail,
+      buyer_tel: '07080805939',
+      buyer_addr: '부산시 동래구 명륜로 170',
+      buyer_postcode: '47792',
+      m_redirect_url: redirectUrl,
+    }, function(rsp) {
+      if (rsp && rsp.success) {
+        onPaySuccess(rsp.imp_uid, rsp.merchant_uid);
+      } else {
+        onPayFail((rsp && rsp.error_msg) || '');
       }
-      // 팝업은 유지 — 사용자가 다시 시도 가능
+    });
+  } catch(err) {
+    console.log('결제 오류:', err);
+    alert('결제창을 열지 못했어요. 잠시 후 다시 시도해주세요.');
+  }
+}
+
+// ══════════════════════════════════════
+//  페이지 로드 시 - 모바일 결제 복귀 감지
+// ══════════════════════════════════════
+(function checkPaymentReturn() {
+  function run() {
+    var impSuccess = qs('imp_success');
+    var impUid = qs('imp_uid');
+    var merchantUid = qs('merchant_uid') || qs('mid');
+    var errorMsg = qs('error_msg');
+
+    // 결제 성공하고 돌아온 경우
+    if (impSuccess === 'true' || (impUid && !errorMsg)) {
+      cleanUrl();
+      setTimeout(function() { onPaySuccess(impUid, merchantUid); }, 300);
+      return;
     }
-  });
+
+    // 결제 실패하고 돌아온 경우
+    if (impSuccess === 'false' || errorMsg) {
+      cleanUrl();
+      clearPendingOrder();
+      setTimeout(function() {
+        alert('결제가 완료되지 않았어요.\n\n금액이 빠져나갔는데 리포트가 안 열렸다면\nkdw8808@kakao.com 으로 알려주시면 바로 처리해드려요.');
+      }, 400);
+      return;
+    }
+
+    // 결제 시도 후 30분 이내인데 결과를 못 본 경우 - 복구 안내
+    var snap = loadPendingOrder();
+    if (snap && snap.ts && (Date.now() - snap.ts) < 30 * 60 * 1000) {
+      setTimeout(function() {
+        if (confirm('직전에 결제를 진행하신 기록이 있어요.\n\n결제가 완료되셨다면 [확인]을 눌러 리포트를 바로 열어드릴게요.\n(결제가 안 되셨다면 [취소]를 눌러주세요)')) {
+          onPaySuccess('', snap.orderId);
+        } else {
+          clearPendingOrder();
+        }
+      }, 800);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+
+// ══════════════════════════════════════
+//  재열람 (결제 후 다시 보기)
+// ══════════════════════════════════════
+function toggleReaccess() {
+  var box = document.getElementById('reaccessBox');
+  if (!box) return;
+  box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
+  if (box.style.display === 'block') {
+    var inp = document.getElementById('reaccessInput');
+    if (inp) inp.focus();
+  }
+}
+
+function tryReaccess() {
+  var inp = document.getElementById('reaccessInput');
+  if (!inp) return;
+  var code = (inp.value || '').trim().toUpperCase().replace(/\s/g, '');
+  if (code.length < 4) { alert('재열람 코드를 입력해주세요'); return; }
+
+  var found = null;
+  try {
+    // 코드로 저장된 리포트 찾기
+    var raw = localStorage.getItem('yeonae_code_' + code);
+    if (raw) found = JSON.parse(raw);
+  } catch(e) {}
+
+  if (!found) {
+    alert('이 기기에서는 코드를 찾을 수 없어요.\n\n· 결제하신 기기·브라우저에서 열어주세요\n· 시크릿 모드에서는 조회되지 않아요\n· 30일이 지났을 수 있어요\n\n결제하셨는데 안 열리면\nkdw8808@kakao.com 으로\n결제 일시를 알려주세요.\n확인 후 바로 보내드리거나 환불해드려요.');
+    return;
+  }
+
+  // 30일 경과 확인
+  if (found.ts && (Date.now() - found.ts) > 30 * 24 * 60 * 60 * 1000) {
+    alert('저장 기간(30일)이 지난 리포트예요.\n\nkdw8808@kakao.com 으로 문의해주시면 도와드릴게요.');
+    return;
+  }
+
+  // 복구해서 표시
+  if (found.snap) { restoreOrder(found.snap); }
+  S.myName = found.myName || S.myName;
+  S.partnerName = found.partnerName || S.partnerName;
+  var p1 = document.getElementById('page1'); if (p1) p1.classList.remove('active');
+  var p2 = document.getElementById('page2'); if (p2) p2.classList.remove('active');
+  showPremiumResult(S.myName, S.partnerName, false, found.data || {});
 }
 
 function generateAccessCode(myName, partnerName) {
-  var base = myName + partnerName + new Date().toDateString();
+  // 시각 + 난수를 섞어 매 결제마다 고유한 코드 생성 (덮어쓰기 방지)
+  var base = myName + partnerName + Date.now() + Math.random();
   var hash = 0;
   for (var i = 0; i < base.length; i++) { hash = ((hash << 5) - hash) + base.charCodeAt(i); hash |= 0; }
-  var code = Math.abs(hash).toString(36).toUpperCase().slice(0,8);
-  while (code.length < 8) code = '0' + code;
+  var code = Math.abs(hash).toString(36).toUpperCase();
+  var extra = Math.floor(Math.random() * 1296).toString(36).toUpperCase();
+  code = (code + extra + '00000000').slice(0, 8);
   return code.slice(0,4) + '-' + code.slice(4,8);
 }
 
@@ -2032,14 +2209,14 @@ function drawRadarChart(scores) {
       var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
       return (cx + r * ratio * Math.cos(angle)).toFixed(1) + ',' + (cy + r * ratio * Math.sin(angle)).toFixed(1);
     }).join(' ');
-    gridHtml += '<polygon points="' + gpts + '" fill="none" stroke="rgba(242,84,125,0.12)" stroke-width="1"/>';
+    gridHtml += '<polygon points="' + gpts + '" fill="none" stroke="rgba(192,55,90,0.12)" stroke-width="1"/>';
   });
   var polyPts = points.map(function(p) { return p.x.toFixed(1)+','+p.y.toFixed(1); }).join(' ');
   var labelsHtml = points.map(function(p, i) {
     return '<text x="' + p.lx.toFixed(1) + '" y="' + p.ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#8a7060" font-family="Noto Sans KR,sans-serif">' + labels[i] + '</text>';
   }).join('');
   svg.innerHTML = gridHtml +
-    '<polygon points="' + polyPts + '" fill="rgba(242,84,125,0.15)" stroke="var(--rose)" stroke-width="2"/>' +
+    '<polygon points="' + polyPts + '" fill="rgba(192,55,90,0.15)" stroke="var(--rose)" stroke-width="2"/>' +
     points.map(function(p) { return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="4" fill="var(--rose)"/>'; }).join('') +
     labelsHtml;
 }
@@ -2062,7 +2239,20 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   // 재열람 코드 생성 & 저장
   var code = generateAccessCode(myName, partnerName);
   var _myAccessCode = document.getElementById('myAccessCode'); if(_myAccessCode) _myAccessCode.textContent = code;
-  try { localStorage.setItem('yeonae_code_' + code, JSON.stringify({myName:myName,partnerName:partnerName,data:data,ts:Date.now()})); } catch(e) {}
+  try {
+    var _snapNow = {
+      S: { myName:myName, myStatus:S.myStatus, myAttach:S.myAttach, myLoveLang:S.myLoveLang,
+           myContact:S.myContact, myMbti:S.myMbti, partnerName:partnerName,
+           partnerAttitude:S.partnerAttitude, partnerInterest:S.partnerInterest, partnerMbti:S.partnerMbti,
+           names:{my:myName,partner:partnerName} },
+      F: { myYear:valOf('myYear'), myMonth:valOf('myMonth'), myDay:valOf('myDay'),
+           myHour:valOf('myHour'), myGender:valOf('myGender'), myRegion:valOf('myRegion'),
+           partnerYear:valOf('partnerYear'), partnerMonth:valOf('partnerMonth'), partnerGender:valOf('partnerGender') }
+    };
+    localStorage.setItem('yeonae_code_' + code, JSON.stringify({
+      myName:myName, partnerName:partnerName, data:data, snap:_snapNow, ts:Date.now()
+    }));
+  } catch(e) {}
 
   // 관상 분석
   if (hasPhotos && data.myFace) {
@@ -2167,7 +2357,7 @@ function showPremiumResult(myName, partnerName, hasPhotos, data) {
   if (mgEl) {
     mgEl.innerHTML = marriageItems.map(function(item){
       var color=item.score>=80?'var(--rose)':item.score>=65?'var(--gold)':'#888';
-      return '<div style="background:var(--cream);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(242,84,125,0.1);"><div style="font-size:20px;margin-bottom:4px;">'+item.emoji+'</div><div style="font-size:20px;font-weight:700;color:'+color+'">'+item.score+'</div><div style="font-size:10px;color:var(--mist);">'+item.label+'</div></div>';
+      return '<div style="background:var(--cream);border-radius:10px;padding:10px;text-align:center;border:1px solid rgba(192,55,90,0.1);"><div style="font-size:20px;margin-bottom:4px;">'+item.emoji+'</div><div style="font-size:20px;font-weight:700;color:'+color+'">'+item.score+'</div><div style="font-size:10px;color:var(--mist);">'+item.label+'</div></div>';
     }).join('');
   }
 
@@ -2234,23 +2424,8 @@ function startCountdown() {
   }, 1000);
 }
 
-// ── 공유 (점수 포함 — 친구가 궁금해지게) ──
-function buildShareText() {
-  if (S.lastScore) {
-    return '💘 ' + (S.names.my||'나') + ' ❤ ' + (S.names.partner||'상대') + ' 궁합 ' + S.lastScore + '점!\n전국 커플 상위 ' + S.lastPercentile + '%래 😳\n너네는 몇 점 나올까? 👉 ' + window.location.href;
-  }
-  return '💘 연애운명 — 우리 궁합 몇 점일까? 30초컷 👉 ' + window.location.href;
-}
-function shareScore() {
-  var txt = buildShareText();
-  if (navigator.share) {
-    navigator.share({ text: txt }).catch(function(){});
-  } else {
-    navigator.clipboard.writeText(txt).then(function(){ showToast('결과가 복사됐어요! 친구에게 붙여넣기 📋'); });
-  }
-}
-function shareKakao() { shareScore(); }
-function copyLink() { navigator.clipboard.writeText(buildShareText()).then(function(){ showToast('복사 완료! 친구에게 공유해보세요 🔗'); }); }
+function shareKakao() { showToast('카카오 SDK 연동 시 공유 가능해요 💬'); }
+function copyLink() { navigator.clipboard.writeText(window.location.href).then(() => showToast('링크 복사 완료! 친구에게 공유하세요 🔗')); }
 
 function resetAll() {
   S.myPhoto = false; S.partnerPhoto = false;
@@ -2355,6 +2530,16 @@ function showToast(msg) {
 
     <h3>📥 리포트 제공 및 다운로드 기간</h3>
     <p>프리미엄 리포트는 결제 완료 즉시 화면에서 확인하실 수 있으며, <strong>결제일로부터 30일 이내</strong>에 다운로드 가능합니다. 30일이 경과한 경우 리포트 재발급이 제한될 수 있으므로 기간 내 저장해 두시기 바랍니다.</p>
+
+    <h3>📱 재열람 관련 안내 (필독)</h3>
+    <p>본 서비스는 회원가입 없이 이용하는 구조로, 리포트 재열람 정보는 이용자의 기기(브라우저)에 저장됩니다. 이에 따라 아래 사항을 미리 안내드립니다.</p>
+    <ul>
+      <li>결제하신 <strong>기기 및 브라우저</strong>에서만 재열람이 가능합니다.</li>
+      <li>시크릿 모드(비공개 브라우징)에서 결제하신 경우, 창을 닫으면 재열람이 제한될 수 있습니다.</li>
+      <li>브라우저 데이터(쿠키·저장소)를 삭제하시면 재열람 정보가 함께 삭제됩니다.</li>
+      <li>결제 시 안내되는 <strong>재열람 코드</strong>를 반드시 캡처 또는 메모해 주세요.</li>
+    </ul>
+    <p>위 사유로 리포트를 열람하지 못하신 경우, <strong>결제 내역 확인 후 이메일로 리포트를 재발송</strong>해 드리거나 환불 처리해 드립니다. kdw8808@kakao.com 으로 결제 일시를 알려주세요.</p>
 
     <h3>📋 청약 철회 및 환불 규정</h3>
     <p>프리미엄 리포트는 결제 즉시 제공되는 디지털 콘텐츠로, <strong>전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 제5호</strong>에 따라 콘텐츠의 제공이 개시된 경우 청약 철회가 제한됩니다.</p>
